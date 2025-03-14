@@ -1,0 +1,22 @@
+.customerService {
+  padding: 40px 0;
+
+  &__cardbox {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: nowrap; 
+  }
+
+  .solutionsCard {
+    flex: 1; 
+    min-width: 280px; 
+  }
+
+  @media (max-width: 768px) {
+    &__cardbox {
+      flex-direction: column;
+    }
+  }
+}

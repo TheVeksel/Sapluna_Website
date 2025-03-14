@@ -1,0 +1,59 @@
+.benifits {
+  padding: 50px 20px;
+  text-align: center;
+  button {
+    font-size: 20px;
+  }
+  &__heading {
+    margin-bottom: 30px;
+  }
+
+  &__content-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    @media (min-width: 820px) {
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 50px;
+    }
+  }
+
+  &__content {
+    background: #f9f9f9;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    max-width: 100%;
+    margin-bottom: 40px;
+
+    @media (min-width: 820px) {
+      max-width: 48%;
+    }
+
+    &-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      @media (max-width: 820px) {
+        text-align: center;
+      }
+      @media (min-width: 550px) {
+        font-size: 2.2rem;
+      }
+    }
+
+    &-text {
+      font-size: 1.2rem;
+      font-weight: 700;
+      line-height: 1.6;
+      color: #201f1f;
+
+      @media (min-width: 550px) {
+        font-size: 1.4rem;
+      }
+    }
+  }
+}

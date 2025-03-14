@@ -1,0 +1,16 @@
+.h1title {
+  font-weight: 800;
+  font-size: 2rem;
+  text-align: center;
+
+  @media (min-width:550px) {
+    font-size: 3.2rem;
+  }
+}
+
+.underline {
+  background-color: #fc8437;
+  width: 60%;
+  height: 14px;
+  margin: 25px auto 60px auto;
+}

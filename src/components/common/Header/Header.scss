@@ -1,0 +1,177 @@
+.header{
+  background-color: #fc8437;
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+  font-family: "Poppins", sans-serif;
+
+  &__logo {
+    flex: 0 1 auto;
+    max-width: 200px; 
+    width: 100%; 
+    margin-right: 20px;
+    img {
+      width: 100%; 
+      height: auto; 
+      margin: 0;
+    }
+  }
+
+  &__nav {
+    margin-left: 10px;
+    display: flex;
+
+    ul {
+      display: flex;
+      gap: 5px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      margin-right: 5px;
+    }
+    
+
+    a {
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 20px;
+      transition: background-color 0.3s;
+    }
+    a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+    ul li:first-child a {
+      padding-left: 0;
+    }
+  }
+
+  &__buttons {
+    margin-left: auto;
+
+    .header__button {
+      background-color: #ffedd5;
+      color: black;
+      font-weight: bold;
+      border: none;
+      border-radius: 25px;
+      padding: 10px 30px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      font-size: 16px;
+    }
+
+    .header__button:hover {
+      background-color: #ffd6a5;
+    }
+  }
+
+  &__menu-button {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+  
+    svg {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  @media (max-width: 950px) {
+    padding: 10px;
+    flex-wrap: wrap;
+
+    &__logo {
+      flex: 1;
+    }
+
+    &__nav {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background-color: #f98a3b;
+      padding: 10px;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      margin: 0;
+      z-index: 99;
+      transform: translateY(-10px);
+      opacity: 0;
+      animation: slideIn 0.3s ease-out forwards;
+
+      &.active {
+        display: block;
+        animation: slideIn 0.3s ease-out forwards;
+      }
+
+      ul {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      a {
+        display: block;
+        padding: 10px;
+      }
+    }
+
+    &__buttons {
+      margin-left: auto;
+    }
+
+    &__menu-button {
+      display: block;
+      margin-left: 10px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    &__logo h1 {
+      font-size: 18px;
+    }
+
+    &__nav a {
+      font-size: 14px;
+    }
+
+    &__button {
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+
+    &__menu-button {
+      width: 36px;
+      height: 36px;
+    }
+  }
+
+  @keyframes slideIn {
+    0% {
+      transform: translateY(-10px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}
