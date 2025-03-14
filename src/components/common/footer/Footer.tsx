@@ -32,11 +32,11 @@ export default function Footer() {
           <Button color="#fc8437">Lataa demo ➜</Button>
         </div>
       </div>
-      <div className="companies">
+      {/* <div className="companies">
         <img src="/img/photos/image5.png" alt="img" />
         <img src="/img/photos/image6.png" alt="img" />
         <img src="/img/photos/image7.png" alt="img" />
-      </div>
+      </div> */}
       <div className="footer__underline">
         <p>tietosuojaseloste</p>
         <p className="footer__underline-year">(c) Sapluna 2024</p>
