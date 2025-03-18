@@ -15,25 +15,25 @@
   }
 
   @media (min-width: 1200px) {
-    .card {
+    .solutionscard {
       width: calc(25% - 10px);
     }
   }
 
   @media (max-width: 1080px) and (min-width: 600px) {
-    .card {
+    .solutionscard {
       width: calc(50% - 10px);  
     }
   }
 
   @media (max-width: 600px) {
-    .card {
+    .solutionscard {
       width: 100%;
     }
   }
 }
 
-.card {
+.solutionscard {
   background-color: #fc8437;
   display: flex;
   flex-direction: column;

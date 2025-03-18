@@ -1,6 +1,6 @@
 import "./CustomerService.scss"
-import H1Title from "../../../common/h1title/h1Titlte";
-import SolutionsCard from "../FrontPageParts/SolutionsByRole/SolutionsCard";
+import H1Title from "../../../../common/h1title/h1Titlte";
+import SolutionsCard from "../SolutionsByRole/SolutionsCard";
 
 export default function CustomerService() {
   return (
