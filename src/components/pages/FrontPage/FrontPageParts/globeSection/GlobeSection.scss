@@ -45,10 +45,11 @@
   border-radius: 12px; 
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6); 
   padding: 20px; 
-  transition: box-shadow 0.3s ease; 
+  transition: box-shadow 0.15s; 
 
   &:hover {
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7); 
+    transition: box-shadow 0.15s; 
   }
 
   &__img {

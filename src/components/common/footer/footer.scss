@@ -5,23 +5,23 @@
   width: 100%;
   margin-top: auto;
   font-family: "Poppins", sans-serif;
-  font-weight: 600;
+  font-weight: 700;
 
   &__underline {
     display: flex;
     padding: 20px;
     justify-content: space-between;
     align-items: center;
-    
+
     p {
       margin: 0;
     }
-  
+
     &-year {
       text-align: center;
     }
   }
-  
+
   &__content {
     display: flex;
     justify-content: space-between;
@@ -55,10 +55,7 @@
         }
 
         &[href*="tel"]::before,
-        &[href*="mailto"]::before,
-        &[href*="facebook"]::before,
-        &[href*="instagram"]::before,
-        &[href*="linkedin"]::before {
+        &[href*="mailto"]::before {
           display: inline-block;
           width: 16px;
           height: 16px;
@@ -72,18 +69,6 @@
 
         &[href*="mailto"]::before {
           content: url("/img/icons/mail.png");
-        }
-
-        &[href*="facebook"]::before {
-          content: url("/img/icons/facebook.png");
-        }
-
-        &[href*="instagram"]::before {
-          content: url("/img/icons/instagram.svg");
-        }
-
-        &[href*="linkedin"]::before {
-          content: url("/img/icons/linkedin.png");
         }
       }
 
@@ -99,9 +84,27 @@
       flex: 2;
       margin: 0 20px;
 
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
       li {
         margin-bottom: 8px;
         font-size: 18px;
+        position: relative;
+      }
+
+      a, button {
+        font-weight: bold;
+        padding: 5px;
+        margin: 0;
+        font-size: 18px;
+        text-decoration: none;
+        background-color: transparent;
+        transition: 0.3s;
+        color: #000;
       }
     }
   }
@@ -114,12 +117,64 @@
     flex-direction: column;
     align-items: flex-end;
     margin-left: auto;
+
+    a {
+      color: #fc8437;
+      text-decoration: none;
+      margin: 5px 0;
+      font-size: 16px;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   &__underline {
     height: 10px;
     background-color: #fc8437;
     margin-top: 20px;
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background-color: #f98a3b;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    z-index: 100;
+    opacity: 0;
+    transform: translateY(0);
+    animation: slideIn 0.3s ease-out forwards;
+
+    li {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      a {
+        display: block;
+        padding: 10px 15px;
+        color: white;
+        font-size: 16px;
+        border-radius: 0;
+        text-align: left;
+
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.2);
+        }
+      }
+    }
   }
 }
 
@@ -135,19 +190,23 @@
       flex-direction: column;
       text-align: center;
       padding: 20px;
-      align-items: center;  
+      align-items: center;
 
       &-logo,
       &-info,
       .footer__nav {
         margin-bottom: 20px;
-        width: 100%; 
-        text-align: center; 
+        width: 100%;
+        text-align: center;
       }
     }
 
     .footer__nav {
       margin: 0;
+
+      li {
+        margin-bottom: 10px;
+      }
     }
 
     .more__info {
@@ -161,8 +220,48 @@
         margin: 5px 0;
         padding: 10px 25px;
         font-size: 16px;
-        width: auto; 
+        width: auto;
       }
     }
+
+    .dropdown-menu {
+      position: static;
+      width: 100%;
+      box-shadow: none;
+      border: none;
+      background-color: #f98a3b;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      animation: mobileSlideIn 0.3s ease-out forwards;
+
+      a {
+        font-size: 14px;
+        padding: 8px 15px;
+        color: white;
+      }
+    }
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mobileSlideIn {
+  0% {
+    max-height: 0;
+    opacity: 0;
+  }
+  100% {
+    max-height: 500px;
+    opacity: 1;
   }
 }

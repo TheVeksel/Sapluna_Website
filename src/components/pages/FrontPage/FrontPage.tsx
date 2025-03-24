@@ -5,11 +5,13 @@ import SolutionsByRole from "./FrontPageParts/SolutionsByRole/SolutionsByRole";
 import ContentWithImage from "./FrontPageParts/сontentWithImage/ContentWithImage";
 import GlobeSection from "./FrontPageParts/globeSection/GlobeSection";
 import DemoCTA from "./FrontPageParts/demoCTA/DemoCTA";
+import PromotionSection from "./FrontPageParts/promotionSection/PromotionSection";
 
 export default function FrontPage() {
   return (
     <main>
       <HeroSection />
+      <PromotionSection/>
       <SolutionsByRole/>
       <Benefits/>
       <CustomerService/>

@@ -1,12 +1,16 @@
-import "./CustomerService.scss"
-import H1Title from "../../../../common/h1title/h1Titlte";
+import "./CustomerService.scss";
+import Title from "../../../../common/title/Titlte";
 import SolutionsCard from "../SolutionsByRole/SolutionsCard";
+import SubTitle from "../../../../common/subtitle/SubTitle";
 
 export default function CustomerService() {
   return (
     <section className="customerService">
       <div className="wrapper">
-        <H1Title>Tähän otsikko eri palveluista asiakkaille</H1Title>
+        <div className="heading">
+          <Title>Tähän otsikko eri palveluista asiakkaille</Title>
+          <SubTitle>Lorem ipsum dolor sit amet consectetur.</SubTitle>
+        </div>
         <div className="customerService__cardbox">
           <SolutionsCard
             number={"1."}

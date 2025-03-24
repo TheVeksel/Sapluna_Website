@@ -1,13 +1,12 @@
-import "./Benifits.scss"
+import "./Benifits.scss";
 import Button from "../../../../common/button";
-import H1Title from "../../../../common/h1title/h1Titlte";
-
+import H1Title from "../../../../common/title/Titlte";
 
 export default function Benefits() {
   return (
     <section className="benifits">
       <div className="wrapper">
-        <div className="benifits__heading">
+        <div className="heading">
           <H1Title>Mitä hyötyä on mallituotannosta?</H1Title>
         </div>
         <div className="benifits__content-wrapper">

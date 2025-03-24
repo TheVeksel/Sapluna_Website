@@ -1,0 +1,34 @@
+.socials {
+  a {
+    color: #fc8437;
+    margin: 5px 0;
+    font-size: 16px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &[href*="facebook"]::before,
+    &[href*="instagram"]::before,
+    &[href*="linkedin"]::before {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      margin-right: 10px;
+      vertical-align: middle;
+      transform: translateY(-30%);
+    }
+
+    &[href*="facebook"]::before {
+      content: url("/img/icons/facebook.png");
+    }
+
+    &[href*="instagram"]::before {
+      content: url("/img/icons/instagram.svg");
+    }
+
+    &[href*="linkedin"]::before {
+      content: url("/img/icons/linkedin.png");
+    }
+  }
+}

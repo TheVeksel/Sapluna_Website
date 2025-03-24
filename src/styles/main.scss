@@ -19,8 +19,8 @@ body,
 .main-container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; 
-  flex-grow: 1; 
+  min-height: 100vh;
+  flex-grow: 1;
 }
 
 .wrapper {
@@ -33,7 +33,11 @@ section {
   margin-bottom: 180px;
   padding-bottom: 0;
 }
-
+.heading {
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+}
 .custom-button {
   background-color: #ffedd5;
   color: black;
@@ -45,9 +49,9 @@ section {
   margin-bottom: 3vh;
   font-size: 18px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: 0.3s ease;
 
   &:hover {
-    background-color: #ffd6a5;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
   }
 }

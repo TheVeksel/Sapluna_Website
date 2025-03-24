@@ -1,12 +1,14 @@
-import H1Title from "../../../../common/h1title/h1Titlte";
+import SubTitle from "../../../../common/subtitle/SubTitle";
+import Title from "../../../../common/title/Titlte";
 import "./SolutionsByRole.scss";
 import SolutionsCard from "./SolutionsCard";
 export default function SolutionsByRole() {
   return (
     <section className="solutions">
       <div className="wrapper">
-        <div className="solutions__heading">
-          <H1Title>Ratkaisut roolien mukaan:</H1Title>
+        <div className="heading">
+          <Title>Ratkaisut roolien mukaan:</Title>
+          <SubTitle>Lorem ipsum dolor sit amet consectetur.</SubTitle>
         </div>
         <div className="solutions__cardbox">
           <SolutionsCard

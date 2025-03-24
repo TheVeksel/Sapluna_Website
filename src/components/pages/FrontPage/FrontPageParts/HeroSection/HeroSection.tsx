@@ -10,18 +10,20 @@ export default function HeroSection() {
         <div className="hero-section__text-container">
           <p className="hero-section__text-block">
             Mallituotanto on menetelmä, jolla projekti toteutetaan ennalta
-            määritellyn mallin mukaisesti.
+            määritellyn mallin mukaisesti
           </p>
 
           <div className="hero-section__divider"></div>
 
           <p className="hero-section__text-block">
             Sapluna on SaaS-ohjelmisto, jolla rakennetaan projektimalleja ja
-            hallinnoidaan projektien toteutusta.
+            hallinnoidaan projektien toteutusta
           </p>
         </div>
-        <Button>Varaa esittely</Button>
-        <button className="second__button">Tai tilaa demo</button>
+        <div className="button__box">
+          <Button>Varaa esittely</Button>
+          <Button>Tai tilaa demo</Button>
+        </div>
     </section>
   );
 }

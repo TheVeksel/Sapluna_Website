@@ -1,16 +1,15 @@
 .customerService {
-
   &__cardbox {
     display: flex;
     gap: 20px;
     justify-content: center;
     align-items: stretch;
-    flex-wrap: nowrap; 
+    flex-wrap: nowrap;
   }
 
   .solutionsCard {
-    flex: 1; 
-    min-width: 280px; 
+    flex: 1;
+    min-width: 280px;
   }
 
   @media (max-width: 768px) {

@@ -1,12 +1,6 @@
 .solutions {
   background-color: white;
 
-  &__heading {
-    margin-bottom: 40px;
-    display: flex;
-    flex-direction: column;
-  }
-
   &__cardbox {
     display: flex;
     flex-wrap: wrap; 
@@ -41,7 +35,11 @@
   gap: 20px;
   padding: 20px;
   flex-grow: 1;
-
+  box-shadow: 5px 4px 10px rgba(0, 0, 0, 0.6);
+  transition: box-shadow 0.3s; 
+  &:hover {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7); 
+  }
   &__number {
     color: #FFC59F;
     font-weight: 900;

@@ -1,6 +1,7 @@
 import Button from "../button";
 import Logo from "../logo/Logo";
 import Navigation from "../navigation/Navigation";
+import Socials from "../socials/socials";
 import "./footer.scss";
 
 export default function Footer() {
@@ -18,11 +19,7 @@ export default function Footer() {
           </div>
           <a href="tel:0400645435">040 064 5435</a>
           <a href="mailto:sales@opens.fi">sales@opens.fi</a>
-          <a href="https://www.facebook.com/feelbeatoy/">Facebook</a>
-          <a href="https://www.instagram.com/feelbeat_official/">Instagram</a>
-          <a href="https://www.linkedin.com/company/feelbeat/?originalSubdomain=fi">
-            LinkedIn
-          </a>
+          <Socials/>
         </div>
         <div className="footer__nav">
           <Navigation />
