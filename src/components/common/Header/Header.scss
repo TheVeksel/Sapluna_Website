@@ -149,6 +149,8 @@
 
     &__nav {
       min-height: calc(100vh - 62px);
+      max-height: calc(100vh - 62px);
+      overflow-y: scroll;
       display: none;
       position: absolute;
       top: 100%;
