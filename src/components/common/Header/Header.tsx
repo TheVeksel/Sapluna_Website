@@ -28,7 +28,7 @@ export default function Header() {
     <header className="header" ref={hamburgerRef}>
       <div className="header__logo">
         <Link to="/">
-          <Logo />
+          <Logo logocolor="black" />
         </Link>
       </div>
       <nav className={`header__nav ${isBurgerOpen ? "active" : ""}`}>
@@ -36,7 +36,7 @@ export default function Header() {
         <div className="header__nav-buttons">
           <a href="#">Log in</a>
           <Button>Tilaa demo</Button>
-          <Button>Varaa esittely</Button>
+          {/* <Button>Varaa esittely</Button> */}
         </div>
       </nav>
       <button

@@ -1,0 +1,77 @@
+h1 {
+  padding-top: 120px;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 900;
+}
+.pricing-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 30px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+
+  h2 {
+    padding-top: 200px;
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    font-size: 16px;
+    color: #666;
+    margin-top: 15px;
+  }
+
+  input[type="range"] {
+    width: 100%;
+    margin-top: 10px;
+    height: 8px;
+    border-radius: 4px;
+    background: #ddd;
+    outline: none;
+    transition: background 0.3s;
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      background: #fc8437;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: transform 0.2s;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    margin-top: 10px;
+    background: #fff;
+    cursor: pointer;
+  }
+
+  .pricing-result {
+    margin-top: 20px;
+    padding: 20px;
+    background: #fc8437;
+    color: #fff;
+    border-radius: 12px;
+    font-size: 18px;
+
+    p {
+      margin: 5px 0;
+    }
+  }
+}

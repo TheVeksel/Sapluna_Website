@@ -115,11 +115,6 @@ export default function Navigation({ onClose }: NavigationProps) {
                 Tietoturva
               </Link>
             </li>
-            <li>
-              <Link to="/tuote/roadmap" onClick={handleLinkClick}>
-                Tuotekehityksen roadmap
-              </Link>
-            </li>
           </ul>
         )}
       </li>
@@ -175,24 +170,12 @@ export default function Navigation({ onClose }: NavigationProps) {
       <li>
       <Button
           color="transparent"
-          onClick={() => handleToggleDropdown("verkkokauppa")}
+          onClick={() => handleToggleDropdown("hinnoittelu")}
         >
-          {"Verkkokauppa " + (openDropdown === "verkkokauppa" ? "▲" : "▼")}
+          <Link to="/hinnoittelu" onClick={onClose}>
+          Hinnoittelu
+          </Link>
         </Button>
-        {openDropdown === "verkkokauppa" && (
-          <ul className="dropdown-menu">
-            <li>
-              <Link to="/verkkokauppa/hinnoittelu" onClick={handleLinkClick}>
-              Hinnoittelu
-              </Link>
-            </li>
-            <li>
-              <Link to="/verkkokauppa/verkkokauppa" onClick={handleLinkClick}>
-              Verkkokauppa
-              </Link>
-            </li>
-          </ul>
-        )}
       </li>
       <li>
         <Button

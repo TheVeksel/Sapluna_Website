@@ -4,6 +4,7 @@ import "./HeroSection.scss";
 export default function HeroSection() {
   return (
     <section className="hero-section">
+      <img src="/img/photos/heroes-2.jpg" alt="img" className="hero-section__phoneimg" />
         <h2 className="hero-section__title">
           Mallinnamme vakioituja toimintasuunnitelmia
         </h2>
@@ -22,7 +23,7 @@ export default function HeroSection() {
         </div>
         <div className="button__box">
           <Button>Varaa esittely</Button>
-          <Button>Tai tilaa demo</Button>
+          {/* <Button>Tai tilaa demo</Button> */}
         </div>
     </section>
   );

@@ -1,6 +1,6 @@
 .hero-section  {
   background-color: #fc8437;
-  background-image: url('/img/photos/herokuva-verkkosivulle-fc8437.png');
+  background-image: url('/img/photos/herokuva-verkkosivulle-fc8437.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -86,11 +86,21 @@
       margin: 0;
     }
   }
+  &__phoneimg {
+    display: none;
+    @media (max-width:600px) {
+      margin-top: 50px;
+      display: block;
+      border-radius: 20%;
+      max-width:50%;
+    }
+  }
 }
 .button__box {
   display: flex;
   gap: 20px;
   justify-content: center;
+  padding-bottom: 20px;
   @media (max-width: 960px) {
     display: flex;
     flex-direction: column;

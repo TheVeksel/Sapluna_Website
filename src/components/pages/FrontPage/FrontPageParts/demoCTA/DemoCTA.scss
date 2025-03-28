@@ -26,6 +26,10 @@
   &__subtitle {
     font-size: 22px;
     margin-bottom: 40px;
+    @media (min-width:800px) {
+      font-size: 40px;
+      padding-top: 120px;
+    }
   }
 
   &__title {
