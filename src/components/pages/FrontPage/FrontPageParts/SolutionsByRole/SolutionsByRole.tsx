@@ -1,5 +1,5 @@
 import SubTitle from "../../../../common/subtitle/SubTitle";
-import Title from "../../../../common/title/Titlte";
+import Title from "../../../../common/title/Title";
 import "./SolutionsByRole.scss";
 import SolutionsCard from "./SolutionsCard";
 export default function SolutionsByRole() {

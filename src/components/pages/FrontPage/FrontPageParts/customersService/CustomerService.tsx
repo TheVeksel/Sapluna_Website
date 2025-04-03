@@ -1,5 +1,5 @@
 import "./CustomerService.scss";
-import Title from "../../../../common/title/Titlte";
+import Title from "../../../../common/title/Title";
 import SolutionsCard from "../SolutionsByRole/SolutionsCard";
 import SubTitle from "../../../../common/subtitle/SubTitle";
 

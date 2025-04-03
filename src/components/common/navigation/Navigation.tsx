@@ -53,31 +53,26 @@ export default function Navigation({ onClose }: NavigationProps) {
         {openDropdown === "ratkaisut" && (
           <ul className="dropdown-menu">
             <li>
-              <Link to="/ratkaisut/mallituotanto" onClick={handleLinkClick}>
-                Mallituotanto-menetelmä
-              </Link>
-            </li>
-            <li>
-              <Link to="/ratkaisut/tapahtumapaikalle" onClick={handleLinkClick}>
+              <Link to="/ratkaisut/tapahtumapaikka" onClick={handleLinkClick}>
                 Tapahtumapaikalle
               </Link>
             </li>
             <li>
               <Link
-                to="/ratkaisut/tapahtumantuottajalle"
+                to="/ratkaisut/tuottaja"
                 onClick={handleLinkClick}
               >
                 Tapahtuman tuottajalle
               </Link>
             </li>
             <li>
-              <Link to="/ratkaisut/Omistajalle" onClick={handleLinkClick}>
+              <Link to="/ratkaisut/omistaja" onClick={handleLinkClick}>
                 Omistajalle
               </Link>
             </li>
             <li>
               <Link
-                to="/ratkaisut/palveluntoimittajalle"
+                to="/ratkaisut/toimittaja"
                 onClick={handleLinkClick}
               >
                 Palvelun toimittajalle

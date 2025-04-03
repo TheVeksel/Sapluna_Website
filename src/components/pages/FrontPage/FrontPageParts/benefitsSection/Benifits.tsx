@@ -1,6 +1,6 @@
 import "./Benifits.scss";
 import Button from "../../../../common/button";
-import H1Title from "../../../../common/title/Titlte";
+import H1Title from "../../../../common/title/Title";
 
 export default function Benefits() {
   return (

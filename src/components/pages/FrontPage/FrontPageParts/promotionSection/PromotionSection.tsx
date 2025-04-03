@@ -1,5 +1,5 @@
-import "./PromotionSection.scss"
-import Title from "../../../../common/title/Titlte";
+import "./PromotionSection.scss";
+import Title from "../../../../common/title/Title";
 
 export default function PromotionSection() {
   return (
@@ -13,7 +13,8 @@ export default function PromotionSection() {
           elit. Ducimus, voluptates, ipsam nam ex, consequuntur quia laboriosam
         </p>
         <div className="promotion__video">
-          <img src="img/photos/team.png" alt="img" /></div>
+          <img src="img/photos/team.png" alt="img" />
+        </div>
       </div>
     </section>
   );

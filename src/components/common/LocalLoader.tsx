@@ -1,17 +1,15 @@
-export default function Loader() {
+const LocalLoader = () => {
   return (
     <div
       style={{
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "rgba(255, 255, 255, 0.5)",
+        background: "rgba(255,255,255,0.5)",
         width: "100%",
-        height: "100vh", 
-        position: "fixed", 
-        top: 0,
-        left: 0,
-        zIndex: 1000, 
+        height: "100%",
+        paddingTop: "30px",
+        paddingBottom: "30px",
       }}
     >
       <div
@@ -26,10 +24,12 @@ export default function Loader() {
       />
       <style>{`
         @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
+          0% { transform: rotate(0deg);}
+          100% { transform: rotate(360deg);}
         }
       `}</style>
     </div>
   );
-}
+};
+
+export default LocalLoader;

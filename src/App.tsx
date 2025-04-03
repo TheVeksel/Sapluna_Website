@@ -10,6 +10,7 @@ import UnderDevelopment from "./components/common/underDevelopment/UnderDevelopm
 import ScrollToTop from "./components/common/ScrollToTop";
 import { useEffect } from "react";
 import PricingPage from "./components/pages/PricingPage/PricingPage";
+import SolutionsModel from "./components/pages/SolutionsPage/SolutionsModel";
 
 export default function App() {
   useEffect(() => {
@@ -27,11 +28,7 @@ export default function App() {
           <Route path="/" element={<FrontPage />} />
 
           {/* Ratkaisut */}
-          <Route path="/ratkaisut/mallituotanto" element={<UnderDevelopment />} />
-          <Route path="/ratkaisut/tapahtumapaikalle" element={<UnderDevelopment />} />
-          <Route path="/ratkaisut/tapahtumantuottajalle" element={<UnderDevelopment />} />
-          <Route path="/ratkaisut/Omistajalle" element={<UnderDevelopment />} />
-          <Route path="/ratkaisut/palveluntoimittajalle" element={<UnderDevelopment />} />
+          <Route path="/ratkaisut/:slug" element={<SolutionsModel />} />
 
           {/* Tuote */}
           <Route path="/tuote/tietoa" element={<UnderDevelopment />} />
