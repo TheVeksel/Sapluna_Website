@@ -5,6 +5,7 @@ import { useGetPageContentQuery } from "../../../api/endpoints/solutions";
 import { useParams } from "react-router-dom";
 import Loader from "../../common/Loader";
 import { useState, useEffect } from "react";
+import Form from "../../common/form/Form";
 
 export default function SolutionsTemplate() {
   const { slug } = useParams<{ slug: string }>();
@@ -28,9 +29,14 @@ export default function SolutionsTemplate() {
       </section>
     );
 
-  const acfData = data?.[0]?.acf?.[slug];
-  const { title_1, title_2, text_1, text_2 } = acfData?.main_titles || {};
-
+    const acfData = data?.[0]?.acf?.[slug];
+    console.log("acfData:", acfData);
+    console.log("sapluna_history:", acfData?.sapluna_history);
+  
+    const { title_1, title_2, text_1, text_2 } = acfData?.main_titles || {};
+    const { history_image, history_title, history_text } = acfData?.sapluna_history || {};
+    console.log("history_image:", history_image);
+    console.log("history_image.url:", history_image);
   return (
     <section className="solutions">
       <div className="wrapper">
@@ -48,7 +54,23 @@ export default function SolutionsTemplate() {
         <div className="solutions__button-container">
           <Button color="#fc8437">Varaa esittely</Button>
         </div>
+
+        <div className="solutions__about-container">
+          <div className="solutions__about-image">
+            <img
+              src={history_image}
+              alt="img"
+            />
+          </div>
+          <div className="solutions__about-content">
+            <h2>{history_title}</h2>
+            <p>
+              {history_text}
+            </p>
+          </div>
+        </div>
       </div>
+        <Form/>
     </section>
   );
 }

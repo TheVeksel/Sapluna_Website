@@ -4,13 +4,13 @@ import "./SolutionsByRole.scss";
 import SolutionsCard from "./SolutionsCard";
 export default function SolutionsByRole() {
   return (
-    <section className="solutions">
+    <section className="solutionsrole">
       <div className="wrapper">
         <div className="heading">
           <Title>Ratkaisut roolien mukaan:</Title>
           <SubTitle>Lorem ipsum dolor sit amet consectetur.</SubTitle>
         </div>
-        <div className="solutions__cardbox">
+        <div className="solutionsrole__cardbox">
           <SolutionsCard
             number={"1."}
             title="Tapahtuman omistaja:"

@@ -1,4 +1,4 @@
-import wpApi from "../wpApi";
+import wpApi from "../wpApi"; 
 
 export interface SolutionPost {
   id: number;
@@ -11,14 +11,19 @@ export interface SolutionPost {
         text_1: string;
         text_2: string;
       };
+      sapluna_history: {
+        history_image: string;
+        history_title: string;
+        history_text: string;
+      };
     };
   };
 }
 
 const solutionsApi = wpApi.injectEndpoints({
   endpoints: (builder) => ({
-    getPageContent: builder.query<SolutionPost[], string>({ 
-      query: (slug) => `posts?slug=${slug}`,
+    getPageContent: builder.query<SolutionPost[], string>({
+      query: (slug) => `posts?slug=${slug}&_fields=id,slug,acf`,
       keepUnusedDataFor: 3600,
     }),
   }),
