@@ -34,7 +34,7 @@ export default function Header() {
       <nav className={`header__nav ${isBurgerOpen ? "active" : ""}`}>
         <Navigation onClose={() => setIsBurgerOpen(false)} />
         <div className="header__nav-buttons">
-          <a href="#">Log in</a>
+          <Button color="transparent"><a style={{color:"white"}} href="#">Log in</a></Button>
           {/* <Button>Tilaa demo</Button> */}
           <Button>Varaa esittely</Button> 
         </div>

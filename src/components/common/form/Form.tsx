@@ -21,7 +21,6 @@ export default function Form() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
-    // Здесь можно добавить логику отправки данных
   };
 
   return (

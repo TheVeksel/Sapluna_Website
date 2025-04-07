@@ -63,20 +63,8 @@
     align-items: center;
     gap: 15px;
     padding-right: 10px;
-
-    a {
-      color: white;
-      font-size: 18px;
-      font-weight: 700;
-      text-decoration: none;
-      padding: 10px;
-      transition: 0.3s;
-      &:hover {
-        background-color: rgba(255, 255, 255, 0.2);
-        border-radius: 20px;
-      }
-    }
-
+  
+  
     button {
       padding: 10px 30px;
       background-color: #ffedd5;
@@ -91,7 +79,12 @@
         background-color: #ffd6a5;
       }
     }
+  
+    button:first-child {
+      padding: 5px 20px;
+    }
   }
+  
 
   &__menu-button {
     display: none;
@@ -145,7 +138,7 @@
     }
   }
 
-  @media (max-width: 1500px) {
+  @media (max-width: 1320px) {
     padding: 10px 20px;
 
     &__nav {

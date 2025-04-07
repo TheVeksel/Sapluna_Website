@@ -30,13 +30,9 @@ export default function SolutionsTemplate() {
     );
 
     const acfData = data?.[0]?.acf?.[slug];
-    console.log("acfData:", acfData);
-    console.log("sapluna_history:", acfData?.sapluna_history);
   
     const { title_1, title_2, text_1, text_2 } = acfData?.main_titles || {};
     const { history_image, history_title, history_text } = acfData?.sapluna_history || {};
-    console.log("history_image:", history_image);
-    console.log("history_image.url:", history_image);
   return (
     <section className="solutions">
       <div className="wrapper">

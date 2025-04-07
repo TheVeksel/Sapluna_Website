@@ -6,7 +6,7 @@ export default function HeroSection() {
     <section className="hero-section">
       <img src="/img/photos/heroes-2.jpg" alt="img" className="hero-section__phoneimg" />
         <h2 className="hero-section__title">
-          Mallinnamme vakioituja toimintasuunnitelmia
+        Sujuvat projektit valmiilla malleilla
         </h2>
         <div className="hero-section__text-container">
           <p className="hero-section__text-block">
