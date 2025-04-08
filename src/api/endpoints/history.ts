@@ -21,4 +21,4 @@ const historyApi = wpApi.injectEndpoints({
   }),
 });
 
-export const { useGetHistoryQuery } = historyApi;
+export const { useGetHistoryQuery, usePrefetch } = historyApi;

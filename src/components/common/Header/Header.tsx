@@ -9,7 +9,6 @@ export default function Header() {
   const [isBurgerOpen, setIsBurgerOpen] = useState<boolean>(false);
   
   const hamburgerRef = useRef<HTMLDivElement>(null);
-  
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -34,7 +33,7 @@ export default function Header() {
       <nav className={`header__nav ${isBurgerOpen ? "active" : ""}`}>
         <Navigation onClose={() => setIsBurgerOpen(false)} />
         <div className="header__nav-buttons">
-          <Button color="transparent"><a style={{color:"white"}} href="#">Log in</a></Button>
+          <Button color="transparent"><a style={{color:"white"}} href="https://app.sapluna.com/">Log in</a></Button>
           {/* <Button>Tilaa demo</Button> */}
           <Button>Varaa esittely</Button> 
         </div>

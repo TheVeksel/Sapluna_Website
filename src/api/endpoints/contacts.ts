@@ -22,4 +22,4 @@ const contactsApi = wpApi.injectEndpoints({
   }),
 });
 
-export const { useGetContactsQuery } = contactsApi;
+export const { useGetContactsQuery, usePrefetch } = contactsApi;
