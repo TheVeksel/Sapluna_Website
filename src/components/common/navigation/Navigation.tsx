@@ -101,7 +101,7 @@ export default function Navigation({ onClose }: NavigationProps) {
               </Link>
             </li>
             <li>
-              <Link to="/tuote/työskentely" onClick={handleLinkClick}>
+              <Link to="/tuote/tyoskentely" onClick={handleLinkClick}>
                 Työskentely ABC
               </Link>
             </li>
