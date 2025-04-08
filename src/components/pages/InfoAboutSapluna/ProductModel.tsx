@@ -1,14 +1,13 @@
-import "./SolutionsModel.scss";
+import "./ProductModel.scss";
+import { useGetPageContentQuery } from "../../../api/endpoints/solutions";
+import HistorySection from "../../common/HistorySection/HistorySection";
 import Title from "../../common/title/Title";
 import Button from "../../common/button";
-import { useGetPageContentQuery } from "../../../api/endpoints/solutions";
 import { useParams } from "react-router-dom";
 import Loader from "../../common/Loader";
 import { useState, useEffect } from "react";
-import Form from "../../common/form/Form";
-import HistorySection from "../../common/HistorySection/HistorySection";
 
-export default function SolutionsTemplate() {
+export default function ProductModel() {
   const { slug } = useParams<{ slug: string }>();
   const { data, isLoading, isFetching } = useGetPageContentQuery(slug || "");
   const [showLoader, setShowLoader] = useState(false);
@@ -30,13 +29,13 @@ export default function SolutionsTemplate() {
       </section>
     );
 
-  const acfData = data?.[0]?.acf?.[slug];
-
-  const { title_1, title_2, text_1, text_2 } = acfData?.main_titles || {};
+    const acfData = data?.[0]?.acf?.[slug];
+  
+    const { title_1, title_2, text_1, text_2 } = acfData?.main_titles || {};
   return (
     <section className="solutions">
       <div className="wrapper">
-        <Title>Kuinka tämä ratkaisu auttaa tätä asiakastyyppiä</Title>
+        <Title>Tietoa Saplunasta tai muu teksti</Title>
         <div className="solutions__container">
           <div className="solutions__item">
             <h3>{title_1}</h3>
@@ -53,7 +52,6 @@ export default function SolutionsTemplate() {
 
         <HistorySection/>
       </div>
-      <Form />
     </section>
   );
 }
