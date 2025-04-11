@@ -1,5 +1,5 @@
 import "./ProductModel.scss";
-import { useGetPageContentQuery } from "../../../api/endpoints/solutions";
+import { useGetAllPostsQuery, useGetPostBySlugQuery } from "../../../api/wpApi";
 import HistorySection from "../../common/HistorySection/HistorySection";
 import Title from "../../common/title/Title";
 import Button from "../../common/button";
@@ -9,29 +9,44 @@ import { useState, useEffect } from "react";
 
 export default function ProductModel() {
   const { slug } = useParams<{ slug: string }>();
-  const { data, isLoading, isFetching } = useGetPageContentQuery(slug || "");
-  const [showLoader, setShowLoader] = useState(false);
+  const { data: allPosts, isLoading: isAllLoading, isFetching: isAllFetching } = useGetAllPostsQuery();
+  const { data: singlePostData, isLoading: isSingleLoading, isFetching: isSingleFetching } = useGetPostBySlugQuery(slug || "", {
+    skip: !!allPosts?.find((post) => post.slug === slug),
+  });
+  const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
-    if (isLoading || isFetching) {
-      setShowLoader(true);
+    let timer: NodeJS.Timeout;
+
+    setShowLoader(true);
+
+    const isLoading = isAllLoading || isAllFetching || isSingleLoading || isSingleFetching;
+    if (isLoading) {
+      // Waiting
     } else {
-      const timer = setTimeout(() => setShowLoader(false), 100);
-      return () => clearTimeout(timer);
+      timer = setTimeout(() => setShowLoader(false), 400);
     }
-  }, [isLoading, isFetching]);
+
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
+  }, [slug, isAllLoading, isAllFetching, isSingleLoading, isSingleFetching]); 
 
   if (!slug) return <p>No slug provided</p>;
-  if (showLoader)
+  if (showLoader) {
     return (
       <section style={{ minHeight: "100vh" }}>
         <Loader />
       </section>
     );
+  }
 
-    const acfData = data?.[0]?.acf?.[slug];
-  
-    const { title_1, title_2, text_1, text_2 } = acfData?.main_titles || {};
+  const post = allPosts?.find((post) => post.slug === slug) || singlePostData?.[0];
+  if (!post) return <p>Post not found</p>;
+
+  const acfData = post.acf?.[slug];
+  const { title_1, title_2, text_1, text_2 } = acfData?.main_titles || {};
+
   return (
     <section className="solutions">
       <div className="wrapper">
@@ -49,8 +64,7 @@ export default function ProductModel() {
         <div className="solutions__button-container">
           <Button color="#fc8437">Varaa esittely</Button>
         </div>
-
-        <HistorySection/>
+        <HistorySection />
       </div>
     </section>
   );

@@ -1,71 +1,195 @@
-import React, { useState } from "react";
-import "./PricingPage.scss"; 
+import { useState, useEffect, useRef } from "react";
+import "./PricingPage.scss";
+import PricingCalculator from "./Pricingcalculator";
 
-// Define available packages with base pricing and extra costs
-const packages = [
-  { name: "SOLO, kuukausipaketti", basePrice: 94, owners: 1, producers: 1, extraOwner: 50, extraProducer: 10 },
-  { name: "TEAM, kuukausipaketti", basePrice: 143, owners: 1, producers: 1, extraOwner: 50, extraProducer: 10 },
-  { name: "SOLO, vuosipaketti", basePrice: 940, owners: 1, producers: 1, extraOwner: 50, extraProducer: 10 },
-  { name: "TEAM, vuosipaketti", basePrice: 1430, owners: 1, producers: 1, extraOwner: 50, extraProducer: 10 }
-];
+export default function PricingPage() {
+  const [isYearly, setIsYearly] = useState(false);
+  const [highlightPlan, setHighlightPlan] = useState<
+    "solo" | "team" | "enterprise"
+  >("solo");
+  const [finalPrice, setFinalPrice] = useState<number | null>(null);
+  const [tuottaja, setTuottaja] = useState(1);
+  const [omistaja, setOmistaja] = useState(1);
+  const plansRef = useRef<HTMLDivElement>(null);
+  const [arePlansVisible, setArePlansVisible] = useState(false);
 
-const PricingCalculator: React.FC = () => {
-  const [owners, setOwners] = useState<number>(1);
-  const [producers, setProducers] = useState<number>(1);
-  const [billingPeriod, setBillingPeriod] = useState<number>(1); // 1 = kuukausi, 12 = vuosi
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setArePlansVisible(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
 
-  // Function to calculate the best pricing option
-  const calculatePrice = () => {
-    let bestPackage = null;
-    let lowestPrice = Infinity;
-
-    for (const pkg of packages) {
-      if ((owners > 1 || producers > 1) && pkg.name.includes("SOLO")) continue;
-
-      const extraOwners = Math.max(0, owners - pkg.owners);
-      const extraProducers = Math.max(0, producers - pkg.producers);
-      let totalPrice = pkg.basePrice + extraOwners * pkg.extraOwner + extraProducers * pkg.extraProducer;
-      if (pkg.name.includes("vuosipaketti")) totalPrice = totalPrice * Math.min(billingPeriod, 10);
-      else totalPrice *= billingPeriod;
-
-      if (totalPrice < lowestPrice) {
-        lowestPrice = totalPrice;
-        bestPackage = pkg;
-      }
+    if (plansRef.current) {
+      observer.observe(plansRef.current);
     }
-    return bestPackage ? { name: bestPackage.name, price: lowestPrice } : null;
-  };
 
-  const bestOption = calculatePrice();
+    return () => observer.disconnect();
+  }, []);
+
+  const pricingPlans = [
+    {
+      name: "Solo",
+      key: "solo",
+      features: [
+        "1 käyttäjä",
+        "Perustoiminnot",
+        "Sähköpostituki",
+        "Ei tiimitoimintoja",
+      ],
+    },
+    {
+      name: "Team",
+      key: "team",
+      features: [
+        "Tiimien hallinta",
+        "Etusijainen tuki",
+        "Yhteistyöominaisuudet",
+      ],
+    },
+    {
+      name: "Enterprise",
+      key: "enterprise",
+      features: [
+        "Oma tilivastaava",
+        "Räätälöidyt integraatiot",
+        "Premium-tuki",
+      ],
+      tag: "Suosituin",
+    },
+  ];
+
+  const billingType = isYearly ? "yearly" : "monthly";
 
   return (
-    <section>
-      <h1>TESTIVERSIO,ULKONÄKÖ VIELÄ MUUTTUU</h1>
-      <div className="pricing-container">
-        <h2>Hintalaskuri</h2>
-        <label>Omistajien määrä: {owners}</label>
-        <input type="range" min="1" max="20" value={owners} onChange={(e) => setOwners(Number(e.target.value))} />
-        
-        <label>Tuottajien määrä: {producers}</label>
-        <input type="range" min="1" max="50" value={producers} onChange={(e) => setProducers(Number(e.target.value))} />
-        
-        <label>Laskutuskausi:</label>
-        <select value={billingPeriod} onChange={(e) => setBillingPeriod(Number(e.target.value))}>
-          <option value={1}>Kuukausi</option>
-          <option value={12}>Vuosi</option>
-        </select>
-        
-        {bestOption ? (
-          <div className="pricing-result">
-            <p>Paras vaihtoehto: <strong>{bestOption.name}</strong></p>
-            <p>Hinta: <strong>{bestOption.price} €</strong></p>
+    <section className="pricing-section">
+      <h2 className="pricing-section__title">Valitse sinulle sopiva paketti</h2>
+
+      <div className="pricing-section__billing-toggle">
+        <span className="pricing-section__billing-toggle-label">Kuukausi</span>
+        <label className="pricing-section__billing-toggle-switch">
+          <input
+            type="checkbox"
+            checked={isYearly}
+            onChange={() => setIsYearly(!isYearly)}
+          />
+          <span></span>
+        </label>
+        <span className="pricing-section__billing-toggle-label">Vuosi</span>
+      </div>
+
+      <div className="pricing-section__grid" ref={plansRef}>
+        {pricingPlans.map((plan, index) => {
+          const isActive = plan.key === highlightPlan;
+          const showContact =
+            plan.key === "enterprise" ||
+            (plan.key === "team" && (tuottaja > 50 || omistaja > 20));
+
+          return (
+            <div
+              key={index}
+              className={`pricing-section__card${
+                isActive ? " pricing-section__card--highlight" : ""
+              }`}
+            >
+              {plan.tag && (
+                <div className="pricing-section__card-tag">{plan.tag}</div>
+              )}
+
+              <div className="pricing-section__card-name">{plan.name}</div>
+
+              {isActive && (
+                <div className="pricing-section__card-price">
+                  {showContact ? (
+                    "Ota yhteyttä hinnoitteluun"
+                  ) : finalPrice !== null ? (
+                    <>
+                      €{finalPrice}
+                      <span>
+                        {" "}
+                        / {billingType === "yearly" ? "vuosi" : "kk"}
+                      </span>
+                    </>
+                  ) : null}
+                </div>
+              )}
+
+              <button className="pricing-section__card-btn">Kokeile</button>
+
+              <ul className="pricing-section__card-features">
+                {plan.features.map((feature, i) => (
+                  <li key={i}>{feature}</li>
+                ))}
+              </ul>
+            </div>
+          );
+        })}
+      </div>
+
+      <PricingCalculator
+        tuottaja={tuottaja}
+        omistaja={omistaja}
+        billing={billingType}
+        onHighlightChange={setHighlightPlan}
+        onPriceChange={setFinalPrice}
+      />
+
+      <div
+        className={`pricing-section__sliders ${
+          arePlansVisible ? "pricing-section__sliders--visible" : ""
+        }`}
+      >
+        <div className="pricing-section__slider">
+          <div className="pricing-section__slider-label">
+            Tuottajat
+            <span>{tuottaja > 50 ? ">50" : tuottaja}</span>
           </div>
-        ) : (
-          <p>Ei saatavilla olevia paketteja</p>
-        )}
+          <div className="pricing-section__slider-container">
+            <input
+              type="range"
+              min="1"
+              max="51"
+              value={tuottaja > 50 ? 51 : tuottaja}
+              onChange={(e) => {
+                const value = Number(e.target.value);
+                setTuottaja(value === 51 ? 51 : value);
+              }}
+              className="pricing-section__slider-input"
+              style={
+                {
+                  "--fill-percent": `${Math.min(100, (tuottaja / 51) * 100)}%`,
+                } as React.CSSProperties
+              }
+            />
+          </div>
+        </div>
+
+        <div className="pricing-section__slider">
+          <div className="pricing-section__slider-label">
+            Omistajat
+            <span>{omistaja > 20 ? ">20" : omistaja}</span>
+          </div>
+          <div className="pricing-section__slider-container">
+            <input
+              type="range"
+              min="1"
+              max="21"
+              value={omistaja > 20 ? 21 : omistaja}
+              onChange={(e) => {
+                const value = Number(e.target.value);
+                setOmistaja(value === 21 ? 21 : value);
+              }}
+              className="pricing-section__slider-input"
+              style={
+                {
+                  "--fill-percent": `${Math.min(100, (omistaja / 21) * 100)}%`,
+                } as React.CSSProperties
+              }
+            />
+          </div>
+        </div>
       </div>
     </section>
   );
-};
-
-export default PricingCalculator;
+}

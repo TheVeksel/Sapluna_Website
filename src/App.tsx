@@ -1,9 +1,10 @@
+// src/App.tsx
 import { Provider } from "react-redux";
 import store from "./store/store";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./styles/Reset.css";
 import "./styles/main.scss";
-import { usePrefetch } from "./api/endpoints/history";
+import { usePrefetch as useWpApiPrefetch } from "./api/wpApi"; 
 import Header from "./components/common/Header/Header";
 import FrontPage from "./components/pages/FrontPage/FrontPage";
 import Footer from "./components/common/footer/Footer";
@@ -22,30 +23,21 @@ export default function App() {
           <ScrollToTop />
           <Header />
           <Routes>
-            <Route
-              path="/"
-              element={<FrontPagePrefetch />} 
-            />
-
+            <Route path="/" element={<FrontPagePrefetch />} />
             {/* Ratkaisut */}
             <Route path="/ratkaisut/:slug" element={<SolutionsModel />} />
-
             {/* Tuote */}
             <Route path="/tuote/:slug" element={<ProductModel />} />
             <Route path="/tuote/ominaisuudet" element={<UnderDevelopment />} />
-
             {/* Palvelut */}
             <Route path="/palvelut/muotoilupalvelu" element={<UnderDevelopment />} />
             <Route path="/palvelut/koulutukset" element={<UnderDevelopment />} />
             <Route path="/palvelut/työpajat" element={<UnderDevelopment />} />
-
             {/* Ajankohtaista */}
             <Route path="/ajankohtaista/blogi" element={<UnderDevelopment />} />
             <Route path="/ajankohtaista/tiedotteet" element={<UnderDevelopment />} />
-
             {/* Meistä */}
             <Route path="/meistä" element={<UnderDevelopment />} />
-
             {/* Verkkokauppa */}
             <Route path="/hinnoittelu" element={<PricingPage />} />
           </Routes>
@@ -57,12 +49,12 @@ export default function App() {
 }
 
 function FrontPagePrefetch() {
-  const prefetchHistory = usePrefetch("GetHistory");
+  const prefetchAllPosts = useWpApiPrefetch("getAllPosts");
 
   useEffect(() => {
     window.history.scrollRestoration = "manual";
-    prefetchHistory();
-  }, [prefetchHistory]);
+    prefetchAllPosts(undefined, { ifOlderThan: 3600 }); 
+  }, [prefetchAllPosts]);
 
   return <FrontPage />;
 }
