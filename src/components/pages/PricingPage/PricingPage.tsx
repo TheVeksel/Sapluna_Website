@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import "./PricingPage.scss";
-import PricingCalculator from "./Pricingcalculator";
+import PricingCalculator from "./PricingCalculator";
 
 export default function PricingPage() {
   const [isYearly, setIsYearly] = useState(false);
