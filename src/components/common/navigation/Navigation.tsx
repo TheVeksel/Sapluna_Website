@@ -58,10 +58,7 @@ export default function Navigation({ onClose }: NavigationProps) {
               </Link>
             </li>
             <li>
-              <Link
-                to="/ratkaisut/tuottaja"
-                onClick={handleLinkClick}
-              >
+              <Link to="/ratkaisut/tuottaja" onClick={handleLinkClick}>
                 Tapahtuman tuottajalle
               </Link>
             </li>
@@ -71,10 +68,7 @@ export default function Navigation({ onClose }: NavigationProps) {
               </Link>
             </li>
             <li>
-              <Link
-                to="/ratkaisut/toimittaja"
-                onClick={handleLinkClick}
-              >
+              <Link to="/ratkaisut/toimittaja" onClick={handleLinkClick}>
                 Palvelun toimittajalle
               </Link>
             </li>
@@ -106,7 +100,7 @@ export default function Navigation({ onClose }: NavigationProps) {
               </Link>
             </li>
             <li>
-              <Link to="/tuote/tietoturva " onClick={handleLinkClick}>
+              <Link to="/tuote/tietoturva" onClick={handleLinkClick}>
                 Tietoturva
               </Link>
             </li>
@@ -163,24 +157,14 @@ export default function Navigation({ onClose }: NavigationProps) {
         )}
       </li>
       <li>
-      <Button
-          color="transparent"
-          onClick={() => handleToggleDropdown("hinnoittelu")}
-        >
-          <Link to="/hinnoittelu" onClick={onClose}>
-          Hinnoittelu
-          </Link>
-        </Button>
+        <Link to="/hinnoittelu" onClick={onClose} className="nav-link">
+          <Button color="transparent">Hinnoittelu</Button>
+        </Link>
       </li>
       <li>
-        <Button
-          color="transparent"
-          onClick={() => handleToggleDropdown("meistä")}
-        >
-          <Link to="/meistä" onClick={onClose}>
-            Meistä
-          </Link>
-        </Button>
+        <Link to="/meistä" onClick={onClose} className="nav-link">
+          <Button color="transparent">Meistä</Button>
+        </Link>
       </li>
     </ul>
   );
