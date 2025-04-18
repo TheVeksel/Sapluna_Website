@@ -30,9 +30,9 @@ export default function App() {
             <Route path="/tuote/:slug" element={<ProductModel />} />
             <Route path="/tuote/ominaisuudet" element={<UnderDevelopment />} />
             {/* Palvelut */}
-            <Route path="/palvelut/muotoilupalvelu" element={<UnderDevelopment />} />
+            <Route path="/palvelut/muotoilu" element={<UnderDevelopment />} />
             <Route path="/palvelut/koulutukset" element={<UnderDevelopment />} />
-            <Route path="/palvelut/työpajat" element={<UnderDevelopment />} />
+            <Route path="/palvelut/tyopajat" element={<UnderDevelopment />} />
             {/* Ajankohtaista */}
             <Route path="/ajankohtaista/blogi" element={<UnderDevelopment />} />
             <Route path="/ajankohtaista/tiedotteet" element={<UnderDevelopment />} />

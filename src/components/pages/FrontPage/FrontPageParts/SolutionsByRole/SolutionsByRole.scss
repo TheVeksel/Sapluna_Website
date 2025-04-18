@@ -32,14 +32,24 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  flex-grow: 1;
   gap: 20px;
   padding: 20px;
-  flex-grow: 1;
   box-shadow: 5px 4px 10px rgba(0, 0, 0, 0.6);
-  transition: box-shadow 0.3s; 
+  transition: box-shadow 0.3s, transform 0.3s;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+
   &:hover {
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7); 
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
+    transform: translateY(-5px);
+
+    .solutionscard__arrow {
+      transform: translateX(3px);
+    }
   }
+
   &__number {
     color: #FFC59F;
     font-weight: 900;
@@ -63,10 +73,43 @@
       font-size: 26px;
     }
 
-    &-text { 
-      font-weight: 700;
-      font-size: 20px;
+    &-text {
+      font-weight: 400;
+      font-size: 24px;
       padding-bottom: 10vh;
+    }
+  }
+
+  &__arrow {
+    width: 96px;
+    height: 24px;
+    position: absolute;
+    bottom: 20px;
+    right: 25px;
+    transition: transform 0.3s;
+  }
+
+  @media (max-width: 600px) {
+    &__arrow {
+      width: 81px;
+      height: 21px;
+      bottom: 15px;
+      right: 20px;
+    }
+
+    &__number {
+      font-size: 60px;
+    }
+
+    &__info {
+      &-title {
+        font-size: 22px;
+      }
+
+      &-text {
+        font-size: 20px;
+        padding-bottom: 8vh;
+      }
     }
   }
 }

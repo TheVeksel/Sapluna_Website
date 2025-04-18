@@ -15,14 +15,20 @@ export default function CustomerService() {
           <SolutionsCard
             number={"1."}
             text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+            subpage="palvelut"
+            slug="muotoilu"
           ></SolutionsCard>
           <SolutionsCard
             number={"2."}
             text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+            subpage="palvelut"
+            slug="koulutukset"
           ></SolutionsCard>
           <SolutionsCard
             number={"3."}
             text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+            subpage="palvelut"
+            slug="tyopajat"
           ></SolutionsCard>
         </div>
       </div>

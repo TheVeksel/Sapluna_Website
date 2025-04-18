@@ -117,7 +117,7 @@ export default function Navigation({ onClose }: NavigationProps) {
         {openDropdown === "palvelut" && (
           <ul className="dropdown-menu">
             <li>
-              <Link to="/palvelut/muotoilupalvelu" onClick={handleLinkClick}>
+              <Link to="/palvelut/muotoilu" onClick={handleLinkClick}>
                 Muotoilupalvelu
               </Link>
             </li>
@@ -127,7 +127,7 @@ export default function Navigation({ onClose }: NavigationProps) {
               </Link>
             </li>
             <li>
-              <Link to="/palvelut/työpajat" onClick={handleLinkClick}>
+              <Link to="/palvelut/tyopajat" onClick={handleLinkClick}>
                 Työpajat
               </Link>
             </li>
