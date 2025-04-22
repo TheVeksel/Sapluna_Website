@@ -9,11 +9,14 @@ interface SolutionPost {
         title_1: string;
         title_2: string;
         text_1: string;
+        "text_1-2": string;
         text_2: string;
+        "text_2-2": string;
       };
     };
   };
 }
+
 
 const solutionsApi = wpApi.injectEndpoints({
   endpoints: (builder) => ({

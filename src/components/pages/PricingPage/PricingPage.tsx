@@ -83,6 +83,7 @@ export default function PricingPage() {
   const closeFirstRef = useRef<HTMLButtonElement>(null);
   const closeSecondRef = useRef<HTMLButtonElement>(null);
 
+
   // focus management
   useEffect(() => {
     if (isFirstPopupOpen) closeFirstRef.current?.focus();

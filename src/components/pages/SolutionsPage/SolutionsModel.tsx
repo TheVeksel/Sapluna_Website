@@ -45,7 +45,14 @@ export default function SolutionsTemplate() {
   if (!post) return <p>Post not found</p>;
 
   const acfData = post.acf?.[slug];
-  const { title_1, title_2, text_1, text_2 } = acfData?.main_titles || {};
+const {
+  title_1,
+  title_2,
+  text_1,
+  ["text_1-2"]: text_1_2,
+  text_2,
+  ["text_2-2"]: text_2_2,
+} = acfData?.main_titles || {};
 
   return (
     <section className="solutions">
@@ -55,10 +62,12 @@ export default function SolutionsTemplate() {
           <div className="solutions__item">
             <h3>{title_1}</h3>
             <p>{text_1}</p>
+            <p>{text_1_2}</p>
           </div>
           <div className="solutions__item">
             <h3>{title_2}</h3>
             <p>{text_2}</p>
+            <p>{text_2_2}</p>
           </div>
         </div>
         <div className="solutions__button-container">

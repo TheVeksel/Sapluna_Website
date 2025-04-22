@@ -1,42 +1,43 @@
+import { useGetPostBySlugQuery } from "../../../../api/wpApi";
+import LocalLoader from "../../../common/LocalLoader";
 import "./PricingInfo.scss";
 
-const promises = [
-  "Emme koskaan nosta aktiivisena olevien uusiutuvien tilausten hintoja.",
-  "Vaikka päättäisit tilauksen, voit aina palata takaisin ja jatkaa tietojesi hyödyntämistä.",
-  "Jos mielesi muuttuu, voit perua ohjelmistotilauksesi 14 vrk:n aikana tilauksesta ilman perusteluja.",
-  "Uusiutuvissa tilauksissa saat muistutuksen uusinnasta hyvissä ajoin.",
-  "Voit keskeyttää tilauksen uusinnan sen ollessa aktiivisena.",
-  "Palvelujen pidempi toimitusaika oikeuttaa ilmoitettuun alennettuun hintaan.",
-];
+interface PricingData {
+  first_block: {
+    text1: string;
+    text2: string;
+    text3: string;
+    text4: string;
+    text5: string;
+    text6: string;
+  };
+  second_block: {
+    text1: { title: string; text: string };
+    text2: { title: string; text: string };
+    text3: { title: string; text: string };
+    text4: { title: string; text: string };
+    text5: { title: string; text: string };
+    text6: { title: string; text: string };
+  };
+}
 
-const highlights = [
-  {
-    title: "Hinnat pysyvät ennallaan",
-    text: "Emme koskaan korota aktiivisten ja jatkuvien tilausten hintoja.",
-  },
-  {
-    title: "Tietosi säilyvät",
-    text: "Jos päätät lopettaa tilauksesi, voit aina palata myöhemmin ja jatkaa siitä, mihin jäit.",
-  },
-  {
-    title: "Riskitön kokeilu",
-    text: "Voit perua ohjelmistotilauksesi 14 päivän kuluessa ilman selittelyjä.",
-  },
-  {
-    title: "Selkeät muistutukset",
-    text: "Saat hyvissä ajoin ilmoituksen tilauksesi uusimisesta.",
-  },
-  {
-    title: "Joustava hallinta",
-    text: "Voit keskeyttää tilauksen uusinnan milloin tahansa tilauksen ollessa aktiivinen.",
-  },
-  {
-    title: "Edullisempi hinta",
-    text: "Palvelujen pidempi toimitusaika oikeuttaa alennettuun hintaan.",
-  },
-];
 
 export default function PricingInfo() {
+  const { data, isLoading } = useGetPostBySlugQuery("pricing-page");
+  const acf = data?.[0]?.acf as PricingData;
+
+  if (isLoading) return <LocalLoader/>
+  if(!acf) return null;
+
+  const firstBlockTexts = Object.values(acf.first_block || {});
+  const secondBlockItems = Object.values(acf.second_block || {}) as {
+    title?: string;
+    text?:string;
+  }[];
+  console.log(firstBlockTexts);
+  console.log('DATA:', data);
+
+
   return (
     <section className="pricing-info" style={{ paddingTop: "0" }}>
       <div className="pricing-info__top-section">
@@ -44,7 +45,7 @@ export default function PricingInfo() {
           <h2 className="pricing-info__title">Lupaamme, että:</h2>
         </div>
         <ul className="pricing-info__promise-list">
-          {promises.map((text, i) => (
+          {firstBlockTexts.map((text, i) => (
             <li key={i} className="pricing-info__promise-item">
               <span className="pricing-info__icon">✔</span>
               <span>{text}</span>
@@ -54,14 +55,14 @@ export default function PricingInfo() {
       </div>
 
       <div className="pricing-info__highlights">
-        {highlights.map((h, i) => (
+        {secondBlockItems.map((item, i) => (
           <div key={i} className="pricing-info__highlight-card">
             <span className="pricing-info__icon-large">✔</span>
             <div className="pricing-info__highlight-content">
               <strong className="pricing-info__highlight-title">
-                {h.title}
+                {item.title}
               </strong>
-              <p className="pricing-info__highlight-text">{h.text}</p>
+              <p className="pricing-info__highlight-text">{item.text}</p>
             </div>
           </div>
         ))}

@@ -25,7 +25,7 @@ export default function PricingCalculator({
     if (!acf) return;
 
     const solo = parseFloat(acf?.solo_price || 0);
-    const teamBase = parseFloat(acf?.team_base || 0);
+    const teamBase = parseFloat(acf?.team_base_price || 0);
     const perTuottaja = parseFloat(acf?.price_per_tuottaja || 0);
     const perOmistaja = parseFloat(acf?.price_per_omistaja || 0);
 
