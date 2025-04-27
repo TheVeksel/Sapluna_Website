@@ -43,8 +43,8 @@ export default function Form() {
               </li>
               <li>
                 <span className="icon">✉️</span>{" "}
-                <a href={`mailto:${contactInfo?.email}`}>
-                  {contactInfo?.email}
+                <a href={`mailto:${contactInfo?.emails.contact_email}`}>
+                  {contactInfo?.emails.contact_email}
                 </a>
               </li>
               <li>

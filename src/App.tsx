@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import PricingPage from "./components/pages/PricingPage/PricingPage";
 import SolutionsModel from "./components/pages/SolutionsPage/SolutionsModel";
 import ProductModel from "./components/pages/InfoAboutSapluna/ProductModel";
+import FeaturesPage from "./components/pages/InfoAboutSapluna/Features/FeaturesPage";
 
 export default function App() {
   return (
@@ -28,7 +29,7 @@ export default function App() {
             <Route path="/ratkaisut/:slug" element={<SolutionsModel />} />
             {/* Tuote */}
             <Route path="/tuote/:slug" element={<ProductModel />} />
-            <Route path="/tuote/ominaisuudet" element={<UnderDevelopment />} />
+            <Route path="/tuote/ominaisuudet" element={<FeaturesPage />} />
             {/* Palvelut */}
             <Route path="/palvelut/muotoilu" element={<UnderDevelopment />} />
             <Route path="/palvelut/koulutukset" element={<UnderDevelopment />} />

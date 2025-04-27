@@ -20,16 +20,14 @@ export default function PromotionSection() {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(1);
 
-  // Автопрокрутка
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex(prev => prev + 1);
-    }, 2250);
+    }, 2650);
 
     return () => clearInterval(interval);
   }, []);
 
-  // Скролл в центр активного элемента
   useEffect(() => {
     const el = carouselRef.current;
     if (!el) return;

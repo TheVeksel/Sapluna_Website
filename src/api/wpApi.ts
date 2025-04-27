@@ -18,12 +18,13 @@ const wpApi = createApi({
   tagTypes: ['Posts', 'Products'],
   endpoints: (builder) => ({
     getAllPosts: builder.query<Post[], void>({
-      query: () => `posts?per_page=100&_fields=id,slug,acf`,
+      query: () => `posts?per_page=100&_fields=id,slug,acf&categories=133`,
       providesTags: (result) =>
         result
           ? [...result.map(({ id }) => ({ type: 'Posts' as const, id })), { type: 'Posts', id: 'LIST' }]
           : [{ type: 'Posts', id: 'LIST' }],
     }),
+    
 
     getPostBySlug: builder.query<Post[], string>({
       query: (slug) => `posts?slug=${slug}&_fields=id,slug,acf`,

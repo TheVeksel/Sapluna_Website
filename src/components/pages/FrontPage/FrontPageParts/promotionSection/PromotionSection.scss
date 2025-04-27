@@ -23,7 +23,7 @@
   &__carousel {
     display: flex;
     width: 100%;
-    overflow-x: hidden; 
+    overflow-x: hidden;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
@@ -48,12 +48,17 @@
     }
   }
 
+
   @media (max-width: 768px) {
     padding: 30px 15px;
 
     &__text {
       font-size: 1.3rem;
       margin-bottom: 20px;
+    }
+
+    &__carousel .carousel-item {
+      flex: 0 0 80%;
     }
   }
 
@@ -62,6 +67,15 @@
 
     &__text {
       font-size: 1.1rem;
+    }
+
+    &__carousel {
+      gap: 10px;
+      scroll-padding: 0 5px;
+
+      .carousel-item {
+        flex: 0 0 90%;     
+      }
     }
   }
 }

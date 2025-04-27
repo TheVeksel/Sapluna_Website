@@ -24,7 +24,7 @@ export default function Footer() {
           <a href={`tel:${contactInfo?.phone_number}`}>
             {contactInfo?.phone_number}
           </a>
-          <a href={`mailto:${contactInfo?.email}`}>{contactInfo?.email}</a>
+          <a href={`mailto:${contactInfo?.emails.contact_email}`}>{contactInfo?.emails.contact_email}</a>
           <Socials />
         </div>
         <div className="footer__nav">

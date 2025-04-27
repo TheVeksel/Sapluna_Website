@@ -2,71 +2,19 @@
   max-width: 1000px;
   margin: 0 auto;
   margin-bottom: 120px;
-
-  &__top-section {
-    background: #fa8a0b;
-    padding: 4rem 2rem;
-    border-radius: 16px;
+  &-wrap {
+    background-color: #fc8437;
+    padding: 20px 40px 60px;
+    border-radius: 20px;
+    margin-bottom: 40px;
+  }
+  .pricing-info__title {
+    font-size: 2.2rem;
+    font-weight: 800;
     margin-bottom: 4rem;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.04);
-    transition: background 0.4s ease;
-
-    .pricing-info__intro {
-      text-align: center;
-      margin-bottom: 2.5rem;
-    }
-
-    .pricing-info__title {
-      font-size: 2.2rem;
-      font-weight: 800;
-      margin-bottom: 0.5rem;
-      color: #fdfdfd;
-    }
-
-    .pricing-info__subtitle {
-      font-size: 1.2rem;
-      color: #666;
-      font-weight: 600;
-      margin-bottom: 2rem;
-    }
-
-    .pricing-info__promise-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-      list-style: none;
-      padding: 0;
-      margin: 0 auto;
-      max-width: 900px;
-    }
-
-    .pricing-info__promise-item {
-      background: #ffffff;
-      border: 1px solid rgba(252, 132, 55, 0.15);
-      border-radius: 8px;
-      padding: 1rem 1.25rem;
-      display: flex;
-      align-items: flex-start;
-      font-size: 1rem;
-      font-weight: 700;
-      color: #333;
-      line-height: 1.6;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-      transition: transform 0.4s ease-out, box-shadow 0.4s ease-out;
-
-      &:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
-      }
-    }
-
-    .pricing-info__icon {
-      flex-shrink: 0;
-      margin-right: 0.75rem;
-      color: #fc8437;
-      font-size: 1.5rem;
-      margin-top: 0.125rem;
-    }
+    color: #ffffff;
+    margin-bottom: 40px;
+    padding-top: 20px;
   }
 
   &__highlights {
@@ -81,7 +29,9 @@
     padding: 1.75rem;
     display: flex;
     align-items: flex-start;
-    transition: transform 0.4s ease-out, box-shadow 0.4s ease-out;
+    transition:
+      transform 0.4s ease-out,
+      box-shadow 0.4s ease-out;
 
     &:hover {
       transform: translateY(-8px);
@@ -114,6 +64,26 @@
     font-weight: 700;
     color: #333;
     line-height: 1.6;
+  }
+  &-textbox-title {
+    font-size: 2.2rem;
+    text-align: center;
+    font-weight: 900;
+    margin-bottom: 30px;
+  }
+  &-textbox {
+    margin-bottom: 20px;
+    padding: 40px 20px;
+    background-color: #f9f9f9;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    p {
+      font-size: 1.4rem;
+      color: #2b2a2a;
+      line-height: 1.6;
+      font-weight: 700;
+    }
   }
 
   @media (max-width: 768px) {

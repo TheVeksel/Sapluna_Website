@@ -6,7 +6,10 @@ interface ContactPost {
   acf: {
     contact_info: {
         phone_number: string;
-        email: string;
+        emails: {
+          contact_email: string;
+          sales_email: string;
+        };
         address: string;
     }
   }

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import "./PricingPage.scss";
 import PricingCalculator from "./PricingCalculator";
 import PricingInfo from "./PricingInfo/PricingInfo";
+import PricingContact from "./PricingInfo/PricingContacts";
 
 type PlanKey = "solo" | "team" | "enterprise";
 
@@ -83,7 +84,6 @@ export default function PricingPage() {
   const closeFirstRef = useRef<HTMLButtonElement>(null);
   const closeSecondRef = useRef<HTMLButtonElement>(null);
 
-
   // focus management
   useEffect(() => {
     if (isFirstPopupOpen) closeFirstRef.current?.focus();
@@ -98,17 +98,30 @@ export default function PricingPage() {
       {
         name: "Solo",
         key: "solo" as PlanKey,
-        features: ["1 käyttäjä", "Perustoiminnot", "Sähköpostituki", "Ei tiimitoimintoja"],
+        features: [
+          "1 käyttäjä",
+          "Perustoiminnot",
+          "Sähköpostituki",
+          "Ei tiimitoimintoja",
+        ],
       },
       {
         name: "Team",
         key: "team" as PlanKey,
-        features: ["Tiimien hallinta", "Etusijainen tuki", "Yhteistyöominaisuudet"],
+        features: [
+          "Tiimien hallinta",
+          "Etusijainen tuki",
+          "Yhteistyöominaisuudet",
+        ],
       },
       {
         name: "Enterprise",
         key: "enterprise" as PlanKey,
-        features: ["Oma tilivastaava", "Räätälöidyt integraatiot", "Premium-tuki"],
+        features: [
+          "Oma tilivastaava",
+          "Räätälöidyt integraatiot",
+          "Premium-tuki",
+        ],
       },
     ],
     []
@@ -137,7 +150,7 @@ export default function PricingPage() {
             {isActive && (
               <div className="pricing-section__card-price">
                 {showContact
-                  ? "Ota yhteyttä hinnoitteluun"
+                  ? "Ota yhteyttä myyntiin"
                   : finalPrice !== null && (
                       <>
                         €{finalPrice}
@@ -155,7 +168,7 @@ export default function PricingPage() {
               onClick={openFirstPopup}
               disabled={!isActive}
             >
-              Kokeile
+              Tilaa
             </button>
 
             <ul className="pricing-section__card-features">
@@ -166,205 +179,206 @@ export default function PricingPage() {
           </div>
         );
       }),
-    [pricingPlans, highlightPlan, tuottaja, omistaja, finalPrice, billingType, openFirstPopup]
+    [
+      pricingPlans,
+      highlightPlan,
+      tuottaja,
+      omistaja,
+      finalPrice,
+      billingType,
+      openFirstPopup,
+    ]
   );
 
   return (
     <section className="pricing-section">
-      <PricingInfo/>
-      <h2 className="pricing-section__title">Valitse sinulle sopiva paketti</h2>
-
-      <div className="pricing-section__billing-toggle">
-        <span className="pricing-section__billing-toggle-label">Kuukausi</span>
-        <label className="pricing-section__billing-toggle-switch">
-          <input
-            type="checkbox"
-            checked={isYearly}
-            onChange={() => setIsYearly(!isYearly)}
-          />
-          <span></span>
-        </label>
-        <span className="pricing-section__billing-toggle-label">Vuosi</span>
-      </div>
-
-      <div className="pricing-section__grid" ref={plansRef}>
-        {cards}
-      </div>
-
-      <PricingCalculator
-        tuottaja={tuottaja}
-        omistaja={omistaja}
-        billing={billingType}
-        onHighlightChange={setHighlightPlan}
-        onPriceChange={setFinalPrice}
-      />
-
-      <div
-        className={`pricing-section__sliders ${
-          arePlansVisible ? "pricing-section__sliders--visible" : ""
-        }`}
-      >
-        <div className="pricing-section__slider">
-          <div className="pricing-section__slider-label">
-            Tuottajat<span>{tuottaja > 50 ? ">50" : tuottaja}</span>
-          </div>
-          <div className="pricing-section__slider-container">
+      <div className="wrapper">
+        <PricingInfo />
+        <h2 className="pricing-section__title">Valitse sinulle sopiva paketti</h2>
+  
+        <div className="pricing-section__billing-toggle">
+          <span className="pricing-section__billing-toggle-label">Kuukausi</span>
+          <label className="pricing-section__billing-toggle-switch">
             <input
-              type="range"
-              min="1"
-              max="51"
-              value={tuottaja > 50 ? 51 : tuottaja}
-              onChange={(e) => {
-                const v = Number(e.target.value);
-                setTuottaja(v === 51 ? 51 : v);
-              }}
-              className="pricing-section__slider-input"
-              style={
-                {
-                  "--fill-percent": `${Math.min(100, (tuottaja / 51) * 100)}%`,
-                } as React.CSSProperties
-              }
+              type="checkbox"
+              checked={isYearly}
+              onChange={() => setIsYearly(!isYearly)}
             />
-          </div>
+            <span></span>
+          </label>
+          <span className="pricing-section__billing-toggle-label">Vuosi</span>
         </div>
-
-        <div className="pricing-section__slider">
-          <div className="pricing-section__slider-label">
-            Omistajat<span>{omistaja > 20 ? ">20" : omistaja}</span>
-          </div>
-          <div className="pricing-section__slider-container">
-            <input
-              type="range"
-              min="1"
-              max="21"
-              value={omistaja > 20 ? 21 : omistaja}
-              onChange={(e) => {
-                const v = Number(e.target.value);
-                setOmistaja(v === 21 ? 21 : v);
-              }}
-              className="pricing-section__slider-input"
-              style={
-                {
-                  "--fill-percent": `${Math.min(100, (omistaja / 21) * 100)}%`,
-                } as React.CSSProperties
-              }
-            />
-          </div>
+  
+        <div className="pricing-section__grid" ref={plansRef}>
+          {cards}
         </div>
-      </div>
-
-      {isFirstPopupOpen && (
+  
+        <PricingCalculator
+          tuottaja={tuottaja}
+          omistaja={omistaja}
+          billing={billingType}
+          onHighlightChange={setHighlightPlan}
+          onPriceChange={setFinalPrice}
+        />
+  
         <div
-          className="pricing-popup"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="popup-title"
+          className={`pricing-section__sliders ${
+            arePlansVisible ? "pricing-section__sliders--visible" : ""
+          }`}
         >
+          <div className="pricing-section__slider">
+            <div className="pricing-section__slider-label">
+              Tuottajat<span>{tuottaja > 50 ? ">50" : tuottaja}</span>
+            </div>
+            <div className="pricing-section__slider-container">
+              <input
+                type="range"
+                min="1"
+                max="51"
+                value={tuottaja > 50 ? 51 : tuottaja}
+                onChange={(e) => {
+                  const v = Number(e.target.value);
+                  setTuottaja(v === 51 ? 51 : v);
+                }}
+                className="pricing-section__slider-input"
+                style={
+                  {
+                    "--fill-percent": `${Math.min(100, (tuottaja / 51) * 100)}%`,
+                  } as React.CSSProperties
+                }
+              />
+            </div>
+          </div>
+  
+          <div className="pricing-section__slider">
+            <div className="pricing-section__slider-label">
+              Omistajat<span>{omistaja > 20 ? ">20" : omistaja}</span>
+            </div>
+            <div className="pricing-section__slider-container">
+              <input
+                type="range"
+                min="1"
+                max="21"
+                value={omistaja > 20 ? 21 : omistaja}
+                onChange={(e) => {
+                  const v = Number(e.target.value);
+                  setOmistaja(v === 21 ? 21 : v);
+                }}
+                className="pricing-section__slider-input"
+                style={
+                  {
+                    "--fill-percent": `${Math.min(100, (omistaja / 21) * 100)}%`,
+                  } as React.CSSProperties
+                }
+              />
+            </div>
+          </div>
+        </div>
+        <PricingContact/>
+  
+        {isFirstPopupOpen && (
           <div
-            className="pricing-popup__overlay"
-            onClick={closeFirstPopup}
-          ></div>
-          <div className="pricing-popup__content">
-            <div className="pricing-popup__header">
-              <h3
-                id="popup-title"
-                className="pricing-popup__title"
-              >
-                Valitsit tämän paketin
-              </h3>
-              <button
-                ref={closeFirstRef}
-                className="pricing-popup__close"
-                onClick={closeFirstPopup}
-              >
-                ×
-              </button>
-            </div>
-
-            <div className="pricing-popup__plan">
-              <div className="pricing-popup__plan-name">
-                {selectedPlan?.name}
+            className="pricing-popup"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="popup-title"
+          >
+            <div
+              className="pricing-popup__overlay"
+              onClick={closeFirstPopup}
+            ></div>
+            <div className="pricing-popup__content">
+              <div className="pricing-popup__header">
+                <h3 id="popup-title" className="pricing-popup__title">
+                  Valitsit tämän paketin
+                </h3>
+                <button
+                  ref={closeFirstRef}
+                  className="pricing-popup__close"
+                  onClick={closeFirstPopup}
+                >
+                  ×
+                </button>
               </div>
-              <div className="pricing-popup__plan-price">
-                {finalPrice !== null
-                  ? `€${finalPrice} / ${
-                      billingType === "yearly" ? "vuosi" : "kk"
-                    }`
-                  : "Hinta ei saatavilla"}
-              </div>
-              <ul className="pricing-popup__plan-features">
-                {selectedPlan?.features.map((f, i) => (
-                  <li key={i}>{f}</li>
-                ))}
-              </ul>
-              <button className="pricing-popup__add-to-cart">
-                Lisää ostoskoriin
-              </button>
-            </div>
-
-            <div className="pricing-popup__additional-services">
-              <h4>Lisäpalvelut</h4>
-              {[1, 2, 3].map((id) => (
-                <div key={id} className="pricing-popup__service-item">
-                  <span>Palvelun nimi lyhyesti</span>
-                  <div className="pricing-popup__service-actions">
-                    <button
-                      className="pricing-popup__more-info"
-                      onClick={openSecondPopup}
-                    >
-                      Lue lisää
-                    </button>
-                    <button className="pricing-popup__cart">
-                      Ostoskoriin
-                    </button>
-                  </div>
+  
+              <div className="pricing-popup__plan">
+                <div className="pricing-popup__plan-name">
+                  {selectedPlan?.name}
                 </div>
-              ))}
+                <div className="pricing-popup__plan-price">
+                  {finalPrice !== null
+                    ? `€${finalPrice} / ${
+                        billingType === "yearly" ? "vuosi" : "kk"
+                      }`
+                    : "Hinta ei saatavilla"}
+                </div>
+                <ul className="pricing-popup__plan-features">
+                  {selectedPlan?.features.map((f, i) => <li key={i}>{f}</li>)}
+                </ul>
+                <button className="pricing-popup__add-to-cart">
+                  Lisää ostoskoriin
+                </button>
+              </div>
+  
+              <div className="pricing-popup__additional-services">
+                <h4>Lisäpalvelut</h4>
+                {[1, 2, 3].map((id) => (
+                  <div key={id} className="pricing-popup__service-item">
+                    <span>Palvelun nimi lyhyesti</span>
+                    <div className="pricing-popup__service-actions">
+                      <button
+                        className="pricing-popup__more-info"
+                        onClick={openSecondPopup}
+                      >
+                        Lue lisää
+                      </button>
+                      <button className="pricing-popup__cart">Ostoskoriin</button>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      )}
-
-      {isSecondPopupOpen && (
-        <div
-          className="pricing-popup"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="service-popup-title"
-        >
+        )}
+  
+        {isSecondPopupOpen && (
           <div
-            className="pricing-popup__overlay"
-            onClick={closeSecondPopup}
-          ></div>
-          <div className="pricing-popup__content">
-            <div className="pricing-popup__header">
-              <h3
-                id="service-popup-title"
-                className="pricing-popup__title"
-              >
-                Tietoa tästä palvelusta
-              </h3>
+            className="pricing-popup"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="service-popup-title"
+          >
+            <div
+              className="pricing-popup__overlay"
+              onClick={closeSecondPopup}
+            ></div>
+            <div className="pricing-popup__content">
+              <div className="pricing-popup__header">
+                <h3 id="service-popup-title" className="pricing-popup__title">
+                  Tietoa tästä palvelusta
+                </h3>
+                <button
+                  ref={closeSecondRef}
+                  className="pricing-popup__close"
+                  onClick={closeSecondPopup}
+                >
+                  ×
+                </button>
+              </div>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              </p>
               <button
-                ref={closeSecondRef}
-                className="pricing-popup__close"
+                className="pricing-popup__back-btn"
                 onClick={closeSecondPopup}
               >
-                ×
+                Takaisin
               </button>
             </div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-              do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-            <button
-              className="pricing-popup__back-btn"
-              onClick={closeSecondPopup}
-            >
-              Takaisin
-            </button>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </section>
   );
 }
