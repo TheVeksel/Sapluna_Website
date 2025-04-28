@@ -1,4 +1,3 @@
-import { useParams } from "react-router-dom";
 import "./FeaturesPage.scss";
 import Title from "../../../common/title/Title";
 import {
@@ -15,7 +14,7 @@ interface FeatureCard {
 }
 
 export default function FeaturesPage() {
-  const { slug } = useParams<{ slug: string }>();
+  const slug = "ominaisuudet";
 
   const {
     data: postFromAll,
