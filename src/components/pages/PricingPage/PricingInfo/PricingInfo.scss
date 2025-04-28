@@ -42,7 +42,7 @@
   &__icon-large {
     flex-shrink: 0;
     color: #fc8437;
-    margin-right: 1rem;
+    margin-right: 0.2rem;
     font-size: 1.75rem;
     margin-top: 0.125rem;
   }
@@ -88,7 +88,9 @@
 
   @media (max-width: 768px) {
     padding: 3rem 1rem;
-
+    &-wrap {
+      padding: 20px;
+    }
     &__top-section {
       padding: 3rem 1.25rem;
     }
