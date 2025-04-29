@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useGetPostBySlugQuery } from "../../../../api/wpApi";
 import Loader from "../../../common/Loader";
 import "./PricingInfo.scss";
@@ -14,13 +15,32 @@ interface PricingData {
   text_under_block: {
     title: string;
     text: string;
-  }
+  };
+  cards_features: {
+    solo: Record<string, string>;
+    team: Record<string, string>;
+    enterprise: Record<string, string>;
+  };
 }
 
+interface PricingInfoProps {
+  onFeaturesLoaded: (features: { key: string; features: string[] }[]) => void;
+}
 
-export default function PricingInfo() {
+export default function PricingInfo({ onFeaturesLoaded }: PricingInfoProps) {
   const { data, isLoading } = useGetPostBySlugQuery("pricing-page");
-  const acf = data?.[0]?.acf as PricingData;
+  const acf = data?.[0]?.acf as PricingData | undefined;
+
+  useEffect(() => {
+    if (acf?.cards_features) {
+      const features = ["solo", "team", "enterprise"].map((key) => ({
+        key,
+        features: Object.values(acf.cards_features?.[key as keyof typeof acf.cards_features] || {}),
+      }));
+      onFeaturesLoaded(features);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [acf?.cards_features]);
 
   if (isLoading) {
     return (
@@ -30,15 +50,10 @@ export default function PricingInfo() {
     );
   }
 
-  if(!acf) return null;
+  if (!acf) return null;
 
-  const blockItems = Object.values(acf.block || {}) as {
-    title?: string;
-    text?:string;
-  }[];
-
-  const { title, text} = acf?.text_under_block || {};
-
+  const blockItems = Object.values(acf.block || {});
+  const { title, text } = acf.text_under_block || {};
 
   return (
     <section className="pricing-info" style={{ paddingTop: "0" }}>
@@ -49,16 +64,14 @@ export default function PricingInfo() {
             <div key={i} className="pricing-info__highlight-card">
               <span className="pricing-info__icon-large">✔</span>
               <div className="pricing-info__highlight-content">
-                <strong className="pricing-info__highlight-title">
-                  {item.title}
-                </strong>
+                <strong className="pricing-info__highlight-title">{item.title}</strong>
                 <p className="pricing-info__highlight-text">{item.text}</p>
               </div>
             </div>
           ))}
         </div>
       </div>
-        <h2 className="pricing-info-textbox-title">{title}</h2>
+      <h2 className="pricing-info-textbox-title">{title}</h2>
       <div className="pricing-info-textbox">
         <p>{text}</p>
       </div>

@@ -297,7 +297,7 @@
 
 .pricing-section {
   background: #fff;
-  padding: 140px 0 0 0;
+  padding-top: 140px;
   text-align: center;
   color: #000;
   animation: fadeInUp 0.5s ease-out;
@@ -462,7 +462,7 @@
     max-width: 500px;
     margin: 3rem auto;
     margin-bottom: 8rem;
-    padding: 2rem;
+    padding: 2.2rem;
     background: #fff;
     border: 2px solid #fc8437;
     border-radius: 16px;
@@ -485,7 +485,7 @@
       width: 100%;
       max-width: 100%;
       margin: 0;
-      padding: 0; 
+      padding: 5px; 
       background: #fff;
       border-radius: 16px 16px 0 0;
       box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
@@ -524,6 +524,7 @@
       justify-content: space-between;
       margin-bottom: 0.5rem;
       font-size: 1.1rem;
+      padding: 5px;
       color: #333;
 
       span {
@@ -649,4 +650,17 @@
     }
   }
   
+}
+.pricing-section__card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+}
+
+.readmore-button {
+  color: rgb(77, 210, 255);
+  font-size: 1.2rem;
+  background-color: transparent;
+  font-weight: 700;
+  text-align: left;
 }

@@ -3,24 +3,34 @@ import "./PricingPage.scss";
 import PricingCalculator from "./PricingCalculator";
 import PricingInfo from "./PricingInfo/PricingInfo";
 import PricingContact from "./PricingInfo/PricingContacts";
+import TariffTable from "./Pricingtable/TariffTable";
 
 type PlanKey = "solo" | "team" | "enterprise";
 
-function usePricingState() {
+interface PlanFeatures {
+  key: string;
+  features: string[];
+}
+
+export default function PricingPage() {
   const [isYearly, setIsYearly] = useState(false);
   const [highlightPlan, setHighlightPlan] = useState<PlanKey>("solo");
   const [finalPrice, setFinalPrice] = useState<number | null>(null);
   const [tuottaja, setTuottaja] = useState(1);
   const [omistaja, setOmistaja] = useState(1);
-  const plansRef = useRef<HTMLDivElement>(null);
   const [arePlansVisible, setArePlansVisible] = useState(false);
   const [isFirstPopupOpen, setIsFirstPopupOpen] = useState(false);
   const [isSecondPopupOpen, setIsSecondPopupOpen] = useState(false);
+  const [pricingPlans, setPricingPlans] = useState<{
+    name: string;
+    key: PlanKey;
+    features: string[];
+  }[]>([]);
 
-  const openFirstPopup = () => setIsFirstPopupOpen(true);
-  const closeFirstPopup = () => setIsFirstPopupOpen(false);
-  const openSecondPopup = () => setIsSecondPopupOpen(true);
-  const closeSecondPopup = () => setIsSecondPopupOpen(false);
+  const plansRef = useRef<HTMLDivElement>(null);
+  const tableRef = useRef<HTMLDivElement>(null);
+  const closeFirstRef = useRef<HTMLButtonElement>(null);
+  const closeSecondRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -31,60 +41,14 @@ function usePricingState() {
     return () => observer.disconnect();
   }, []);
 
-  // Lock background scroll when popup is open
   useEffect(() => {
     document.body.style.overflow =
       isFirstPopupOpen || isSecondPopupOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isFirstPopupOpen, isSecondPopupOpen]);
 
-  return {
-    isYearly,
-    setIsYearly,
-    highlightPlan,
-    setHighlightPlan,
-    finalPrice,
-    setFinalPrice,
-    tuottaja,
-    setTuottaja,
-    omistaja,
-    setOmistaja,
-    plansRef,
-    arePlansVisible,
-    isFirstPopupOpen,
-    openFirstPopup,
-    closeFirstPopup,
-    isSecondPopupOpen,
-    openSecondPopup,
-    closeSecondPopup,
-  };
-}
-
-export default function PricingPage() {
-  const {
-    isYearly,
-    setIsYearly,
-    highlightPlan,
-    setHighlightPlan,
-    finalPrice,
-    setFinalPrice,
-    tuottaja,
-    setTuottaja,
-    omistaja,
-    setOmistaja,
-    plansRef,
-    arePlansVisible,
-    isFirstPopupOpen,
-    openFirstPopup,
-    closeFirstPopup,
-    isSecondPopupOpen,
-    openSecondPopup,
-    closeSecondPopup,
-  } = usePricingState();
-
-  const closeFirstRef = useRef<HTMLButtonElement>(null);
-  const closeSecondRef = useRef<HTMLButtonElement>(null);
-
-  // focus management
   useEffect(() => {
     if (isFirstPopupOpen) closeFirstRef.current?.focus();
   }, [isFirstPopupOpen]);
@@ -93,39 +57,20 @@ export default function PricingPage() {
     if (isSecondPopupOpen) closeSecondRef.current?.focus();
   }, [isSecondPopupOpen]);
 
-  const pricingPlans = useMemo(
-    () => [
-      {
-        name: "Solo",
-        key: "solo" as PlanKey,
-        features: [
-          "1 käyttäjä",
-          "Perustoiminnot",
-          "Sähköpostituki",
-          "Ei tiimitoimintoja",
-        ],
-      },
-      {
-        name: "Team",
-        key: "team" as PlanKey,
-        features: [
-          "Tiimien hallinta",
-          "Etusijainen tuki",
-          "Yhteistyöominaisuudet",
-        ],
-      },
-      {
-        name: "Enterprise",
-        key: "enterprise" as PlanKey,
-        features: [
-          "Oma tilivastaava",
-          "Räätälöidyt integraatiot",
-          "Premium-tuki",
-        ],
-      },
-    ],
-    []
-  );
+  const openFirstPopup = () => setIsFirstPopupOpen(true);
+  const closeFirstPopup = () => setIsFirstPopupOpen(false);
+  const openSecondPopup = () => setIsSecondPopupOpen(true);
+  const closeSecondPopup = () => setIsSecondPopupOpen(false);
+
+  const handleFeaturesLoaded = (features: PlanFeatures[]) => {
+    if (!features || !Array.isArray(features)) return;
+    const newPricingPlans = features.map((plan) => ({
+      name: plan.key.charAt(0).toUpperCase() + plan.key.slice(1),
+      key: plan.key as PlanKey,
+      features: plan.features.filter(f => f),
+    }));
+    setPricingPlans(newPricingPlans);
+  };
 
   const billingType = isYearly ? "yearly" : "monthly";
   const selectedPlan = pricingPlans.find((p) => p.key === highlightPlan);
@@ -176,28 +121,33 @@ export default function PricingPage() {
                 <li key={i}>{f}</li>
               ))}
             </ul>
+            <button className="readmore-button"
+              onClick={() =>
+                tableRef.current?.scrollIntoView({
+                  behavior: "smooth",
+                })
+              }
+            >
+              Lue lisää
+            </button>
           </div>
         );
       }),
-    [
-      pricingPlans,
-      highlightPlan,
-      tuottaja,
-      omistaja,
-      finalPrice,
-      billingType,
-      openFirstPopup,
-    ]
+    [highlightPlan, tuottaja, omistaja, finalPrice, billingType, pricingPlans]
   );
 
   return (
     <section className="pricing-section">
       <div className="wrapper">
-        <PricingInfo />
-        <h2 className="pricing-section__title">Valitse sinulle sopiva paketti</h2>
-  
+        <PricingInfo onFeaturesLoaded={handleFeaturesLoaded} />
+        <h2 className="pricing-section__title">
+          Valitse sinulle sopiva paketti
+        </h2>
+
         <div className="pricing-section__billing-toggle">
-          <span className="pricing-section__billing-toggle-label">Kuukausi</span>
+          <span className="pricing-section__billing-toggle-label">
+            Kuukausi
+          </span>
           <label className="pricing-section__billing-toggle-switch">
             <input
               type="checkbox"
@@ -208,11 +158,11 @@ export default function PricingPage() {
           </label>
           <span className="pricing-section__billing-toggle-label">Vuosi</span>
         </div>
-  
+
         <div className="pricing-section__grid" ref={plansRef}>
           {cards}
         </div>
-  
+
         <PricingCalculator
           tuottaja={tuottaja}
           omistaja={omistaja}
@@ -220,7 +170,7 @@ export default function PricingPage() {
           onHighlightChange={setHighlightPlan}
           onPriceChange={setFinalPrice}
         />
-  
+
         <div
           className={`pricing-section__sliders ${
             arePlansVisible ? "pricing-section__sliders--visible" : ""
@@ -243,13 +193,16 @@ export default function PricingPage() {
                 className="pricing-section__slider-input"
                 style={
                   {
-                    "--fill-percent": `${Math.min(100, (tuottaja / 51) * 100)}%`,
+                    "--fill-percent": `${Math.min(
+                      100,
+                      (tuottaja / 51) * 100
+                    )}%`,
                   } as React.CSSProperties
                 }
               />
             </div>
           </div>
-  
+
           <div className="pricing-section__slider">
             <div className="pricing-section__slider-label">
               Omistajat<span>{omistaja > 20 ? ">20" : omistaja}</span>
@@ -267,15 +220,18 @@ export default function PricingPage() {
                 className="pricing-section__slider-input"
                 style={
                   {
-                    "--fill-percent": `${Math.min(100, (omistaja / 21) * 100)}%`,
+                    "--fill-percent": `${Math.min(
+                      100,
+                      (omistaja / 21) * 100
+                    )}%`,
                   } as React.CSSProperties
                 }
               />
             </div>
           </div>
         </div>
-        <PricingContact/>
-  
+        <PricingContact />
+
         {isFirstPopupOpen && (
           <div
             className="pricing-popup"
@@ -285,7 +241,10 @@ export default function PricingPage() {
           >
             <div
               className="pricing-popup__overlay"
-              onClick={closeFirstPopup}
+              onClick={(e) => {
+                e.stopPropagation();
+                closeFirstPopup();
+              }}
             ></div>
             <div className="pricing-popup__content">
               <div className="pricing-popup__header">
@@ -300,7 +259,7 @@ export default function PricingPage() {
                   ×
                 </button>
               </div>
-  
+
               <div className="pricing-popup__plan">
                 <div className="pricing-popup__plan-name">
                   {selectedPlan?.name}
@@ -313,13 +272,13 @@ export default function PricingPage() {
                     : "Hinta ei saatavilla"}
                 </div>
                 <ul className="pricing-popup__plan-features">
-                  {selectedPlan?.features.map((f, i) => <li key={i}>{f}</li>)}
+                  {selectedPlan?.features?.map((f, i) => <li key={i}>{f}</li>)}
                 </ul>
                 <button className="pricing-popup__add-to-cart">
                   Lisää ostoskoriin
                 </button>
               </div>
-  
+
               <div className="pricing-popup__additional-services">
                 <h4>Lisäpalvelut</h4>
                 {[1, 2, 3].map((id) => (
@@ -332,7 +291,9 @@ export default function PricingPage() {
                       >
                         Lue lisää
                       </button>
-                      <button className="pricing-popup__cart">Ostoskoriin</button>
+                      <button className="pricing-popup__cart">
+                        Ostoskoriin
+                      </button>
                     </div>
                   </div>
                 ))}
@@ -340,7 +301,7 @@ export default function PricingPage() {
             </div>
           </div>
         )}
-  
+
         {isSecondPopupOpen && (
           <div
             className="pricing-popup"
@@ -350,7 +311,10 @@ export default function PricingPage() {
           >
             <div
               className="pricing-popup__overlay"
-              onClick={closeSecondPopup}
+              onClick={(e) => {
+                e.stopPropagation();
+                closeSecondPopup();
+              }}
             ></div>
             <div className="pricing-popup__content">
               <div className="pricing-popup__header">
@@ -378,6 +342,7 @@ export default function PricingPage() {
             </div>
           </div>
         )}
+        <TariffTable ref={tableRef} />
       </div>
     </section>
   );

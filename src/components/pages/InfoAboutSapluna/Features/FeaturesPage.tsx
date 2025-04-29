@@ -13,6 +13,12 @@ interface FeatureCard {
   text: string;
 }
 
+interface FeaturesPage {
+  features: Record<string, FeatureCard>; 
+  text: string;
+}
+
+
 export default function FeaturesPage() {
   const slug = "ominaisuudet";
 
@@ -49,7 +55,7 @@ export default function FeaturesPage() {
     }
 
     return () => clearTimeout(timer);
-  }, [slug, isAllLoading, isAllFetching, isSingleLoading, isSingleFetching]);
+  }, [isAllLoading, isAllFetching, isSingleLoading, isSingleFetching]);
 
   if (showLoader) {
     return (
@@ -63,7 +69,7 @@ export default function FeaturesPage() {
 
   if (!post) {
     return (
-      <section className="features" style={{minHeight:"100vh"}}>
+      <section className="features" style={{ minHeight: "100vh" }}>
         <div className="wrapper">
           <Title>Ominaisuudet</Title>
           <p>Postia ei löytynyt.</p>
@@ -78,7 +84,9 @@ export default function FeaturesPage() {
     <section className="features">
       <div className="wrapper">
         <Title>Ominaisuudet</Title>
-
+        <div className="features__text">
+          <p>{post?.acf?.text}</p>
+        </div>
         <ul className="features__cardlist">
           {cards.map((card, index) => (
             <li key={index} className="features__cardlist-item">
@@ -88,12 +96,8 @@ export default function FeaturesPage() {
                 className="features__cardlist-item-image"
                 loading="lazy"
               />
-              <h3 className="features__cardlist-item-title">
-                {card.title}
-              </h3>
-              <p className="features__cardlist-item-text">
-                {card.text}
-              </p>
+              <h3 className="features__cardlist-item-title">{card.title}</h3>
+              <p className="features__cardlist-item-text">{card.text}</p>
             </li>
           ))}
         </ul>

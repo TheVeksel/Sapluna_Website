@@ -1,7 +1,24 @@
 .features {
   padding-top: 120px;
-  height: 100vh;
 
+  &__text {
+    padding: 20px 20px;
+    background-color: #f9f9f9;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    font-size: 1.5rem;
+    p {
+      font-weight: 700;
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+      line-height: 1.5;
+      color: #555;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
   &__cardlist {
     display: flex;
     flex-wrap: wrap;

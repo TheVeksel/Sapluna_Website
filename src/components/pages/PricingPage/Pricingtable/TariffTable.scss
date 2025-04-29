@@ -1,0 +1,153 @@
+.tariff-table-container {
+  padding: 0.1rem;
+  padding-top: 100px;
+}
+
+.tariff-table-wrapper {
+  overflow-x: auto;
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: #fc8437;
+    border-radius: 3px;
+  }
+}
+
+.tariff-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  
+  th, td {
+    padding: 1.25rem 1rem;
+    text-align: center;
+    vertical-align: middle;
+    border-bottom: 1px solid rgba(0,0,0,0.03);
+  }
+
+  th {
+    background-color: #fc8437;
+    color: white;
+    font-weight: 600;
+    font-size: 1.2rem;
+    
+    &.feature-column {
+      text-align: left;
+      width: 40%;
+      padding-left: 2rem;
+    }
+  }
+
+  .group-row {
+    td {
+      background-color: rgba(252, 132, 55, 0.08);
+      font-weight: 900;
+      text-align: left;
+      color: #fc8437;
+      font-size: 1.3rem;
+      padding-left: 2rem;
+      border-bottom: 1px solid rgba(252, 132, 55, 0.1);
+    }
+  }
+
+  .feature-row {
+    transition: background-color 0.2s ease;
+    
+    &:hover {
+      background-color: rgba(252, 132, 55, 0.03);
+    }
+      &:hover {
+        background-color: rgba(252, 132, 55, 0.03);
+      }
+    }
+  }
+
+  .feature-name {
+    text-align: left;
+    padding-left: 2rem;
+    color: #333;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  .check {
+    color: #fc8437;
+    font-weight: bold;
+    font-size: 1.2rem;
+    position: relative;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background-color: rgba(252, 132, 55, 0.1);
+      z-index: 0;
+    }
+  }
+
+  .cross {
+    color: rgba(0,0,0,0.2);
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+
+.loading-spinner {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(252, 132, 55, 0.2);
+  border-radius: 50%;
+  border-top-color: #fc8437;
+  animation: spin 1s ease-in-out infinite;
+  margin: 2rem auto;
+  display: block;
+}
+
+.no-data {
+  text-align: center;
+  color: #888;
+  padding: 2rem;
+  font-size: 1.1rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .tariff-table-container {
+    padding: 1rem;
+    padding-top: 60px;
+  }
+  
+  .tariff-table {
+    th, td {
+      padding: 0.9rem 0.7rem;
+    }
+    
+    .feature-name, 
+    .group-row td {
+      padding-left: 1.2rem;
+    }
+  }
+}
