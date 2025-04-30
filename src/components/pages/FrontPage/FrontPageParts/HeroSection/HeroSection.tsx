@@ -20,8 +20,7 @@ export default function HeroSection() {
         <div className="hero-section__divider"></div>
 
         <p className="hero-section__text-block">
-          Sapluna on SaaS-ohjelmisto, jolla rakennetaan projektimalleja ja
-          hallinnoidaan projektien toteutusta
+        Sapluna on ohjelmisto, jolla rakennat projektimallit ja hallitset toteutuksen systemaattisesti.
         </p>
       </div>
       <div className="button__box">

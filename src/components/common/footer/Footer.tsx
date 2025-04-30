@@ -18,7 +18,7 @@ export default function Footer() {
           <div className="footer__content-logo">
             <Logo logocolor="orange" />
           </div>
-          <p>Sapluna systems Oy</p>
+          <p>Sapluna Systems Oy</p>
           <p>Y-Tunnus 3495688-7</p>
           <div className="footer__adress">{contactInfo?.address}</div>
           <a href={`tel:${contactInfo?.phone_number}`}>
