@@ -64,7 +64,7 @@ export default function FeaturesPage() {
 
   if (!post) {
     return (
-      <section className="features" style={{minHeight:"100vh"}}>
+      <section className="features" style={{ minHeight: "100vh" }}>
         <div className="wrapper">
           <Title>Ominaisuudet</Title>
           <p>Postia ei löytynyt.</p>
@@ -73,31 +73,37 @@ export default function FeaturesPage() {
     );
   }
 
-  const cards: FeatureCard[] = Object.values(post?.acf?.features || {});
+  const cards: FeatureCard[] = post?.acf?.features
+    ? Object.values(post.acf.features) as FeatureCard[]
+    : [];
 
   return (
     <section className="features">
       <div className="wrapper">
         <Title>Ominaisuudet</Title>
 
-        <ul className="features__cardlist">
-          {cards.map((card, index) => (
-            <li key={index} className="features__cardlist-item">
-              <img
-                src={card.image}
-                alt={card.title}
-                className="features__cardlist-item-image"
-                loading="lazy"
-              />
-              <h3 className="features__cardlist-item-title">
-                {card.title}
-              </h3>
-              <p className="features__cardlist-item-text">
-                {card.text}
-              </p>
-            </li>
-          ))}
-        </ul>
+        {cards.length > 0 ? (
+          <ul className="features__cardlist">
+            {cards.map((card, index) => (
+              <li key={index} className="features__cardlist-item">
+                <img
+                  src={card.image}
+                  alt={card.title}
+                  className="features__cardlist-item-image"
+                  loading="lazy"
+                />
+                <h3 className="features__cardlist-item-title">
+                  {card.title}
+                </h3>
+                <p className="features__cardlist-item-text">
+                  {card.text}
+                </p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Ominaisuuksia ei löytynyt.</p>
+        )}
       </div>
     </section>
   );

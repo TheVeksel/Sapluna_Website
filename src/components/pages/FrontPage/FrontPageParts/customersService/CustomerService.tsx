@@ -8,25 +8,25 @@ export default function CustomerService() {
     <section className="customerService">
       <div className="wrapper">
         <div className="heading">
-          <Title>Tähän otsikko eri palveluista asiakkaille</Title>
-          <SubTitle>Lorem ipsum dolor sit amet consectetur.</SubTitle>
+          <Title>Ratkaisu tarpeesi mukaan</Title>
+          <SubTitle>Saat meiltä myös palvelua mallien laatimiseen:</SubTitle>
         </div>
         <div className="customerService__cardbox">
           <SolutionsCard
             number={"1."}
-            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+            text="Projektin muotoilupalvelu: Mallinnamme projektisi toteutuksen valmiiksi pohjaksi Saplunaan."
             subpage="palvelut"
             slug="muotoilu"
           ></SolutionsCard>
           <SolutionsCard
             number={"2."}
-            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+            text="Mallituotantovalmennus: Autamme tiimiäsi rakentamaan yhteisen, tehokkaan toimintatavan."
             subpage="palvelut"
             slug="koulutukset"
           ></SolutionsCard>
           <SolutionsCard
             number={"3."}
-            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+            text="Mallituotantovalmennus: Autamme tiimiäsi rakentamaan yhteisen, tehokkaan toimintatavan."
             subpage="palvelut"
             slug="tyopajat"
           ></SolutionsCard>

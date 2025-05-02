@@ -62,11 +62,10 @@ export default function PromotionSection() {
   return (
     <section className="promotion">
       <div className="heading">
-        <Title>Otsikko Saplunasta</Title>
+        <Title>Sapluna: Malli ohjaa - sinä johdat</Title>
       </div>
       <p className="promotion__text">
-        Teksti Saplunasta Lorem ipsum dolor sit, amet consectetur adipisicing
-        elit. Ducimus, voluptates, ipsam nam ex, consequuntur quia laboriosam
+        Esivalmisteltu malli toimii projektin ohjenuorana, jaettuna pieniin, hallittaviin prosesseihin. Se määrittelee, mitä, miten ja milloin tehdään, jotta lopputulos on ennakoitava ja toistettava. Sinä johdat, malli huolehtii rakenteesta.
       </p>
       <div className="promotion__carousel" ref={carouselRef}>
         {images.map((src, index) => (

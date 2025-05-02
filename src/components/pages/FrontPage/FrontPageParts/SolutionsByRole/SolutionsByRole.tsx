@@ -7,8 +7,8 @@ export default function SolutionsByRole() {
     <section className="solutionsrole">
       <div className="wrapper">
         <div className="heading">
-          <Title>Ratkaisut roolien mukaan:</Title>
-          <SubTitle>Lorem ipsum dolor sit amet consectetur.</SubTitle>
+          <Title>Mallit roolien ja tavoitteiden mukaan</Title>
+          <SubTitle>Tapahtumapaikka haluaa palvella ja ohjata tapahtumanjärjestäjää, kun taas järjestäjä haluaa viedä asiat käytäntöön. Omat mallit tulee laatia roolin mukaan, oli kyseessä tapahtuma- tai muu projekti.</SubTitle>
         </div>
         <div className="solutionsrole__cardbox">
           <SolutionsCard

@@ -7,40 +7,40 @@ export default function Benefits() {
     <section className="benifits">
       <div className="wrapper">
         <div className="heading">
-          <H1Title>Mitä hyötyä on mallituotannosta?</H1Title>
+          <H1Title>MITEN MALLITUOTANTO TOIMII?</H1Title>
         </div>
         <div className="benifits__content-wrapper">
           <div className="benifits__content">
             <h2 className="benifits__content-title">
-              Yhteinen tekeminen edellyttää yhteistä ymmärrystä
+              Hallinnoi tietoa ja toimintaa.
             </h2>
             <p className="benifits__content-text">
-              Roolit, päivittäis- ja tilapäistoiminta, prosessi, vastuut ipsum
-              dolor sit amet, consectetur adipiscing elit. Fusce in pharetra
-              sem. Ut hendrerit varius odio aliquet ullamcorper. Nullam lacinia
-              leo risus, quis consectetur sapien accumsan id.
+              Saplunassa projekti koostuu hallinnoitavista kokonaisuuksista – kuten ohjelmahauista, vapaaehtoisten rekrytoinneista, myyntipaikkojen varauksista, kutsuvieraiden tiedoista ja projektin aikataulutuksesta. Asioita on paljon.
             </p>
             <p className="benifits__content-text">
-              Cras ullamcorper, neque et interdum lobortis, risus ex tincidunt
-              risus, vel ornare magna velit sit amet libero. Duis at massa non
-              dolor aliquet placerat nec non ipsum. Vivamus et semper ante. Cras
-              commodo congue ex, id dapibus magna ornare non.
+              Saplunassa ei ainoastaan kerätä tietoa, vaan asiat myös etenevät. Esimerkiksi voit toteuttaa ohjelmahakuja ja ilmoittautumisia, tehdä valinnat, dokumentoida tuotantotiedot, laatia aikataulun ja julkaista sen verkkosivullesi. Tämä on ohjelmaprosessi. Projekti koostuu useista prosesseista, joiden etenemistä hallitaan keskitetysti.
+              Koko projekti voidaan tallentaa malliksi tulevia toteutuksia varten – kaikki on valmiina seuraavassa projektissasi.
+              Näin kattavasti et ole aiemmin pystynyt projektejasi hallinnoimaan. Mieti, mitä prosesseja sinun projekteihisi kuuluu?
             </p>
           </div>
           <div className="benifits__content">
             <h2 className="benifits__content-title">
-              Vakioinnista saatavat hyödyt yms.
+              Mitä hyötyä on mallituotannosta Saplunan avulla?
             </h2>
             <p className="benifits__content-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in
-              pharetra sem. Ut hendrerit varius odio aliquet ullamcorper. Nullam
-              lacinia leo risus, quis consectetur sapien accumsan id.
+              Projektin toteutus on tehokkaampaa ja säästät aikaa
+              Työ ei ole henkilöriippuvaista
+              Uusien ihmisten perehdyttäminen helpottuu ja tiimityö vahvistuu
+              Stressi vähenee, kun tiedät etukäteen oikean toimintatavan
+              Asiakaspalvelu sujuvoituu ja asiakkaan luottamus kasvaa
+              Voit parantaa malleja kokemusten karttuessa ja pyytää näkökulmia
+              Päätät itse, kuka käsittelee projektisi tietoja ja miten
+
             </p>
             <p className="benifits__content-text">
-              Cras ullamcorper, neque et interdum lobortis, risus ex tincidunt
-              risus, vel ornare magna velit sit amet libero. Duis at massa non
-              dolor aliquet placerat nec non ipsum. Vivamus et semper ante. Cras
-              commodo congue ex, id dapibus magna ornare non.
+              Näet reaaliaikaisesti projektin tilanteen ja seuraavat tehtävät
+              Voit osoittaa jälkeenpäin, miten projekti on toteutettu
+              Projektitiedolla on taloudellista ja toiminnallista arvoa, kun se on hyödynnettävissä Ihmiset ja ohjelmistot erillään? Sapluna tuo tiimin ja tiedon sujuvasti yhteen.
             </p>
           </div>
         </div>
