@@ -104,7 +104,6 @@ export default function FeaturesPage() {
             </li>
           ))}
         </ul>
->>>>>>> e3351d6edfdfd28c4433836342a68174c5a7cd65
       </div>
     </section>
   );
