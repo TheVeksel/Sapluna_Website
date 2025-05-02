@@ -1,4 +1,3 @@
-import { useParams } from "react-router-dom";
 import "./FeaturesPage.scss";
 import Title from "../../../common/title/Title";
 import {
@@ -14,8 +13,14 @@ interface FeatureCard {
   text: string;
 }
 
+interface FeaturesPage {
+  features: Record<string, FeatureCard>; 
+  text: string;
+}
+
+
 export default function FeaturesPage() {
-  const { slug } = useParams<{ slug: string }>();
+  const slug = "ominaisuudet";
 
   const {
     data: postFromAll,
@@ -50,7 +55,7 @@ export default function FeaturesPage() {
     }
 
     return () => clearTimeout(timer);
-  }, [slug, isAllLoading, isAllFetching, isSingleLoading, isSingleFetching]);
+  }, [isAllLoading, isAllFetching, isSingleLoading, isSingleFetching]);
 
   if (showLoader) {
     return (
@@ -82,28 +87,24 @@ export default function FeaturesPage() {
       <div className="wrapper">
         <Title>Ominaisuudet</Title>
 
-        {cards.length > 0 ? (
-          <ul className="features__cardlist">
-            {cards.map((card, index) => (
-              <li key={index} className="features__cardlist-item">
-                <img
-                  src={card.image}
-                  alt={card.title}
-                  className="features__cardlist-item-image"
-                  loading="lazy"
-                />
-                <h3 className="features__cardlist-item-title">
-                  {card.title}
-                </h3>
-                <p className="features__cardlist-item-text">
-                  {card.text}
-                </p>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>Ominaisuuksia ei löytynyt.</p>
-        )}
+        <div className="features__text">
+          <p>{post?.acf?.text}</p>
+        </div>
+        <ul className="features__cardlist">
+          {cards.map((card, index) => (
+            <li key={index} className="features__cardlist-item">
+              <img
+                src={card.image}
+                alt={card.title}
+                className="features__cardlist-item-image"
+                loading="lazy"
+              />
+              <h3 className="features__cardlist-item-title">{card.title}</h3>
+              <p className="features__cardlist-item-text">{card.text}</p>
+            </li>
+          ))}
+        </ul>
+>>>>>>> e3351d6edfdfd28c4433836342a68174c5a7cd65
       </div>
     </section>
   );
