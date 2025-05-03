@@ -73,7 +73,7 @@ const {
         <div className="solutions__button-container">
           <Button color="#fc8437">Varaa esittely</Button>
         </div>
-        <HistorySection />
+        <HistorySection slug={slug}/>
       </div>
       <Form />
     </section>
