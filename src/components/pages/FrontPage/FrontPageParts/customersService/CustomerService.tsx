@@ -14,13 +14,13 @@ export default function CustomerService() {
         <div className="customerService__cardbox">
           <SolutionsCard
             number={"1."}
-            text="Projektin muotoilupalvelu: Mallinnamme projektisi toteutuksen valmiiksi pohjaksi Saplunaan."
+            text="Sapluna-lisenssi: Laadi itse projektimalleja – rajattomasti. "
             subpage="palvelut"
             slug="muotoilu"
           ></SolutionsCard>
           <SolutionsCard
             number={"2."}
-            text="Mallituotantovalmennus: Autamme tiimiäsi rakentamaan yhteisen, tehokkaan toimintatavan."
+            text="Projektin muotoilupalvelu: Mallinnamme projektisi toteutuksen valmiiksi pohjaksi Saplunaan."
             subpage="palvelut"
             slug="koulutukset"
           ></SolutionsCard>

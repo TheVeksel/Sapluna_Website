@@ -27,21 +27,19 @@ export default function Benefits() {
             <h2 className="benifits__content-title">
               Mitä hyötyä on mallituotannosta Saplunan avulla?
             </h2>
-            <p className="benifits__content-text">
-              Projektin toteutus on tehokkaampaa ja säästät aikaa
-              Työ ei ole henkilöriippuvaista
-              Uusien ihmisten perehdyttäminen helpottuu ja tiimityö vahvistuu
-              Stressi vähenee, kun tiedät etukäteen oikean toimintatavan
-              Asiakaspalvelu sujuvoituu ja asiakkaan luottamus kasvaa
-              Voit parantaa malleja kokemusten karttuessa ja pyytää näkökulmia
-              Päätät itse, kuka käsittelee projektisi tietoja ja miten
-
-            </p>
-            <p className="benifits__content-text">
-              Näet reaaliaikaisesti projektin tilanteen ja seuraavat tehtävät
-              Voit osoittaa jälkeenpäin, miten projekti on toteutettu
-              Projektitiedolla on taloudellista ja toiminnallista arvoa, kun se on hyödynnettävissä Ihmiset ja ohjelmistot erillään? Sapluna tuo tiimin ja tiedon sujuvasti yhteen.
-            </p>
+            <ul>
+              <li className="benifits__content-text">Projektin toteutus on tehokkaampaa ja säästät aikaa</li>
+              <li className="benifits__content-text">Työ ei ole henkilöriippuvaista</li>
+              <li className="benifits__content-text">Uusien ihmisten perehdyttäminen helpottuu ja tiimityö vahvistuu</li>
+              <li className="benifits__content-text">Stressi vähenee, kun tiedät etukäteen oikean toimintatavan</li>
+              <li className="benifits__content-text">Asiakaspalvelu sujuvoituu ja asiakkaan luottamus kasvaa</li>
+              <li className="benifits__content-text">Voit parantaa malleja kokemusten karttuessa ja pyytää näkökulmia</li>
+              <li className="benifits__content-text">Päätät itse, kuka käsittelee projektisi tietoja ja miten</li>
+              <li className="benifits__content-text">Näet reaaliaikaisesti projektin tilanteen ja seuraavat tehtävät</li>
+              <li className="benifits__content-text">Voit osoittaa jälkeenpäin, miten projekti on toteutettu</li>
+              <li className="benifits__content-text">Projektitiedolla on taloudellista ja toiminnallista arvoa, kun se on hyödynnettävissä</li>
+              <p className="benifits__content-text-p">Ihmiset ja ohjelmistot erillään? Sapluna tuo tiimin ja tiedon sujuvasti yhteen.</p>
+            </ul>
           </div>
         </div>
         <Button color="#fc8437">Varaa esittely</Button>
