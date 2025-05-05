@@ -1,10 +1,10 @@
 import { useGetContactsQuery } from "../../../api/endpoints/contacts";
 import "./footer.scss";
-import Button from "../button";
 import Logo from "../logo/Logo";
 import Navigation from "../navigation/Navigation";
 import Socials from "../socials/socials";
 import LocalLoader from "../LocalLoader";
+import BoockButton from "../buttons/boockButton";
 
 export default function Footer() {
   const { data, isLoading } = useGetContactsQuery();
@@ -24,14 +24,16 @@ export default function Footer() {
           <a href={`tel:${contactInfo?.phone_number}`}>
             {contactInfo?.phone_number}
           </a>
-          <a href={`mailto:${contactInfo?.emails.contact_email}`}>{contactInfo?.emails.contact_email}</a>
+          <a href={`mailto:${contactInfo?.emails.contact_email}`}>
+            {contactInfo?.emails.contact_email}
+          </a>
           <Socials />
         </div>
         <div className="footer__nav">
           <Navigation />
         </div>
         <div className="more__info">
-          <Button color="#fc8437">Varaa esittely ➜</Button>
+          <BoockButton color="#fc8437">Varaa esittely ➜</BoockButton>
           {/* <Button color="#fc8437">Lataa demo ➜</Button> */}
         </div>
       </div>

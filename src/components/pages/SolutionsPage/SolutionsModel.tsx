@@ -1,17 +1,25 @@
 import "./SolutionsModel.scss";
 import Title from "../../common/title/Title";
-import Button from "../../common/button";
+import Button from "../../common/buttons/button";
 import { useGetAllPostsQuery, useGetPostBySlugQuery } from "../../../api/wpApi";
 import { useParams } from "react-router-dom";
 import Loader from "../../common/Loader";
 import { useState, useEffect } from "react";
-import Form from "../../common/form/Form";
+// import Form from "../../common/form/Form";
 import HistorySection from "../../common/HistorySection/HistorySection";
 
 export default function SolutionsTemplate() {
   const { slug } = useParams<{ slug: string }>();
-  const { data: allPosts, isLoading: isAllLoading, isFetching: isAllFetching } = useGetAllPostsQuery();
-  const { data: singlePostData, isLoading: isSingleLoading, isFetching: isSingleFetching } = useGetPostBySlugQuery(slug || "", {
+  const {
+    data: allPosts,
+    isLoading: isAllLoading,
+    isFetching: isAllFetching,
+  } = useGetAllPostsQuery();
+  const {
+    data: singlePostData,
+    isLoading: isSingleLoading,
+    isFetching: isSingleFetching,
+  } = useGetPostBySlugQuery(slug || "", {
     skip: !!allPosts?.find((post) => post.slug === slug),
   });
   const [showLoader, setShowLoader] = useState(true);
@@ -21,7 +29,8 @@ export default function SolutionsTemplate() {
 
     setShowLoader(true);
 
-    const isLoading = isAllLoading || isAllFetching || isSingleLoading || isSingleFetching;
+    const isLoading =
+      isAllLoading || isAllFetching || isSingleLoading || isSingleFetching;
     if (isLoading) {
       // Waiting
     } else {
@@ -31,7 +40,7 @@ export default function SolutionsTemplate() {
     return () => {
       if (timer) clearTimeout(timer);
     };
-  }, [slug, isAllLoading, isAllFetching, isSingleLoading, isSingleFetching]); 
+  }, [slug, isAllLoading, isAllFetching, isSingleLoading, isSingleFetching]);
   if (!slug) return <p>No slug provided</p>;
   if (showLoader) {
     return (
@@ -41,18 +50,19 @@ export default function SolutionsTemplate() {
     );
   }
 
-  const post = allPosts?.find((post) => post.slug === slug) || singlePostData?.[0];
+  const post =
+    allPosts?.find((post) => post.slug === slug) || singlePostData?.[0];
   if (!post) return <p>Post not found</p>;
 
   const acfData = post.acf?.[slug];
-const {
-  title_1,
-  title_2,
-  text_1,
-  ["text_1-2"]: text_1_2,
-  text_2,
-  ["text_2-2"]: text_2_2,
-} = acfData?.main_titles || {};
+  const {
+    title_1,
+    title_2,
+    text_1,
+    ["text_1-2"]: text_1_2,
+    text_2,
+    ["text_2-2"]: text_2_2,
+  } = acfData?.main_titles || {};
 
   return (
     <section className="solutions">
@@ -73,9 +83,9 @@ const {
         <div className="solutions__button-container">
           <Button color="#fc8437">Varaa esittely</Button>
         </div>
-        <HistorySection slug={slug}/>
+        <HistorySection slug={slug} />
       </div>
-      <Form />
+      {/* <Form /> */}
     </section>
   );
 }

@@ -1,4 +1,4 @@
-import Button from "../../../../common/button";
+import BoockButton from "../../../../common/buttons/boockButton";
 import "./HeroSection.scss";
 
 export default function HeroSection() {
@@ -18,13 +18,13 @@ export default function HeroSection() {
           määritellyn mallin mukaisesti
         </p>
         <div className="hero-section__divider"></div>
-
         <p className="hero-section__text-block">
-        Sapluna on ohjelmisto, jolla rakennat projektimallit ja hallitset toteutuksen systemaattisesti.
+          Sapluna on ohjelmisto, jolla rakennat projektimallit ja hallitset
+          toteutuksen systemaattisesti.
         </p>
       </div>
       <div className="button__box">
-        <Button>Varaa esittely</Button>
+      <BoockButton>Varaa esittely</BoockButton>
         {/* <Button>Tai tilaa demo</Button> */}
       </div>
     </section>

@@ -1,5 +1,5 @@
 import "./DemoCTA.scss";
-import Button from "../../../../common/button";
+import BoockButton from "../../../../common/buttons/boockButton";
 
 export default function DemoCTA() {
   return (
@@ -8,7 +8,7 @@ export default function DemoCTA() {
         Haluatko tutustua Saplunaan tarkemmin?
       </h3>
       <h1 className="democta__title">Varaa esittely:</h1>
-      <Button color="#FFC59F">Varaa esittely</Button>
+      <BoockButton>Varaa esittely</BoockButton>
     </section>
   );
 }

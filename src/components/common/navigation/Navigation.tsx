@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Button from "../button";
+import Button from "../buttons/button";
 
 interface NavigationProps {
   onClose?: () => void;
@@ -127,8 +127,8 @@ export default function Navigation({ onClose }: NavigationProps) {
               </Link>
             </li>
             <li>
-              <Link to="/palvelut/tyopajat" onClick={handleLinkClick}>
-                Työpajat
+              <Link to="/palvelut/valmennukset" onClick={handleLinkClick}>
+                Valmennukset
               </Link>
             </li>
           </ul>

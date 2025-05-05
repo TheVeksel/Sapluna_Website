@@ -31,7 +31,7 @@ export default function PricingPage() {
   const tableRef = useRef<HTMLDivElement>(null);
   const closeFirstRef = useRef<HTMLButtonElement>(null);
   const closeSecondRef = useRef<HTMLButtonElement>(null);
-
+  
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => setArePlansVisible(entry.isIntersecting),

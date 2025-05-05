@@ -15,8 +15,8 @@ export default function CustomerService() {
           <SolutionsCard
             number={"1."}
             text="Sapluna-lisenssi: Laadi itse projektimalleja – rajattomasti. "
-            subpage="palvelut"
-            slug="muotoilu"
+            subpage="hinnoittelu"
+            slug=""
           ></SolutionsCard>
           <SolutionsCard
             number={"2."}

@@ -6,12 +6,12 @@ interface CardProps {
   title?: string;
   text: string;
   subpage: string;
-  slug: string;
+  slug?: string;
 }
 
 export default function SolutionsCard({ number, title, text, subpage, slug }: CardProps) {
   return (
-    <Link to={`/${subpage}/${slug}`} className="solutionscard">
+    <Link to={slug ? `/${subpage}/${slug}` : `/${subpage}`} className="solutionscard">
       <span className="solutionscard__number">{number}</span>
       <div className="solutionscard__info">
         <img className="solutionscard__info-icon" src="/img/icons/ticket.png" alt="img" />
