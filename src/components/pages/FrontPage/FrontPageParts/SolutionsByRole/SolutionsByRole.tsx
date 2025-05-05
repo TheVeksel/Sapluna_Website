@@ -16,7 +16,7 @@ export default function SolutionsByRole() {
             title="Tapahtuman omistaja:"
             text="Kun tilaat tapahtumien tuotantoa"
             subpage="ratkaisut"
-            slug="tapahtumapaikka"
+            slug="omistaja"
           />
           <SolutionsCard
             number={"2."}
@@ -30,14 +30,14 @@ export default function SolutionsByRole() {
             title="Tapahtumapaikka:"
             text="Kun paikassasi järjestetään tapahtumia"
             subpage="ratkaisut"
-            slug="omistaja"
+            slug="tapahtumapaikka"
           />
           <SolutionsCard
             number={"4."}
             title="Palvelujen tuottaja:"
             text="Kun toimitat palvelua tapahtuman järjestäjälle"
             subpage="ratkaisut"
-            slug="toimittaja"
+            slug="tuottaja"
           />
         </div>
       </div>
