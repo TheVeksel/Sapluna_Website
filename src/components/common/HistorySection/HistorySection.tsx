@@ -14,7 +14,6 @@ export default function HistorySection({ slug }: HistorySectionProps) {
   const historyInfo = historyPost?.acf?.sapluna_history;
 
   const { history_image, history_title, history_text } = historyInfo || {};
-console.log(history_image)
   return (
     <div className="solutions__about-container">
       <div className="solutions__about-image">

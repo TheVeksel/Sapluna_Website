@@ -1,14 +1,13 @@
-import "./SolutionsModel.scss";
+import "./ServicesModel.scss";
 import Title from "../../common/title/Title";
 import { useGetAllPostsQuery, useGetPostBySlugQuery } from "../../../api/wpApi";
 import { useParams } from "react-router-dom";
 import Loader from "../../common/Loader";
 import { useState, useEffect } from "react";
-// import Form from "../../common/form/Form";
 import HistorySection from "../../common/HistorySection/HistorySection";
 import BoockButton from "../../common/buttons/boockButton";
 
-export default function SolutionsTemplate() {
+export default function ServicesModel() {
   const { slug } = useParams<{ slug: string }>();
   const {
     data: allPosts,
@@ -66,6 +65,7 @@ const titleOfPage = post.acf?.title_of_page || "No title";
     text_2,
     ["text_2-2"]: text_2_2,
   } = acfData?.main_titles || {};
+
   return (
     <section className="solutions">
       <div className="wrapper">
@@ -89,7 +89,6 @@ const titleOfPage = post.acf?.title_of_page || "No title";
         </div>
         <HistorySection slug={slug} />
       </div>
-      {/* <Form /> */}
     </section>
   );
 }

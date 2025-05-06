@@ -15,6 +15,7 @@ import SolutionsModel from "./components/pages/SolutionsPage/SolutionsModel";
 import ProductModel from "./components/pages/InfoAboutSapluna/ProductModel";
 import FeaturesPage from "./components/pages/InfoAboutSapluna/Features/FeaturesPage";
 import BoockingPopup from "./components/common/boockingPopup/boockingPopup";
+import ServicesModel from "./components/pages/Services/ServicesModel";
 
 export default function App() {
   return (
@@ -32,15 +33,7 @@ export default function App() {
             <Route path="/tuote/:slug" element={<ProductModel />} />
             <Route path="/tuote/ominaisuudet" element={<FeaturesPage />} />
             {/* Palvelut */}
-            <Route path="/palvelut/muotoilu" element={<UnderDevelopment />} />
-            <Route
-              path="/palvelut/koulutukset"
-              element={<UnderDevelopment />}
-            />
-            <Route
-              path="/palvelut/Valmennukset"
-              element={<UnderDevelopment />}
-            />
+            <Route path="/palvelut/:slug" element={<ServicesModel />} />
             {/* Ajankohtaista */}
             <Route path="/ajankohtaista/blogi" element={<UnderDevelopment />} />
             <Route

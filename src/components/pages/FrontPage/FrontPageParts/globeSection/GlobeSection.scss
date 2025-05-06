@@ -1,7 +1,7 @@
 .globe {
   margin-bottom: 80px;
   &__title {
-    font-size: 32px;
+    font-size: 52px;
     font-weight: 700;
     margin-bottom: 40px;
   }
@@ -11,12 +11,18 @@
     flex-wrap: wrap;
     gap: 20px; 
     justify-content: center;
+    margin-bottom: 30px;
 
     & > * {
       width: calc(33.333% - 20px); 
     }
   }
-
+  &__buttonbox {
+    text-align: center;
+    button {
+      font-size: 30px;
+    }
+  }
   @media (max-width: 1000px) {
     &__list {
       & > * {
@@ -52,13 +58,13 @@
     transition: box-shadow 0.15s; 
   }
 
-  &__img {
+  &__image {
     align-self: center;
     margin-bottom: 20px;
 
     img {
       max-width: 100%;
-      border-radius: 8px; 
+      border-radius: 8px;
     }
   }
 

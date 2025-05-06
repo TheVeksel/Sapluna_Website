@@ -4,18 +4,18 @@ interface GlobeCardProps {
   text: string;
 }
 
-export default function GlobeCard({ title, text }: GlobeCardProps) {
+interface GlobeCardProps {
+  title: string;
+  text: string;
+  image?: string;
+}
+
+export default function GlobeCard({ title, text, image }: GlobeCardProps) {
   return (
     <li className="globecard">
-      <div className="globecard__img">
-        <img src="img/photos/Globe.png" alt="img" />
-      </div>
-      <h3 className="globecard__title">
-        {title}
-      </h3>
-      <p className="globecard__text">
-        {text}
-      </p>
+      {image && <img src={image} alt={title} className="globecard__image" />}
+      <h3 className="globecard__title">{title}</h3>
+      <p className="globecard__text">{text}</p>
     </li>
-  )
+  );
 }

@@ -3,11 +3,41 @@ import Title from "../../../../common/title/Title";
 import { useRef, useEffect, useState } from "react";
 
 const originalImages = [
-  "img/photos/team.png",
-  "img/photos/työskentelytilaa.png",
-  "img/photos/team.png",
-  "img/photos/työskentelytilaa.png",
-  "img/photos/team.png"
+  "/img/photos/carousel/Dia1.JPG",
+  "/img/photos/carousel/Dia2.JPG",
+  "/img/photos/carousel/Dia3.JPG",
+  "/img/photos/carousel/Dia4.JPG",
+  "/img/photos/carousel/Dia5.JPG",
+  "/img/photos/carousel/Dia6.JPG",
+  "/img/photos/carousel/Dia7.JPG",
+  "/img/photos/carousel/Dia8.JPG",
+  "/img/photos/carousel/Dia9.JPG",
+  "/img/photos/carousel/Dia10.JPG",
+  "/img/photos/carousel/Dia11.JPG",
+  "/img/photos/carousel/Dia12.JPG",
+  "/img/photos/carousel/Dia13.JPG",
+  "/img/photos/carousel/Dia14.JPG",
+  "/img/photos/carousel/Dia15.JPG",
+  "/img/photos/carousel/Dia16.JPG",
+  "/img/photos/carousel/Dia17.JPG",
+  "/img/photos/carousel/Dia1.JPG",
+  "/img/photos/carousel/Dia2.JPG",
+  "/img/photos/carousel/Dia3.JPG",
+  "/img/photos/carousel/Dia4.JPG",
+  "/img/photos/carousel/Dia5.JPG",
+  "/img/photos/carousel/Dia6.JPG",
+  "/img/photos/carousel/Dia7.JPG",
+  "/img/photos/carousel/Dia8.JPG",
+  "/img/photos/carousel/Dia9.JPG",
+  "/img/photos/carousel/Dia10.JPG",
+  "/img/photos/carousel/Dia11.JPG",
+  "/img/photos/carousel/Dia12.JPG",
+  "/img/photos/carousel/Dia13.JPG",
+  "/img/photos/carousel/Dia14.JPG",
+  "/img/photos/carousel/Dia15.JPG",
+  "/img/photos/carousel/Dia16.JPG",
+  "/img/photos/carousel/Dia17.JPG",
+  "/img/photos/carousel/Dia1.JPG",
 ];
 
 const images = [
@@ -23,7 +53,7 @@ export default function PromotionSection() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex(prev => prev + 1);
-    }, 2650);
+    }, 2950);
 
     return () => clearInterval(interval);
   }, []);
