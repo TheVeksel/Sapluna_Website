@@ -43,7 +43,7 @@ const originalImages = [
 const images = [
   originalImages[originalImages.length - 1],
   ...originalImages,
-  originalImages[0]
+  originalImages[0],
 ];
 
 export default function PromotionSection() {
@@ -52,7 +52,7 @@ export default function PromotionSection() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex(prev => prev + 1);
+      setCurrentIndex((prev) => prev + 1);
     }, 2950);
 
     return () => clearInterval(interval);
@@ -68,11 +68,12 @@ export default function PromotionSection() {
 
     const containerWidth = el.getBoundingClientRect().width;
     const itemWidth = currentItem.getBoundingClientRect().width;
-    const scrollLeft = currentItem.offsetLeft - (containerWidth - itemWidth) / 2;
+    const scrollLeft =
+      currentItem.offsetLeft - (containerWidth - itemWidth) / 2;
 
     el.scrollTo({
       left: scrollLeft,
-      behavior: "smooth"
+      behavior: "smooth",
     });
 
     if (currentIndex === images.length - 1) {
@@ -81,7 +82,8 @@ export default function PromotionSection() {
         const firstItem = items[1];
         const containerWidth = el.getBoundingClientRect().width;
         const itemWidth = firstItem.getBoundingClientRect().width;
-        const scrollLeft = firstItem.offsetLeft - (containerWidth - itemWidth) / 2;
+        const scrollLeft =
+          firstItem.offsetLeft - (containerWidth - itemWidth) / 2;
 
         el.scrollTo({ left: scrollLeft, behavior: "auto" });
         setCurrentIndex(1);
@@ -95,7 +97,15 @@ export default function PromotionSection() {
         <Title>Sapluna: Malli ohjaa - sinä johdat</Title>
       </div>
       <p className="promotion__text">
-        Esivalmisteltu malli toimii projektin ohjenuorana, jaettuna pieniin, hallittaviin prosesseihin. Se määrittelee, mitä, miten ja milloin tehdään, jotta lopputulos on ennakoitava ja toistettava. Sinä johdat, malli huolehtii rakenteesta.
+        <strong>
+          Esivalmisteltu malli toimii projektin ohjenuorana – jaettuna pieniin,
+          hallittaviin prosesseihin.
+        </strong>
+        <br />
+        Se määrittelee, mitä tehdään, miten toimitaan ja milloin edetään, jotta
+        lopputulos on ennakoitava ja toistettavissa.
+        <br />
+        <strong>Sinä johdat – malli huolehtii rakenteesta.</strong>
       </p>
       <div className="promotion__carousel" ref={carouselRef}>
         {images.map((src, index) => (

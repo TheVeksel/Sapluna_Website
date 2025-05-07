@@ -8,7 +8,7 @@ export default function CustomerService() {
     <section className="customerService">
       <div className="wrapper">
         <div className="heading">
-          <Title>Ratkaisu tarpeesi mukaan</Title>
+          <Title>Palvelu tarpeesi mukaan</Title>
           <SubTitle>Saat meiltä myös palvelua mallien laatimiseen:</SubTitle>
         </div>
         <div className="customerService__cardbox">
@@ -22,13 +22,13 @@ export default function CustomerService() {
             number={"2."}
             text="Projektin muotoilupalvelu: Mallinnamme projektisi toteutuksen valmiiksi pohjaksi Saplunaan."
             subpage="palvelut"
-            slug="koulutukset"
+            slug="muotoilu"
           ></SolutionsCard>
           <SolutionsCard
             number={"3."}
             text="Mallituotantovalmennus: Autamme tiimiäsi rakentamaan yhteisen, tehokkaan toimintatavan."
             subpage="palvelut"
-            slug="tyopajat"
+            slug="valmennukset"
           ></SolutionsCard>
         </div>
       </div>

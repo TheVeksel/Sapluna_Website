@@ -5,7 +5,10 @@
     font-weight: 700;
     margin-bottom: 40px;
   }
-
+  &__link {
+    margin: 0 auto;
+    max-width: 400px;
+  }
   &__list {
     display: flex;
     flex-wrap: wrap;
@@ -19,8 +22,9 @@
   }
   &__buttonbox {
     text-align: center;
+    margin: 0 auto;
     button {
-      font-size: 30px;
+      font-size: 18px;
     }
   }
   @media (max-width: 1000px) {

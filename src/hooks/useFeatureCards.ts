@@ -51,6 +51,6 @@ export const useFeaturesCards = () => {
 
   return {
     cards,
-    isLoading: showLoader, // Используем showLoader вместо прямой проверки
+    isLoading: showLoader, 
   };
 };

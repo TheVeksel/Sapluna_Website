@@ -9,17 +9,15 @@ export default function GlobeSection() {
   const { cards, isLoading } = useFeaturesCards();
 
   if (isLoading) {
-    return <LocalLoader/>
+    return <LocalLoader />;
   }
 
-  const firstSixCards = cards.slice(0, 6); 
+  const firstSixCards = cards.slice(0, 6);
 
   return (
     <section className="globe">
       <div className="wrapper">
-        <h2 className="globe__title">
-        Monipuoliset ominaisuudet
-        </h2>
+        <h2 className="globe__title">Monipuoliset ominaisuudet</h2>
         <ul className="globe__list">
           {firstSixCards.map((card, index) => (
             <GlobeCard
@@ -30,7 +28,13 @@ export default function GlobeSection() {
             />
           ))}
         </ul>
-        <Link to="/tuote/ominaisuudet"><div className="globe__buttonbox"><Button color="#fc8437">Katso ne kaikki</Button></div></Link>
+        <div className="globe__link">
+          <Link to="/tuote/ominaisuudet">
+            <div className="globe__buttonbox">
+              <Button color="#fc8437">Katso lisää ominaisuuksia</Button>
+            </div>
+          </Link>
+        </div>
       </div>
     </section>
   );
