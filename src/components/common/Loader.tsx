@@ -1,4 +1,21 @@
+import { useEffect } from "react";
+
 export default function Loader() {
+  useEffect(() => {
+    // Disable scroll on both <body> and <html>
+    const originalBodyOverflow = document.body.style.overflow;
+    const originalHtmlOverflow = document.documentElement.style.overflow;
+
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+
+    // Re-enable scroll when loader unmounts
+    return () => {
+      document.body.style.overflow = originalBodyOverflow;
+      document.documentElement.style.overflow = originalHtmlOverflow;
+    };
+  }, []);
+
   return (
     <div
       style={{
@@ -7,11 +24,12 @@ export default function Loader() {
         justifyContent: "center",
         background: "rgba(255, 255, 255, 0.5)",
         width: "100%",
-        height: "100vh", 
-        position: "fixed", 
+        height: "100vh",
+        position: "fixed",
         top: 0,
         left: 0,
-        zIndex: 1000, 
+        zIndex: 1000,
+        overflow: "hidden",
       }}
     >
       <div

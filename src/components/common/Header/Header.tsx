@@ -38,7 +38,10 @@ export default function Header() {
         <div className="header__nav-buttons">
           <Button color="transparent">
             <a style={{ color: "white" }} href="https://app.sapluna.com/">
-              Log in
+              <div className="header__nav-buttons-login">
+                <p>Log in</p>
+                <img src="/img/icons/account-icon.png" alt="img" />
+              </div>
             </a>
           </Button>
           {/* <Button>Tilaa demo</Button> */}

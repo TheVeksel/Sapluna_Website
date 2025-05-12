@@ -87,6 +87,14 @@
     button:first-child {
       padding: 5px 20px;
     }
+
+    &-login {
+      display: flex;
+      gap: 10px;
+      img {
+        max-width: 20px;
+      }
+    }
   }
 
 

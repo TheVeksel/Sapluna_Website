@@ -72,23 +72,29 @@ const titleOfPage = post.acf?.title_of_page || "No title";
         <Title>{titleOfPage}</Title>
         <div className="solutions__container">
           <div className="solutions__item">
-              <h3>{title_1}</h3>
-              <p className="solutions__item-big">{text_1}</p>
-              <h3>{title_1_2}</h3>
-              <p>{text_1_2}</p>
-            </div>
-            <div className="solutions__item">
-              <h3>{title_2}</h3>
-              <p className="solutions__item-big">{text_2}</p>
-              <h3>{title_2_2}</h3>
-              <p>{text_2_2}</p>
-            </div>
+            <h3>{title_1}</h3>
+            <p className="solutions__item-big">{text_1}</p>
+  
+            {title_1_2 && <h3>{title_1_2}</h3>}
+            {text_1_2 && <p>{text_1_2}</p>}
           </div>
+  
+          <div className="solutions__item">
+            <h3>{title_2}</h3>
+            <p className="solutions__item-big">{text_2}</p>
+  
+            {title_2_2 && <h3>{title_2_2}</h3>}
+            {text_2_2 && <p>{text_2_2}</p>}
+          </div>
+        </div>
+  
         <div className="solutions__button-container">
           <BoockButton color="#fc8437">Varaa esittely</BoockButton>
         </div>
+  
         <HistorySection slug={slug} />
       </div>
     </section>
   );
+  
 }

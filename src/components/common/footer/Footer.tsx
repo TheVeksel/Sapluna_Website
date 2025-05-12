@@ -5,6 +5,7 @@ import Navigation from "../navigation/Navigation";
 import Socials from "../socials/socials";
 import LocalLoader from "../LocalLoader";
 import BoockButton from "../buttons/boockButton";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   const { data, isLoading } = useGetContactsQuery();
@@ -43,7 +44,7 @@ export default function Footer() {
         <img src="/img/photos/image7.png" alt="img" />
       </div> */}
       <div className="footer__underline">
-        <p>tietosuojaseloste</p>
+        <Link to="/tietosuojaseloste"><p>Tietosuojaseloste</p></Link>
         <p className="footer__underline-year">(c) Sapluna 2024</p>
       </div>
     </footer>

@@ -9,7 +9,7 @@ import PromotionSection from "./FrontPageParts/promotionSection/PromotionSection
 
 export default function FrontPage() {
   return (
-    <main>
+    <>
       <HeroSection />
       <PromotionSection/>
       <SolutionsByRole/>
@@ -18,6 +18,6 @@ export default function FrontPage() {
       <ContentWithImage/>
       <GlobeSection/>
       <DemoCTA/>
-    </main>
+    </>
   );
 }

@@ -16,6 +16,8 @@ import ProductModel from "./components/pages/InfoAboutSapluna/ProductModel";
 import FeaturesPage from "./components/pages/InfoAboutSapluna/Features/FeaturesPage";
 import BoockingPopup from "./components/common/boockingPopup/boockingPopup";
 import ServicesModel from "./components/pages/Services/ServicesModel";
+import PrivicyStatement from "./components/pages/otherPages/PrivicyStatement/PrivacyStatement";
+import AboutUs from "./components/pages/AboutUs/AboutUs";
 
 export default function App() {
   return (
@@ -25,26 +27,30 @@ export default function App() {
           <ScrollToTop />
           <Header />
           <BoockingPopup />
-          <Routes>
-            <Route path="/" element={<FrontPagePrefetch />} />
-            {/* Ratkaisut */}
-            <Route path="/ratkaisut/:slug" element={<SolutionsModel />} />
-            {/* Tuote */}
-            <Route path="/tuote/:slug" element={<ProductModel />} />
-            <Route path="/tuote/ominaisuudet" element={<FeaturesPage />} />
-            {/* Palvelut */}
-            <Route path="/palvelut/:slug" element={<ServicesModel />} />
-            {/* Ajankohtaista */}
-            <Route path="/ajankohtaista/blogi" element={<UnderDevelopment />} />
-            <Route
-              path="/ajankohtaista/tiedotteet"
-              element={<UnderDevelopment />}
-            />
-            {/* Meistä */}
-            <Route path="/meistä" element={<UnderDevelopment />} />
-            {/* Verkkokauppa */}
-            <Route path="/hinnoittelu" element={<PricingPage />} />
-          </Routes>
+          <main>
+            <Routes>
+              <Route path="/" element={<FrontPagePrefetch />} />
+              {/* Solutions */}
+              <Route path="/ratkaisut/:slug" element={<SolutionsModel />} />
+              {/* Product */}
+              <Route path="/tuote/:slug" element={<ProductModel />} />
+              <Route path="/tuote/ominaisuudet" element={<FeaturesPage />} />
+              {/* Services */}
+              <Route path="/palvelut/:slug" element={<ServicesModel />} />
+              {/* Topical */}
+              <Route path="/ajankohtaista/blogi" element={<UnderDevelopment />} />
+              <Route
+                path="/ajankohtaista/tiedotteet"
+                element={<UnderDevelopment />}
+              />
+              {/* About us */}
+              <Route path="/meista" element={<AboutUs />} />
+              {/* Pricing page */}
+              <Route path="/hinnoittelu" element={<PricingPage />} />
+              {/*Other pages*/}
+              <Route path="/tietosuojaseloste" element={<PrivicyStatement/>}/>
+            </Routes>
+          </main>
           <Footer />
         </Router>
       </div>

@@ -202,7 +202,6 @@ export default function PricingPage() {
               />
             </div>
           </div>
-
           <div className="pricing-section__slider">
             <div className="pricing-section__slider-label">
               Omistajat<span>{omistaja > 20 ? ">20" : omistaja}</span>

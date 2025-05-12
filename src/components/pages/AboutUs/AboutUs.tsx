@@ -1,26 +1,18 @@
-import "./ProductModel.scss";
-import { useGetAllPostsQuery, useGetPostBySlugQuery } from "../../../api/wpApi";
-import HistorySection from "../../common/HistorySection/HistorySection";
+import "./AboutUs.scss";
 import Title from "../../common/title/Title";
-import { useParams } from "react-router-dom";
+import { useGetAllPostsQuery, useGetPostBySlugQuery } from "../../../api/wpApi";
 import Loader from "../../common/Loader";
 import { useState, useEffect } from "react";
+import HistorySection from "../../common/HistorySection/HistorySection";
 import BoockButton from "../../common/buttons/boockButton";
 
-export default function ProductModel() {
-  const { slug } = useParams<{ slug: string }>();
-  const {
-    data: allPosts,
-    isLoading: isAllLoading,
-    isFetching: isAllFetching,
-  } = useGetAllPostsQuery();
-  const {
-    data: singlePostData,
-    isLoading: isSingleLoading,
-    isFetching: isSingleFetching,
-  } = useGetPostBySlugQuery(slug || "", {
-    skip: !!allPosts?.find((post) => post.slug === slug),
-  });
+export default function AboutUs() {
+  const slug = "meista";
+  const { data: allPosts, isLoading: isAllLoading } = useGetAllPostsQuery();
+  const { data: singlePostData, isLoading: isSingleLoading } =
+    useGetPostBySlugQuery(slug || "", {
+      skip: !!allPosts?.find((post) => post.slug === slug),
+    });
   const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
@@ -28,18 +20,17 @@ export default function ProductModel() {
 
     setShowLoader(true);
 
-    const isLoading =
-      isAllLoading || isAllFetching || isSingleLoading || isSingleFetching;
+    const isLoading = isAllLoading || isSingleLoading;
     if (isLoading) {
       // Waiting
     } else {
-      timer = setTimeout(() => setShowLoader(false), 600);
+      timer = setTimeout(() => setShowLoader(false), 400);
     }
 
     return () => {
       if (timer) clearTimeout(timer);
     };
-  }, [slug, isAllLoading, isAllFetching, isSingleLoading, isSingleFetching]);
+  }, [slug, isAllLoading, isSingleLoading]);
   if (!slug) return <p>No slug provided</p>;
   if (showLoader) {
     return (
@@ -51,10 +42,9 @@ export default function ProductModel() {
 
   const post =
     allPosts?.find((post) => post.slug === slug) || singlePostData?.[0];
-  if (!post) return <p>Post not found</p>;
 
-  const titleOfPage = post.acf?.title_of_page || "No title";
-  const acfData = post.acf?.[slug];
+  const titleOfPage = post?.acf?.title_of_page || "No title";
+  const acfData = post?.acf?.[slug];
   const {
     title_1,
     ["title_1-2"]: title_1_2,
@@ -74,22 +64,26 @@ export default function ProductModel() {
           <div className="solutions__item">
             <h3>{title_1}</h3>
             <p className="solutions__item-big">{text_1}</p>
+
             {title_1_2 && <h3>{title_1_2}</h3>}
             {text_1_2 && <p>{text_1_2}</p>}
           </div>
+
           <div className="solutions__item">
             <h3>{title_2}</h3>
             <p className="solutions__item-big">{text_2}</p>
+
             {title_2_2 && <h3>{title_2_2}</h3>}
             {text_2_2 && <p>{text_2_2}</p>}
           </div>
         </div>
+
         <div className="solutions__button-container">
           <BoockButton color="#fc8437">Varaa esittely</BoockButton>
         </div>
+
         <HistorySection slug={slug} />
       </div>
-      {/* <Form /> */}
     </section>
   );
 }
