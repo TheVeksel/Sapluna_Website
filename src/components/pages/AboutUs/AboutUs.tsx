@@ -30,7 +30,7 @@ export default function AboutUs() {
     return () => {
       if (timer) clearTimeout(timer);
     };
-  }, [slug, isAllLoading, isSingleLoading]);
+  }, [isAllLoading, isSingleLoading]);
   if (!slug) return <p>No slug provided</p>;
   if (showLoader) {
     return (

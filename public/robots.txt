@@ -1,6 +1,2 @@
 User-agent: *
-Disallow: /admin/
-Disallow: /login/
-Allow: /public/
-
-Sitemap: https://sapluna.com/sitemap.xml
+Disallow: /
