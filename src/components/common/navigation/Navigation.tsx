@@ -134,7 +134,7 @@ export default function Navigation({ onClose }: NavigationProps) {
           </ul>
         )}
       </li>
-      {/* <li>
+      <li>
         <Button
           color="transparent"
           onClick={() => handleToggleDropdown("ajankohtaista")}
@@ -155,7 +155,7 @@ export default function Navigation({ onClose }: NavigationProps) {
             </li>
           </ul>
         )}
-      </li> */}
+      </li>
       <li>
         <Link to="/hinnoittelu" onClick={onClose} className="nav-link">
           <Button color="transparent">Hinnoittelu</Button>

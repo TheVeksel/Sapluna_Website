@@ -1,0 +1,115 @@
+.blogi-page {
+  padding: 120px 60px 20px;
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .blogi-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .blogi-item {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+    flex: 0 1 calc(33% - 1rem); 
+    max-width: calc(33% - 2rem);
+    min-width: 380px;
+
+    &:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+
+      img.thumbnail {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        border-radius: 12px 12px 0 0;
+        margin-bottom: 1rem;
+      }
+
+      .thumbnail-placeholder {
+        width: 100%;
+        height: 220px;
+        background: #f5f5f5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #777;
+        border-radius: 12px 12px 0 0;
+        margin-bottom: 1rem;
+      }
+
+      padding: 1.2rem;
+
+      .content-wrapper {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        margin-top: auto; 
+      }
+
+      .date {
+        font-size: 1rem;
+        color: #777;
+        margin-top: auto; 
+        align-self: flex-end; 
+      }
+
+      .excerpt {
+        font-size: 1rem;
+        color: #444;
+        margin-top: 0.5rem;
+      }
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .blogi-item {
+      flex: 0 1 calc(33.333% - 2rem);
+      max-width: calc(33.333% - 2rem);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .blogi-item {
+      flex: 0 1 calc(50% - 2rem);
+      max-width: calc(50% - 2rem);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .blogi-item {
+      flex: 0 1 100%;
+      max-width: 100%;
+    }
+  }
+}

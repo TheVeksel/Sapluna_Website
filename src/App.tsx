@@ -18,6 +18,8 @@ import BoockingPopup from "./components/common/boockingPopup/boockingPopup";
 import ServicesModel from "./components/pages/Services/ServicesModel";
 import PrivicyStatement from "./components/pages/otherPages/PrivicyStatement/PrivacyStatement";
 import AboutUs from "./components/pages/AboutUs/AboutUs";
+import BlogPage from "./components/pages/Topical/BlogPage/BlogPage";
+import BlogPost from "./components/pages/Topical/BlogPage/SinglePost/BlogPost";
 
 export default function App() {
   return (
@@ -38,7 +40,8 @@ export default function App() {
               {/* Services */}
               <Route path="/palvelut/:slug" element={<ServicesModel />} />
               {/* Topical */}
-              <Route path="/ajankohtaista/blogi" element={<UnderDevelopment />} />
+              <Route path="/ajankohtaista/blogi" element={<BlogPage />} />
+              <Route path="/ajankohtaista/blogi/:slug" element={<BlogPost />} />
               <Route
                 path="/ajankohtaista/tiedotteet"
                 element={<UnderDevelopment />}
@@ -48,7 +51,7 @@ export default function App() {
               {/* Pricing page */}
               <Route path="/hinnoittelu" element={<PricingPage />} />
               {/*Other pages*/}
-              <Route path="/tietosuojaseloste" element={<PrivicyStatement/>}/>
+              <Route path="/tietosuojaseloste" element={<PrivicyStatement />} />
             </Routes>
           </main>
           <Footer />
