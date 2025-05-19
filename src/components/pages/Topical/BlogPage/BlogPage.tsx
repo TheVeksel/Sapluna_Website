@@ -15,8 +15,6 @@ type Post = {
   title: { rendered: string };
   acf: {
     title_of_page?: string;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    [key: string]: any;
   };
   _embedded?: {
     "wp:featuredmedia"?: { source_url: string }[];

@@ -1,5 +1,8 @@
 .blogi-page {
-  padding: 120px 60px 20px;
+  padding: 120px 60px 0;
+  @media (max-width:1400px) {
+    padding: 120px 0 0 0;
+  }
 
   h1 {
     font-size: 2.5rem;
@@ -12,9 +15,6 @@
     flex-wrap: wrap;
     gap: 2rem;
     justify-content: center;
-    padding: 0;
-    margin: 0;
-    list-style: none;
   }
 
   .blogi-item {
