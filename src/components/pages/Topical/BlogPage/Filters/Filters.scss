@@ -1,0 +1,22 @@
+.filters {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+
+  &__search,
+  &__select {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+
+  &__search {
+    flex: 1 1 200px;
+  }
+
+  &__select {
+    flex: 0 0 180px;
+  }
+}

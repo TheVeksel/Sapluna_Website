@@ -96,13 +96,16 @@
 
       a, button {
         font-weight: bold;
-        padding: 5px;
+        padding: 8px;
         margin: 0;
         font-size: 18px;
         text-decoration: none;
         background-color: transparent;
         transition: 0.3s;
         color: #000;
+      }
+      a {
+        padding: 0;
       }
     }
   }
@@ -181,6 +184,11 @@
   justify-content: center;
   gap: 20px;
 }
+.footer__nav button:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important; /* Более заметная лёгкая тень */
+}
+
+
 
 @media (max-width: 850px) {
   .footer {

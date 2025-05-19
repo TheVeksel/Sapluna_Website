@@ -22,12 +22,14 @@
     border: 1px solid #e0e0e0;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
     overflow: hidden;
     display: flex;
     flex-direction: column;
 
-    flex: 0 1 calc(33% - 1rem); 
+    flex: 0 1 calc(33% - 1rem);
     max-width: calc(33% - 2rem);
     min-width: 380px;
 
@@ -74,20 +76,44 @@
       h2 {
         font-size: 1.5rem;
         margin-bottom: 0.5rem;
-        margin-top: auto; 
+        margin-top: auto;
       }
-
+      .card__bottom {
+        display: flex;
+        justify-content: space-between;
+        color: #fc8437;
+        margin-top: 40px;
+        
+      }
       .date {
         font-size: 1rem;
         color: #777;
-        margin-top: auto; 
-        align-self: flex-end; 
+        align-self: flex-start;
       }
-
+      .read {
+        align-self: flex-end;
+        font-weight: 700;
+        font-size: 1.2rem;
+      }
       .excerpt {
         font-size: 1rem;
         color: #444;
         margin-top: 0.5rem;
+      }
+    }
+    .tags {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+
+      .tag {
+        background-color: #fc8437;
+        color: white;
+        font-size: 0.9rem;
+        font-weight: 700;
+        padding: 4px 6px;
+        border-radius: 20px;
       }
     }
   }

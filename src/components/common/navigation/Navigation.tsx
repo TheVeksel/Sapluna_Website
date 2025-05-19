@@ -134,28 +134,11 @@ export default function Navigation({ onClose }: NavigationProps) {
           </ul>
         )}
       </li>
-      <li>
-        <Button
-          color="transparent"
-          onClick={() => handleToggleDropdown("ajankohtaista")}
-        >
-          {"Ajankohtaista " + (openDropdown === "ajankohtaista" ? "▲" : "▼")}
-        </Button>
-        {openDropdown === "ajankohtaista" && (
-          <ul className="dropdown-menu">
-            <li>
-              <Link to="/ajankohtaista/blogi" onClick={handleLinkClick}>
-                Blogi
-              </Link>
-            </li>
-            <li>
-              <Link to="/ajankohtaista/tiedotteet" onClick={handleLinkClick}>
-                Tiedotteet
-              </Link>
-            </li>
-          </ul>
-        )}
-      </li>
+        <li>
+          <Link to="/ajankohtaista/blogi" onClick={handleLinkClick}>
+            <Button color="transparent">Ajankohtaista</Button>
+          </Link>
+        </li>
       <li>
         <Link to="/hinnoittelu" onClick={onClose} className="nav-link">
           <Button color="transparent">Hinnoittelu</Button>

@@ -1,27 +1,64 @@
 import { Link } from "react-router-dom";
-import { useGetAllBlogPostsQuery } from "../../../../api/wpApi";
+import {
+  useGetAllBlogPostsQuery,
+  useGetAllPostsQuery,
+  useGetPostBySlugQuery,
+} from "../../../../api/wpApi";
 import "./BlogPage.scss";
 import { useEffect, useState } from "react";
 import Loader from "../../../common/Loader";
 
-export default function BlogPage() {
-  const { data: posts, isLoading, isError } = useGetAllBlogPostsQuery();
-  const [showLoader, setShowLoader] = useState(true);
+type Post = {
+  id: number;
+  slug: string;
+  date: string;
+  title: { rendered: string };
+  acf: {
+    title_of_page?: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [key: string]: any;
+  };
+  _embedded?: {
+    "wp:featuredmedia"?: { source_url: string }[];
+    "wp:term"?: { id: number; name: string; taxonomy: string }[][];
+  };
+};
 
+export default function BlogPage() {
+  const slug = "ajankohtaista";
+  const {
+    data: posts,
+    isLoading: isPostsLoading,
+    isError,
+  } = useGetAllBlogPostsQuery();
+  const { data: allPosts, isLoading: isAllLoading } = useGetAllPostsQuery();
+  const { data: singlePostData, isLoading: isSingleLoading } =
+    useGetPostBySlugQuery(slug || "", {
+      skip: !!allPosts?.find((post) => post.slug === slug),
+    });
+  const [showLoader, setShowLoader] = useState(true);
+  const loading = isPostsLoading || isSingleLoading || isAllLoading;
+
+  
   useEffect(() => {
     let timer: NodeJS.Timeout;
 
     setShowLoader(true);
-    if (isLoading) {
-      // Waiting
-    } else {
+    if (!loading) {
       timer = setTimeout(() => setShowLoader(false), 400);
     }
 
     return () => {
       if (timer) clearTimeout(timer);
     };
-  }, [isLoading]);
+  }, [loading]);
+
+
+  const post =
+    allPosts?.find((post) => post.slug === slug) || singlePostData?.[0];
+  const titleOfPage = post?.acf?.texts.page_title || "No title";
+
+
 
   if (showLoader) {
     return (
@@ -32,13 +69,16 @@ export default function BlogPage() {
   }
 
   if (isError) return <p>Virhe ladattaessa blogipostauksia.</p>;
+
   return (
     <section className="blogi-page">
       <div className="wrapper">
-        <h1>Blogi</h1>
+        <h1>{titleOfPage}</h1>
         <ul className="blogi-list">
-          {posts?.map((post) => {
+          {(posts as Post[])?.map((post) => {
             const img = post._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
+            const terms = post._embedded?.["wp:term"]?.flat() || [];
+            const tags = terms.filter((term) => term.taxonomy === "post_tag");
 
             return (
               <li key={post.id} className="blogi-item">
@@ -50,14 +90,27 @@ export default function BlogPage() {
                       className="thumbnail"
                     />
                   ) : (
-                    <div className="thumbnail-placeholder">No image</div> 
+                    <div className="thumbnail-placeholder">No image</div>
                   )}
                   <h2
                     dangerouslySetInnerHTML={{ __html: post.title.rendered }}
                   />
-                  <p className="date">
-                    {new Date(post.date).toLocaleDateString("fi-FI")}
-                  </p>
+                  {tags.length > 0 && (
+                    <ul className="tags">
+                      {tags.slice(0, 3).map((tag) => (
+                        <li key={tag.id} className="tag">
+                          {tag.name}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
+                  <div className="card__bottom">
+                    <p className="date">
+                      {new Date(post.date).toLocaleDateString("fi-FI")}
+                    </p>
+                    <p className="read">Lue artikkeli ➔</p>
+                  </div>
                 </Link>
               </li>
             );
