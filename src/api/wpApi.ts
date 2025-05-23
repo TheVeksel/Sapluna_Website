@@ -65,7 +65,7 @@ const wpApi = createApi({
     }),
     getAllBlogPosts: builder.query<Post[], void>({
       query: () =>
-        `posts?per_page=100&_embed&categories=76&orderby=date&order=desc`,
+        `posts?per_page=100&_embed=wp:featuredmedia,wp:term&categories=76&orderby=date&order=desc&_fields=id,slug,acf,title,date,_links,_embedded`,
       providesTags: (result) =>
         result
           ? [

@@ -1,13 +1,187 @@
 .blogi-page {
   padding: 120px 60px 0;
-  @media (max-width:1400px) {
+
+  @media (max-width: 1400px) {
     padding: 120px 0 0 0;
+  }
+
+  .wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
   }
 
   h1 {
     font-size: 2.5rem;
     margin-bottom: 2rem;
     text-align: center;
+    color: #333;
+  }
+  &__textbox {
+    margin-bottom: 100px;
+    padding: 50px 80px;
+    background-color: #f9f9f9;
+    border-radius: 80px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    p {
+      font-size: 1.4rem;
+      color: #2b2a2a;
+      line-height: 1.6;
+      font-weight: 700;
+    }
+  }
+  /* Filters Container */
+  .filters-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+
+    @media (max-width: 900px) {
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+  }
+
+  /* Sort Toggle */
+  .sort-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 600;
+    color: #333;
+    align-self: flex-start;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    font-size: 1.1rem;
+
+    &:hover {
+      background-color: #f9f9f9;
+      border-color: #fc8437;
+    }
+
+    .sort-arrow {
+      font-size: 1.2rem;
+      transition: transform 0.2s ease;
+      display: inline-block;
+      color: #fc8437;
+
+      &.down {
+        transform: rotate(180deg) translateY(-1px);
+      }
+    }
+
+    @media (max-width: 600px) {
+      padding: 0.65rem 1.25rem;
+      font-size: 1rem;
+    }
+  }
+
+  /* Filters */
+  .filters {
+    padding: 1.5rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    @media (max-width: 900px) {
+      padding: 1.25rem;
+      gap: 1.25rem;
+    }
+
+    @media (max-width: 600px) {
+      padding: 1rem;
+      gap: 1rem;
+    }
+  }
+
+  .filter-group {
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: #333;
+      font-size: 1.1rem;
+
+      @media (max-width: 600px) {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+      }
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+
+      &:focus {
+        outline: none;
+        border-color: #fc8437;
+        box-shadow: 0 0 0 2px rgba(252, 132, 55, 0.2);
+      }
+
+      @media (max-width: 600px) {
+        padding: 0.65rem;
+      }
+    }
+  }
+
+  .tag-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+
+    .tag-filter {
+      padding: 0.5rem 1rem;
+      background-color: #f5f5f5;
+      border: none;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: #555;
+
+      &:hover {
+        background-color: #e0e0e0;
+      }
+
+      &.active {
+        background-color: #fc8437;
+        color: white;
+        font-weight: 600;
+      }
+
+      @media (max-width: 600px) {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+      }
+    }
+  }
+
+  .no-results {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.2rem;
+    color: #777;
+    background: #f9f9f9;
+    border-radius: 8px;
+    margin-top: 2rem;
   }
 
   .blogi-list {
@@ -15,6 +189,16 @@
     flex-wrap: wrap;
     gap: 2rem;
     justify-content: center;
+    padding: 0;
+    list-style: none;
+  }
+  .acf-category {
+    color: white;
+    padding: 5px;
+    border-radius: 20px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
   }
 
   .blogi-item {
@@ -28,7 +212,6 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-
     flex: 0 1 calc(33% - 1rem);
     max-width: calc(33% - 2rem);
     min-width: 380px;
@@ -67,53 +250,48 @@
 
       padding: 1.2rem;
 
-      .content-wrapper {
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-      }
-
       h2 {
         font-size: 1.5rem;
         margin-bottom: 0.5rem;
-        margin-top: auto;
+        margin-top: 0;
+        line-height: 1.3;
       }
+
+      .tags {
+        margin-top: 8px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        padding: 0;
+        list-style: none;
+
+        .tag {
+          background-color: #fc8437;
+          color: white;
+          font-size: 0.9rem;
+          font-weight: 700;
+          padding: 4px 8px;
+          border-radius: 20px;
+        }
+      }
+
       .card__bottom {
         display: flex;
         justify-content: space-between;
-        color: #fc8437;
-        margin-top: 40px;
-        
-      }
-      .date {
-        font-size: 1rem;
-        color: #777;
-        align-self: flex-start;
-      }
-      .read {
-        align-self: flex-end;
-        font-weight: 700;
-        font-size: 1.2rem;
-      }
-      .excerpt {
-        font-size: 1rem;
-        color: #444;
-        margin-top: 0.5rem;
-      }
-    }
-    .tags {
-      margin-top: 8px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
+        align-items: center;
+        margin-top: auto;
+        padding-top: 1rem;
 
-      .tag {
-        background-color: #fc8437;
-        color: white;
-        font-size: 0.9rem;
-        font-weight: 700;
-        padding: 4px 6px;
-        border-radius: 20px;
+        .date {
+          font-size: 1rem;
+          color: #777;
+        }
+
+        .read {
+          color: #fc8437;
+          font-weight: 700;
+          font-size: 1.1rem;
+        }
       }
     }
   }
@@ -127,15 +305,19 @@
 
   @media (max-width: 900px) {
     .blogi-item {
-      flex: 0 1 calc(50% - 2rem);
-      max-width: calc(50% - 2rem);
+      flex: 0 1 calc(50% - 1rem);
+      max-width: calc(50% - 1rem);
+      min-width: 300px;
     }
   }
 
   @media (max-width: 600px) {
+    padding: 90px 20px 0;
+
     .blogi-item {
       flex: 0 1 100%;
       max-width: 100%;
+      min-width: auto;
     }
   }
 }
