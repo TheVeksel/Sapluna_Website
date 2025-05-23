@@ -11,7 +11,7 @@ import {
   LinkedinIcon
 } from 'react-share';
 import { useState } from 'react';
-import './share.scss'
+import './Share.scss'
 
 export default function ShareButtons({ title, url }: { title: string, url: string }) {
   const [copied, setCopied] = useState(false);
