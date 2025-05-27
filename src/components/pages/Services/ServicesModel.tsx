@@ -30,9 +30,7 @@ export default function ServicesModel() {
 
     const isLoading =
       isAllLoading || isAllFetching || isSingleLoading || isSingleFetching;
-    if (isLoading) {
-      // Waiting
-    } else {
+    if (!isLoading) {
       timer = setTimeout(() => setShowLoader(false), 400);
     }
 
@@ -40,6 +38,7 @@ export default function ServicesModel() {
       if (timer) clearTimeout(timer);
     };
   }, [slug, isAllLoading, isAllFetching, isSingleLoading, isSingleFetching]);
+
   if (!slug) return <p>No slug provided</p>;
   if (showLoader) {
     return (
@@ -53,7 +52,7 @@ export default function ServicesModel() {
     allPosts?.find((post) => post.slug === slug) || singlePostData?.[0];
   if (!post) return <p>Post not found</p>;
 
-const titleOfPage = post.acf?.title_of_page || "No title"; 
+  const titleOfPage = post.acf?.title_of_page || "No title";
   const acfData = post.acf?.[slug];
   const {
     title_1,
@@ -70,31 +69,36 @@ const titleOfPage = post.acf?.title_of_page || "No title";
     <section className="solutions">
       <div className="wrapper">
         <Title>{titleOfPage}</Title>
-        <div className="solutions__container">
-          <div className="solutions__item">
+
+        <div className="solutions__rows">
+          <div className="solutions__items">
             <h3>{title_1}</h3>
-            <p className="solutions__item-big">{text_1}</p>
-  
+            <p>{text_1}</p>
+          </div>
+          <div className="solutions__items">
+            <h3>{title_2}</h3>
+            <p >{text_2}</p>
+          </div>
+        </div>
+
+        <div className="solutions__rows">
+          <div className="solutions__items">
             {title_1_2 && <h3>{title_1_2}</h3>}
             {text_1_2 && <p>{text_1_2}</p>}
           </div>
-  
-          <div className="solutions__item">
-            <h3>{title_2}</h3>
-            <p className="solutions__item-big">{text_2}</p>
-  
+          <div className="solutions__items">
             {title_2_2 && <h3>{title_2_2}</h3>}
             {text_2_2 && <p>{text_2_2}</p>}
           </div>
         </div>
-  
+        
+
         <div className="solutions__button-container">
           <BoockButton color="#fc8437">Varaa esittely</BoockButton>
         </div>
-  
+
         <HistorySection slug={slug} />
       </div>
     </section>
   );
-  
 }

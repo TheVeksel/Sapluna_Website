@@ -1,0 +1,131 @@
+.benefits {
+  padding: 80px 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
+  
+  button.boock-button {
+    font-size: 20px;
+    margin-top: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(252, 132, 55, 0.3);
+    }
+  }
+
+  &__content-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-bottom: 50px;
+
+    @media (min-width: 820px) {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 50px;
+    }
+  }
+
+  &__content {
+    background: #ffffff;
+    padding: 0;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    text-align: left;
+    max-width: 100%;
+    margin-bottom: 30px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    }
+
+    @media (min-width: 820px) {
+      max-width: 48%;
+    }
+
+    .content-header {
+      padding: 25px;
+      cursor: pointer;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(135deg, #fc8437 0%, #ff9a5a 100%);
+      color: white;
+      
+      .toggle-icon {
+        font-size: 1.2rem;
+        transition: transform 0.3s;
+      }
+    }
+
+    .content-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease-out, padding 0.3s;
+      
+      &.expanded {
+        max-height: 2000px;
+        padding: 25px;
+      }
+      
+      .text-container {
+        opacity: 0;
+        transition: opacity 0.5s ease 0.2s;
+        
+        .benefits-list {
+          padding-left: 20px;
+          
+          li {
+            position: relative;
+            padding-left: 15px;
+            margin-bottom: 10px;
+            
+            &::before {
+              content: '';
+              position: absolute;
+              left: 0;
+              top: 10px;
+              width: 8px;
+              height: 8px;
+              background-color: #fc8437;
+              border-radius: 50%;
+            }
+          }
+        }
+      }
+      
+      &.expanded .text-container {
+        opacity: 1;
+      }
+    }
+
+    &-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 0;
+      
+      @media (min-width: 550px) {
+        font-size: 2rem;
+      }
+    }
+
+    &-text {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: #333;
+      margin-bottom: 30px;
+      
+      @media (min-width: 550px) {
+        font-size: 1.2rem;
+      }
+    }
+  }
+}

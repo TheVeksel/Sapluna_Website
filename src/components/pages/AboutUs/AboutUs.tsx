@@ -1,10 +1,8 @@
 import "./AboutUs.scss";
-import Title from "../../common/title/Title";
 import { useGetAllPostsQuery, useGetPostBySlugQuery } from "../../../api/wpApi";
 import Loader from "../../common/Loader";
 import { useState, useEffect } from "react";
 import HistorySection from "../../common/HistorySection/HistorySection";
-import BoockButton from "../../common/buttons/boockButton";
 
 export default function AboutUs() {
   const slug = "meista";
@@ -31,6 +29,7 @@ export default function AboutUs() {
       if (timer) clearTimeout(timer);
     };
   }, [isAllLoading, isSingleLoading]);
+  
   if (!slug) return <p>No slug provided</p>;
   if (showLoader) {
     return (
@@ -57,33 +56,38 @@ export default function AboutUs() {
   } = acfData?.main_titles || {};
 
   return (
-    <section className="solutions">
-      <div className="wrapper">
-        <Title>{titleOfPage}</Title>
-        <div className="solutions__container">
-          <div className="solutions__item">
-            <h3>{title_1}</h3>
-            <p className="solutions__item-big">{text_1}</p>
+    <div className="about-us">
+      <section className="about-hero">
+        <div className="container">
+          <h1 className="hero-title">{titleOfPage}</h1>
+          {text_1 && <p className="hero-subtitle">{text_1}</p>}
+        </div>
+      </section>
 
-            {title_1_2 && <h3>{title_1_2}</h3>}
-            {text_1_2 && <p>{text_1_2}</p>}
-          </div>
+      <section className="about-content">
+        <div className="container">
+          <div className="content-grid">
+            <div className="content-block">
+              {title_1 && <h2 className="block-title">{title_1}</h2>}
+              {text_1 && <p className="block-text large">{text_1}</p>}
+              
+              {title_1_2 && <h3 className="block-subtitle">{title_1_2}</h3>}
+              {text_1_2 && <p className="block-text">{text_1_2}</p>}
+            </div>
 
-          <div className="solutions__item">
-            <h3>{title_2}</h3>
-            <p className="solutions__item-big">{text_2}</p>
-
-            {title_2_2 && <h3>{title_2_2}</h3>}
-            {text_2_2 && <p>{text_2_2}</p>}
+            <div className="content-block">
+              {title_2 && <h2 className="block-title">{title_2}</h2>}
+              {text_2 && <p className="block-text large">{text_2}</p>}
+              
+              {title_2_2 && <h3 className="block-subtitle">{title_2_2}</h3>}
+              {text_2_2 && <p className="block-text">{text_2_2}</p>}
+            </div>
           </div>
         </div>
+      </section>
 
-        <div className="solutions__button-container">
-          <BoockButton color="#fc8437">Varaa esittely</BoockButton>
-        </div>
 
-        <HistorySection slug={slug} />
-      </div>
-    </section>
+      <HistorySection slug={slug} />
+    </div>
   );
 }
