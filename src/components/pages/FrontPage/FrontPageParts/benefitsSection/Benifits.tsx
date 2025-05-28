@@ -24,7 +24,7 @@ export default function Benefits() {
 
             >
               <h2 className="benefits__content-title">
-                Hallinnoi tietoa ja toimintaa.
+                Hallinnoi tietoa ja toimintaa
               </h2>
               <span className="toggle-icon">
                 {isFirstOpen ? "▲" : "▼"}
@@ -33,16 +33,13 @@ export default function Benefits() {
 
             <div className={`content-body ${isFirstOpen ? "expanded" : ""}`}>
               <div className="text-container">
-                <p className="benefits__content-text">
+                <p className={`benefits__content-text ${isFirstOpen ? "" : "closed"}`}>
                   Saplunassa projekti koostuu hallinnoitavista kokonaisuuksista –
                   kuten ohjelmahauista, vapaaehtoisten rekrytoinneista,
                   myyntipaikkojen varauksista, kutsuvieraiden tiedoista ja projektin
                   aikataulutuksesta. Asioita on paljon.
                 </p>
-
-                {isFirstOpen && (
-                  <>
-                    <p className="benefits__content-text">
+                    <p className={`benefits__content-text ${isFirstOpen ? "" : "closed"}`}>
                       Saplunassa ei ainoastaan kerätä tietoa, vaan asiat myös etenevät.
                       Esimerkiksi voit toteuttaa ohjelmahakuja ja ilmoittautumisia,
                       tehdä valinnat, dokumentoida tuotantotiedot, laatia aikataulun ja
@@ -53,8 +50,6 @@ export default function Benefits() {
                       Näin kattavasti et ole aiemmin pystynyt projektejasi
                       hallinnoimaan. Mieti, mitä prosesseja sinun projekteihisi kuuluu?
                     </p>
-                  </>
-                )}
               </div>
             </div>
           </div>

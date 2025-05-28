@@ -13,25 +13,29 @@ interface PlanFeatures {
 }
 
 export default function PricingPage() {
+  // Billing type: false = monthly, true = yearly
   const [isYearly, setIsYearly] = useState(false);
   const [highlightPlan, setHighlightPlan] = useState<PlanKey>("solo");
   const [finalPrice, setFinalPrice] = useState<number | null>(null);
-  const [tuottaja, setTuottaja] = useState(1);
-  const [omistaja, setOmistaja] = useState(1);
+  const [tuottaja, setTuottaja] = useState(1); // Producers
+  const [omistaja, setOmistaja] = useState(1); // Owners
   const [arePlansVisible, setArePlansVisible] = useState(false);
   const [isFirstPopupOpen, setIsFirstPopupOpen] = useState(false);
   const [isSecondPopupOpen, setIsSecondPopupOpen] = useState(false);
+
   const [pricingPlans, setPricingPlans] = useState<{
     name: string;
     key: PlanKey;
     features: string[];
   }[]>([]);
 
+  // Refs to elements for scroll and focus handling
   const plansRef = useRef<HTMLDivElement>(null);
   const tableRef = useRef<HTMLDivElement>(null);
   const closeFirstRef = useRef<HTMLButtonElement>(null);
   const closeSecondRef = useRef<HTMLButtonElement>(null);
-  
+
+  // Observer to detect if plan cards are in the viewport
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => setArePlansVisible(entry.isIntersecting),
@@ -41,6 +45,7 @@ export default function PricingPage() {
     return () => observer.disconnect();
   }, []);
 
+  // Disable background scroll when a popup is open
   useEffect(() => {
     document.body.style.overflow =
       isFirstPopupOpen || isSecondPopupOpen ? "hidden" : "";
@@ -49,19 +54,23 @@ export default function PricingPage() {
     };
   }, [isFirstPopupOpen, isSecondPopupOpen]);
 
+  // Auto focus the close button when first popup opens
   useEffect(() => {
     if (isFirstPopupOpen) closeFirstRef.current?.focus();
   }, [isFirstPopupOpen]);
 
+  // Auto focus the close button when second popup opens
   useEffect(() => {
     if (isSecondPopupOpen) closeSecondRef.current?.focus();
   }, [isSecondPopupOpen]);
 
+  // Popup control functions
   const openFirstPopup = () => setIsFirstPopupOpen(true);
   const closeFirstPopup = () => setIsFirstPopupOpen(false);
   const openSecondPopup = () => setIsSecondPopupOpen(true);
   const closeSecondPopup = () => setIsSecondPopupOpen(false);
 
+  // Handle features loaded from PricingInfo component
   const handleFeaturesLoaded = (features: PlanFeatures[]) => {
     if (!features || !Array.isArray(features)) return;
     const newPricingPlans = features.map((plan) => ({
@@ -72,9 +81,11 @@ export default function PricingPage() {
     setPricingPlans(newPricingPlans);
   };
 
+  // Determine billing type and selected plan
   const billingType = isYearly ? "yearly" : "monthly";
   const selectedPlan = pricingPlans.find((p) => p.key === highlightPlan);
 
+  // Generate pricing cards dynamically
   const cards = useMemo(
     () =>
       pricingPlans.map((plan) => {
@@ -95,7 +106,7 @@ export default function PricingPage() {
             {isActive && (
               <div className="pricing-section__card-price">
                 {showContact
-                  ? "Ota yhteyttä myyntiin"
+                  ? "Ota yhteyttä myyntiin" // Show contact message
                   : finalPrice !== null && (
                       <>
                         €{finalPrice}
@@ -139,11 +150,14 @@ export default function PricingPage() {
   return (
     <section className="pricing-section">
       <div className="wrapper">
+        {/* Load features from WP */}
         <PricingInfo onFeaturesLoaded={handleFeaturesLoaded} />
+
         <h2 className="pricing-section__title">
           Valitse sinulle sopiva paketti
         </h2>
 
+        {/* Billing type toggle */}
         <div className="pricing-section__billing-toggle">
           <span className="pricing-section__billing-toggle-label">
             Kuukausi
@@ -159,10 +173,12 @@ export default function PricingPage() {
           <span className="pricing-section__billing-toggle-label">Vuosi</span>
         </div>
 
+        {/* Plan cards */}
         <div className="pricing-section__grid" ref={plansRef}>
           {cards}
         </div>
 
+        {/* Price calculator */}
         <PricingCalculator
           tuottaja={tuottaja}
           omistaja={omistaja}
@@ -171,6 +187,7 @@ export default function PricingPage() {
           onPriceChange={setFinalPrice}
         />
 
+        {/* Sliders for producers and owners */}
         <div
           className={`pricing-section__sliders ${
             arePlansVisible ? "pricing-section__sliders--visible" : ""
@@ -229,6 +246,8 @@ export default function PricingPage() {
             </div>
           </div>
         </div>
+
+        {/* Contact form */}
         <PricingContact />
 
         {isFirstPopupOpen && (

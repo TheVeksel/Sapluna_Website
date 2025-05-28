@@ -8,13 +8,15 @@ export default function GlobalPopup() {
   const isOpen = useSelector((state: RootState) => state.boocking.isPopupOpen);
   const dispatch = useDispatch();
   const popupRef = useRef<HTMLDivElement>(null);
+
+  // Controls DOM presence for exit animation (not just visibility)
   const [show, setShow] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
       setShow(true);
     } else {
-      const timeout = setTimeout(() => setShow(false), 300);
+      const timeout = setTimeout(() => setShow(false), 300); // delay matches CSS animation
       return () => clearTimeout(timeout);
     }
   }, [isOpen]);

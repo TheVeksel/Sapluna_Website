@@ -1,35 +1,28 @@
 import "./AboutUs.scss";
-import { useGetAllPostsQuery, useGetPostBySlugQuery } from "../../../api/wpApi";
 import Loader from "../../common/Loader";
 import { useState, useEffect } from "react";
 import HistorySection from "../../common/HistorySection/HistorySection";
+import { useGetPosts } from "../../../hooks/useGetPosts";
 
 export default function AboutUs() {
+  // Getting data via hook
   const slug = "meista";
-  const { data: allPosts, isLoading: isAllLoading } = useGetAllPostsQuery();
-  const { data: singlePostData, isLoading: isSingleLoading } =
-    useGetPostBySlugQuery(slug || "", {
-      skip: !!allPosts?.find((post) => post.slug === slug),
-    });
   const [showLoader, setShowLoader] = useState(true);
-
+  const { data, isLoading, isFetching } = useGetPosts(slug || "");
+  //control loading animation
   useEffect(() => {
     let timer: NodeJS.Timeout;
-
     setShowLoader(true);
-
-    const isLoading = isAllLoading || isSingleLoading;
-    if (isLoading) {
-      // Waiting
-    } else {
+    const loading = isLoading || isFetching;
+    if (!loading) {
       timer = setTimeout(() => setShowLoader(false), 400);
     }
-
     return () => {
       if (timer) clearTimeout(timer);
     };
-  }, [isAllLoading, isSingleLoading]);
-  
+  }, [isLoading, isFetching, slug]);
+
+  //exceptions
   if (!slug) return <p>No slug provided</p>;
   if (showLoader) {
     return (
@@ -39,11 +32,10 @@ export default function AboutUs() {
     );
   }
 
-  const post =
-    allPosts?.find((post) => post.slug === slug) || singlePostData?.[0];
-
-  const titleOfPage = post?.acf?.title_of_page || "No title";
-  const acfData = post?.acf?.[slug];
+  
+// Destructuring with fallback for uncommon ACF key names
+  const titleOfPage = data?.acf?.title_of_page || "No title";
+  const acfData = data?.acf?.[slug];
   const {
     title_1,
     ["title_1-2"]: title_1_2,
@@ -64,30 +56,31 @@ export default function AboutUs() {
         </div>
       </section>
 
-      <section className="about-content">
-        <div className="container">
-          <div className="content-grid">
-            <div className="content-block">
-              {title_1 && <h2 className="block-title">{title_1}</h2>}
-              {text_1 && <p className="block-text large">{text_1}</p>}
-              
-              {title_1_2 && <h3 className="block-subtitle">{title_1_2}</h3>}
-              {text_1_2 && <p className="block-text">{text_1_2}</p>}
-            </div>
+      <div className="wrapper">
+        <section className="about-content">
+          <div className="container">
+            <div className="content-grid">
+              <div className="content-block">
+                {title_1 && <h2 className="block-title">{title_1}</h2>}
+                {text_1 && <p className="block-text large">{text_1}</p>}
 
-            <div className="content-block">
-              {title_2 && <h2 className="block-title">{title_2}</h2>}
-              {text_2 && <p className="block-text large">{text_2}</p>}
-              
-              {title_2_2 && <h3 className="block-subtitle">{title_2_2}</h3>}
-              {text_2_2 && <p className="block-text">{text_2_2}</p>}
+                {title_1_2 && <h3 className="block-subtitle">{title_1_2}</h3>}
+                {text_1_2 && <p className="block-text">{text_1_2}</p>}
+              </div>
+
+              <div className="content-block">
+                {title_2 && <h2 className="block-title">{title_2}</h2>}
+                {text_2 && <p className="block-text large">{text_2}</p>}
+
+                {title_2_2 && <h3 className="block-subtitle">{title_2_2}</h3>}
+                {text_2_2 && <p className="block-text">{text_2_2}</p>}
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-
-      <HistorySection slug={slug} />
+        <HistorySection slug={slug} />
+      </div>
     </div>
   );
 }

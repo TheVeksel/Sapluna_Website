@@ -1,16 +1,19 @@
 import { useState, useMemo } from "react";
 
+// Props definition for BlogFilters
 type BlogFiltersProps = {
   posts: BlogPost[];
   children: (filteredPosts: BlogPost[]) => React.ReactNode;
 };
 
+// Term type used for tags and categories
 type Term = {
   id: number;
   name: string;
   taxonomy: string;
 };
 
+// Blog post type structure
 type BlogPost = {
   id: number;
   slug: string;
@@ -27,10 +30,10 @@ type BlogPost = {
 
 export const BlogFilters = ({ posts, children }: BlogFiltersProps) => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortOption, setSortOption] = useState<boolean>(true);
+  const [sortOption, setSortOption] = useState<boolean>(true); // true = newest first
   const [tagFilter, setTagFilter] = useState<Record<string, boolean>>({});
 
-  // Extract all unique tags
+  // Extract all unique tags from posts
   const allTags = useMemo(() => {
     const tags = new Set<string>();
     posts.forEach((post) => {
@@ -42,7 +45,7 @@ export const BlogFilters = ({ posts, children }: BlogFiltersProps) => {
     return Array.from(tags).sort();
   }, [posts]);
 
-  // Initialize tag filter
+  // Initialize tag filter state (only once)
   useMemo(() => {
     if (allTags.length > 0 && Object.keys(tagFilter).length === 0) {
       const initialTagFilter: Record<string, boolean> = {};
@@ -53,25 +56,27 @@ export const BlogFilters = ({ posts, children }: BlogFiltersProps) => {
     }
   }, [allTags, tagFilter]);
 
-  // Filtering and sorting posts
+  // Filter and sort posts based on search and selected tags
   const filteredPosts = useMemo(() => {
     return [...posts]
       .filter((post) => {
-        // Search
+        // Match search query with title
         const matchesSearch = post.title.rendered
           .toLowerCase()
           .includes(searchQuery.toLowerCase());
 
-        // Filter by tags
+        // Extract post tags
         const terms = post._embedded?.["wp:term"]?.flat() || [];
         const postTags = terms
           .filter((term) => term.taxonomy === "post_tag")
           .map((tag) => tag.name);
 
+        // Get selected tags from tagFilter
         const selectedTags = Object.entries(tagFilter)
           .filter(([, isSelected]) => isSelected)
           .map(([tag]) => tag);
 
+        // Match if at least one selected tag is present
         const matchesTags =
           selectedTags.length === 0 ||
           selectedTags.some((tag) => postTags.includes(tag));
@@ -85,6 +90,7 @@ export const BlogFilters = ({ posts, children }: BlogFiltersProps) => {
       });
   }, [posts, searchQuery, sortOption, tagFilter]);
 
+  // Toggle single tag selection
   const handleTagToggle = (tag: string) => {
     setTagFilter((prev) => ({
       ...prev,
@@ -92,6 +98,7 @@ export const BlogFilters = ({ posts, children }: BlogFiltersProps) => {
     }));
   };
 
+  // Toggle sort order between newest and oldest
   const toggleSortOption = () => {
     setSortOption((prev) => !prev);
   };
@@ -99,6 +106,7 @@ export const BlogFilters = ({ posts, children }: BlogFiltersProps) => {
   return (
     <>
       <div className="filters-container">
+        {/* Sort toggle control */}
         <div className="sort-toggle" onClick={toggleSortOption}>
           <span>
             {sortOption === true ? "Uusimmat ensin" : "Vanhimmat ensin"}
@@ -108,6 +116,7 @@ export const BlogFilters = ({ posts, children }: BlogFiltersProps) => {
           </span>
         </div>
 
+        {/* Search and tag filters */}
         <div className="filters">
           <div className="filter-group">
             <label htmlFor="search">Hae:</label>
@@ -120,6 +129,7 @@ export const BlogFilters = ({ posts, children }: BlogFiltersProps) => {
             />
           </div>
 
+          {/* Tag filter buttons */}
           {allTags.length > 0 && (
             <div className="filter-group">
               <label>Suodata tunnisteilla:</label>
@@ -140,6 +150,7 @@ export const BlogFilters = ({ posts, children }: BlogFiltersProps) => {
         </div>
       </div>
 
+      {/* Render filtered posts via render props */}
       {children(filteredPosts)}
     </>
   );

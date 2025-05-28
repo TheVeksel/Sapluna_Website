@@ -1,7 +1,7 @@
 import { Provider } from "react-redux";
 import store from "./store/store";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "./styles/Reset.css";
+import "./styles/Reset.css";//Resets annoying styles by default like list style etc.
 import "./styles/main.scss";
 import { usePrefetch as useWpApiPrefetch } from "./api/wpApi";
 import Header from "./components/common/Header/Header";
@@ -23,7 +23,7 @@ import BlogPost from "./components/pages/Topical/BlogPage/SinglePost/BlogPost";
 
 export default function App() {
   return (
-    <Provider store={store}>
+    <Provider store={store}>{/*Redux toolkit query*/}
       <div className="main-container">
         <Router>
           <ScrollToTop />
@@ -61,12 +61,13 @@ export default function App() {
   );
 }
 
+//Requests data from the server while the user is on the home page
 function FrontPagePrefetch() {
   const prefetchAllPosts = useWpApiPrefetch("getAllPosts");
 
   useEffect(() => {
-    window.history.scrollRestoration = "manual";
-    prefetchAllPosts(undefined, { ifOlderThan: 3600 });
+    window.history.scrollRestoration = "manual"; // Prevent automatic scroll restoration after navigation
+    prefetchAllPosts(undefined, { ifOlderThan: 3600 }); // Avoid refetching if cache is recent
   }, [prefetchAllPosts]);
 
   return <FrontPage />;

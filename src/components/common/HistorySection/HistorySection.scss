@@ -6,6 +6,7 @@
     flex-direction: column;
     margin-bottom: 80px;
     border-radius: 20px;
+    color: #2d3748;
 
     @media (min-width: 768px) {
       flex-direction: row;
@@ -14,17 +15,16 @@
 
   &__about-image {
     margin-bottom: 2rem;
-    max-width: 600px;
+    max-width: 500px;
 
     @media (min-width: 768px) {
-      width: 100%;
+      width: 90%;
       margin-bottom: 0;
       padding-right: 2rem;
     }
 
     img {
       max-width: 100%;
-      max-width: 300px;
       object-fit: cover;
       border-radius: 0.5rem;
     }
@@ -32,6 +32,9 @@
 
   &__about-content {
     width: 100%;
+    p {
+      line-height: 120%;
+    }
 
     @media (min-width: 768px) {
       width: 50%;
@@ -47,7 +50,6 @@
     p {
       font-size: 1.5rem;
       font-weight: 500;
-      color: #282a2d;
     }
   }
 }

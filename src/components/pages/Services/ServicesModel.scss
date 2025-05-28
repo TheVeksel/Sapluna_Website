@@ -1,6 +1,7 @@
 .solutions {
   padding-top: 120px;
   margin-bottom: 0;
+  color: #2d3748;
 
   &__rows {
     display: flex;
@@ -24,9 +25,9 @@
     width: 100%; 
 
     h3 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #000000;
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: #2d3748;
       margin-bottom: 15px;
       min-height: 45px;
       text-align: center;
@@ -34,7 +35,7 @@
 
     p {
       font-size: 1.2rem;
-      color: #2b2a2a;
+      color: #2d3748;
       line-height: 1.6;
       font-weight: 700;
       margin-bottom: 15px;

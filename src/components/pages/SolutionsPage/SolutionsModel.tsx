@@ -1,44 +1,31 @@
 import "./SolutionsModel.scss";
 import Title from "../../common/title/Title";
-import { useGetAllPostsQuery, useGetPostBySlugQuery } from "../../../api/wpApi";
 import { useParams } from "react-router-dom";
 import Loader from "../../common/Loader";
 import { useState, useEffect } from "react";
 import HistorySection from "../../common/HistorySection/HistorySection";
 import BoockButton from "../../common/buttons/boockButton";
+import { useGetPosts } from "../../../hooks/useGetPosts";
 
 export default function ServicesModel() {
   const { slug } = useParams<{ slug: string }>();
-  const {
-    data: allPosts,
-    isLoading: isAllLoading,
-    isFetching: isAllFetching,
-  } = useGetAllPostsQuery();
-  const {
-    data: singlePostData,
-    isLoading: isSingleLoading,
-    isFetching: isSingleFetching,
-  } = useGetPostBySlugQuery(slug || "", {
-    skip: !!allPosts?.find((post) => post.slug === slug),
-  });
   const [showLoader, setShowLoader] = useState(true);
+  
+  const { data, isLoading, isFetching } = useGetPosts(slug || "");
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
-
     setShowLoader(true);
-
-    const isLoading =
-      isAllLoading || isAllFetching || isSingleLoading || isSingleFetching;
-    if (!isLoading) {
+    const loading = isLoading || isFetching;
+    if (!loading) {
       timer = setTimeout(() => setShowLoader(false), 400);
     }
-
     return () => {
       if (timer) clearTimeout(timer);
     };
-  }, [slug, isAllLoading, isAllFetching, isSingleLoading, isSingleFetching]);
+  }, [isLoading, isFetching, slug]);
 
+//exceptions
   if (!slug) return <p>No slug provided</p>;
   if (showLoader) {
     return (
@@ -47,13 +34,11 @@ export default function ServicesModel() {
       </section>
     );
   }
-
-  const post =
-    allPosts?.find((post) => post.slug === slug) || singlePostData?.[0];
-  if (!post) return <p>Post not found</p>;
-
-  const titleOfPage = post.acf?.title_of_page || "No title";
-  const acfData = post.acf?.[slug];
+  if (!data) return <p>Post not found</p>;
+  
+// Destructuring with fallback for uncommon ACF key names
+  const titleOfPage = data.acf?.title_of_page || "No title";
+  const acfData = data.acf?.[slug];
   const {
     title_1,
     ["title_1-2"]: title_1_2,
@@ -77,7 +62,7 @@ export default function ServicesModel() {
           </div>
           <div className="solutions__items">
             <h3>{title_2}</h3>
-            <p >{text_2}</p>
+            <p>{text_2}</p>
           </div>
         </div>
 
@@ -91,7 +76,6 @@ export default function ServicesModel() {
             {text_2_2 && <p>{text_2_2}</p>}
           </div>
         </div>
-        
 
         <div className="solutions__button-container">
           <BoockButton color="#fc8437">Varaa esittely</BoockButton>

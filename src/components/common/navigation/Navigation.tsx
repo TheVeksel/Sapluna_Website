@@ -7,9 +7,13 @@ interface NavigationProps {
 }
 
 export default function Navigation({ onClose }: NavigationProps) {
+  // Tracks which dropdown is open; null means none
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+
+  // Ref used to detect outside clicks
   const DropDownRef = useRef<HTMLUListElement>(null);
 
+  // Closes dropdown when clicking outside the menu
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -25,13 +29,9 @@ export default function Navigation({ onClose }: NavigationProps) {
     };
   }, []);
 
+  // Toggles dropdown menu; closes if already open
   const handleToggleDropdown = (menu: string) => {
-    setOpenDropdown((prev) => {
-      if (prev === menu) {
-        return null;
-      }
-      return menu;
-    });
+    setOpenDropdown((prev) => (prev === menu ? null : menu));
   };
 
   const handleLinkClick = () => {
@@ -134,11 +134,11 @@ export default function Navigation({ onClose }: NavigationProps) {
           </ul>
         )}
       </li>
-        <li>
-          <Link to="/ajankohtaista/blogi" onClick={handleLinkClick}>
-            <Button color="transparent">Ajankohtaista</Button>
-          </Link>
-        </li>
+      <li>
+        <Link to="/ajankohtaista/blogi" onClick={handleLinkClick}>
+          <Button color="transparent">Ajankohtaista</Button>
+        </Link>
+      </li>
       <li>
         <Link to="/hinnoittelu" onClick={onClose} className="nav-link">
           <Button color="transparent">Hinnoittelu</Button>

@@ -1,5 +1,5 @@
-import { useGetAllPostsQuery, useGetPostBySlugQuery} from "../api/wpApi";
 import { useState, useEffect } from "react";
+import { useGetPosts } from "./useGetPosts";
 
 interface FeatureCard {
   image: string;
@@ -10,30 +10,12 @@ interface FeatureCard {
 export const useFeaturesCards = () => {
   const slug = "ominaisuudet";
   const [showLoader, setShowLoader] = useState(true);
-
-  const {
-    data: postFromAll,
-    isLoading: isAllLoading,
-  } = useGetAllPostsQuery(undefined, {
-    selectFromResult: ({ data, isLoading, isFetching }) => ({
-      data: data?.find((post) => post.slug === slug),
-      isLoading,
-      isFetching,
-    }),
-  });
-
-  const {
-    data: singlePostArray,
-    isLoading: isSingleLoading,
-  } = useGetPostBySlugQuery(slug || "", {
-    skip: !!postFromAll,
-  });
+  
+  const { data, isLoading } = useGetPosts(slug);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
     setShowLoader(true);
-
-    const isLoading = isAllLoading || isSingleLoading;
 
     if (!isLoading) {
       timer = setTimeout(() => setShowLoader(false), 400);
@@ -42,11 +24,10 @@ export const useFeaturesCards = () => {
     return () => {
       if (timer) clearTimeout(timer);
     };
-  }, [isAllLoading, isSingleLoading]);
+  }, [isLoading]);
 
-  const post = postFromAll || singlePostArray?.[0];
-  const cards: FeatureCard[] = post?.acf?.features
-    ? (Object.values(post.acf.features) as FeatureCard[])
+  const cards: FeatureCard[] = data?.acf?.features
+    ? (Object.values(data.acf.features) as FeatureCard[])
     : [];
 
   return {
