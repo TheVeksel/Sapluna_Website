@@ -1,15 +1,17 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 // src/api/wpApi.ts
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { Product } from "../components/pages/PricingPage/PopUps/OrderPopUp";
 
 interface Post {
-  content: any;
+  content: unknown;
   id: number;
   slug: string;
   title: { rendered: string };
   date: string;
-  acf: { [key: string]: any };
+  acf: { [key: string]: unknown };
   featured_media?: number;
+  excerpt: { rendered: string };
   _embedded?: {
     "wp:featuredmedia"?: Array<{
       source_url: string;
@@ -75,6 +77,15 @@ const wpApi = createApi({
           : [{ type: "Posts", id: "BLOG_LIST" }],
       keepUnusedDataFor: 3600,
     }),
+    getAllProducts: builder.query<Product[], void>({
+      query: () =>
+        `product?product_cat=137&_embed=1&_fields=id,slug,title,content,featured_media,acf,_links,_embedded`,
+      providesTags: (result) => [
+        { type: "Products", id: "LIST" },
+        ...(result?.map(({ id }) => ({ type: "Products" as const, id })) || []),
+      ],
+      keepUnusedDataFor: 3600,
+    }),
   }),
 });
 
@@ -84,6 +95,7 @@ export const {
   useGetProductBySlugQuery,
   useGetBlogPostBySlugQuery,
   useGetAllBlogPostsQuery,
+  useGetAllProductsQuery,
   usePrefetch,
 } = wpApi;
 

@@ -4,6 +4,7 @@ import PricingCalculator from "./PricingCalculator";
 import PricingInfo from "./PricingInfo/PricingInfo";
 import PricingContact from "./PricingInfo/PricingContacts";
 import TariffTable from "./Pricingtable/TariffTable";
+import OrderPopUp from "./PopUps/OrderPopUp";
 
 type PlanKey = "solo" | "team" | "enterprise";
 
@@ -21,19 +22,19 @@ export default function PricingPage() {
   const [omistaja, setOmistaja] = useState(1); // Owners
   const [arePlansVisible, setArePlansVisible] = useState(false);
   const [isFirstPopupOpen, setIsFirstPopupOpen] = useState(false);
-  const [isSecondPopupOpen, setIsSecondPopupOpen] = useState(false);
 
-  const [pricingPlans, setPricingPlans] = useState<{
-    name: string;
-    key: PlanKey;
-    features: string[];
-  }[]>([]);
+  const [pricingPlans, setPricingPlans] = useState<
+    {
+      name: string;
+      key: PlanKey;
+      features: string[];
+    }[]
+  >([]);
 
   // Refs to elements for scroll and focus handling
   const plansRef = useRef<HTMLDivElement>(null);
   const tableRef = useRef<HTMLDivElement>(null);
   const closeFirstRef = useRef<HTMLButtonElement>(null);
-  const closeSecondRef = useRef<HTMLButtonElement>(null);
 
   // Observer to detect if plan cards are in the viewport
   useEffect(() => {
@@ -48,27 +49,20 @@ export default function PricingPage() {
   // Disable background scroll when a popup is open
   useEffect(() => {
     document.body.style.overflow =
-      isFirstPopupOpen || isSecondPopupOpen ? "hidden" : "";
+      isFirstPopupOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [isFirstPopupOpen, isSecondPopupOpen]);
+  }, [isFirstPopupOpen]);
 
   // Auto focus the close button when first popup opens
   useEffect(() => {
     if (isFirstPopupOpen) closeFirstRef.current?.focus();
   }, [isFirstPopupOpen]);
 
-  // Auto focus the close button when second popup opens
-  useEffect(() => {
-    if (isSecondPopupOpen) closeSecondRef.current?.focus();
-  }, [isSecondPopupOpen]);
-
   // Popup control functions
   const openFirstPopup = () => setIsFirstPopupOpen(true);
   const closeFirstPopup = () => setIsFirstPopupOpen(false);
-  const openSecondPopup = () => setIsSecondPopupOpen(true);
-  const closeSecondPopup = () => setIsSecondPopupOpen(false);
 
   // Handle features loaded from PricingInfo component
   const handleFeaturesLoaded = (features: PlanFeatures[]) => {
@@ -76,7 +70,7 @@ export default function PricingPage() {
     const newPricingPlans = features.map((plan) => ({
       name: plan.key.charAt(0).toUpperCase() + plan.key.slice(1),
       key: plan.key as PlanKey,
-      features: plan.features.filter(f => f),
+      features: plan.features.filter((f) => f),
     }));
     setPricingPlans(newPricingPlans);
   };
@@ -132,7 +126,8 @@ export default function PricingPage() {
                 <li key={i}>{f}</li>
               ))}
             </ul>
-            <button className="readmore-button"
+            <button
+              className="readmore-button"
               onClick={() =>
                 tableRef.current?.scrollIntoView({
                   behavior: "smooth",
@@ -251,114 +246,13 @@ export default function PricingPage() {
         <PricingContact />
 
         {isFirstPopupOpen && (
-          <div
-            className="pricing-popup"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="popup-title"
-          >
-            <div
-              className="pricing-popup__overlay"
-              onClick={(e) => {
-                e.stopPropagation();
-                closeFirstPopup();
-              }}
-            ></div>
-            <div className="pricing-popup__content">
-              <div className="pricing-popup__header">
-                <h3 id="popup-title" className="pricing-popup__title">
-                  Valitsit tämän paketin
-                </h3>
-                <button
-                  ref={closeFirstRef}
-                  className="pricing-popup__close"
-                  onClick={closeFirstPopup}
-                >
-                  ×
-                </button>
-              </div>
-
-              <div className="pricing-popup__plan">
-                <div className="pricing-popup__plan-name">
-                  {selectedPlan?.name}
-                </div>
-                <div className="pricing-popup__plan-price">
-                  {finalPrice !== null
-                    ? `€${finalPrice} / ${
-                        billingType === "yearly" ? "vuosi" : "kk"
-                      }`
-                    : "Hinta ei saatavilla"}
-                </div>
-                <ul className="pricing-popup__plan-features">
-                  {selectedPlan?.features?.map((f, i) => <li key={i}>{f}</li>)}
-                </ul>
-                <button className="pricing-popup__add-to-cart">
-                  Lisää ostoskoriin
-                </button>
-              </div>
-
-              <div className="pricing-popup__additional-services">
-                <h4>Lisäpalvelut</h4>
-                {[1, 2, 3].map((id) => (
-                  <div key={id} className="pricing-popup__service-item">
-                    <span>Palvelun nimi lyhyesti</span>
-                    <div className="pricing-popup__service-actions">
-                      <button
-                        className="pricing-popup__more-info"
-                        onClick={openSecondPopup}
-                      >
-                        Lue lisää
-                      </button>
-                      <button className="pricing-popup__cart">
-                        Ostoskoriin
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {isSecondPopupOpen && (
-          <div
-            className="pricing-popup"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="service-popup-title"
-          >
-            <div
-              className="pricing-popup__overlay"
-              onClick={(e) => {
-                e.stopPropagation();
-                closeSecondPopup();
-              }}
-            ></div>
-            <div className="pricing-popup__content">
-              <div className="pricing-popup__header">
-                <h3 id="service-popup-title" className="pricing-popup__title">
-                  Tietoa tästä palvelusta
-                </h3>
-                <button
-                  ref={closeSecondRef}
-                  className="pricing-popup__close"
-                  onClick={closeSecondPopup}
-                >
-                  ×
-                </button>
-              </div>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </p>
-              <button
-                className="pricing-popup__back-btn"
-                onClick={closeSecondPopup}
-              >
-                Takaisin
-              </button>
-            </div>
-          </div>
+          <OrderPopUp
+            selectedPlan={selectedPlan}
+            finalPrice={finalPrice}
+            billingType={billingType}
+            closeFirstPopup={closeFirstPopup}
+            closeFirstRef={closeFirstRef}
+          />
         )}
         <TariffTable ref={tableRef} />
       </div>

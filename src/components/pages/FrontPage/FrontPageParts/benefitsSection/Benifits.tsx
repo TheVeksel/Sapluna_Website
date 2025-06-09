@@ -3,8 +3,6 @@ import "./Benefits.scss";
 import H1Title from "../../../../common/title/Title";
 import BoockButton from "../../../../common/buttons/boockButton";
 
-
-
 export default function Benefits() {
   const [isFirstOpen, setIsFirstOpen] = useState(false);
   const [isSecondOpen, setIsSecondOpen] = useState(false);
