@@ -24,10 +24,16 @@ $product-color-dark: #d46e25;
     max-height: 90vh;
     border-radius: 20px;
     box-shadow: 0 12px 40px rgba(252, 132, 55, 0.35);
-    overflow: hidden;
+    overflow: auto;
     display: flex;
     flex-direction: column;
     outline: none;
+    @media (max-width:1300px) {
+      max-width: 100%;
+      width: 100%;
+      max-height: 100vh;
+      border-radius: 0;
+    }
   }
 
   &__wrapper {
