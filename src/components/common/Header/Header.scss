@@ -8,7 +8,9 @@
   top: 0;
   z-index: 300;
   font-family: "Poppins", sans-serif;
-
+  .cart {
+    transform: translateY(15%);
+  }
   &__logo {
     flex: 0 0 auto;
     max-width: 200px;
@@ -69,7 +71,7 @@
 
 
     button {
-      padding: 10px 30px;
+      padding: 8px 25px;
       background-color: #ffedd5;
       color: black;
       font-weight: bold;
@@ -89,6 +91,9 @@
     }
 
     &-login {
+      padding: 5px;
+      font-weight: 600;
+      font-size: 1.1rem;
       display: flex;
       gap: 10px;
       img {

@@ -2,7 +2,7 @@ import { useParams, Link, useLocation } from "react-router-dom";
 import { useGetBlogPostBySlugQuery } from "../../../../../api/wpApi";
 import Loader from "../../../../common/Loader";
 import "./BlogPost.scss";
-import ShareButtons from "../../../../common/share/ShareButtons";
+import ShareButtons from "../../../../common/buttons/share/ShareButtons";
 
 export default function BlogPost() {
   // Get the slug from the URL

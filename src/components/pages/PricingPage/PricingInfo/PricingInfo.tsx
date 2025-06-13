@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useGetPostBySlugQuery } from "../../../../api/wpApi";
-import Loader from "../../../common/Loader";
 import "./PricingInfo.scss";
 
 interface PricingData {
@@ -28,7 +27,7 @@ interface PricingInfoProps {
 }
 
 export default function PricingInfo({ onFeaturesLoaded }: PricingInfoProps) {
-  const { data, isLoading } = useGetPostBySlugQuery("pricing-page");
+  const { data } = useGetPostBySlugQuery("pricing-page");
   const acf = data?.[0]?.acf as PricingData | undefined;
 
   useEffect(() => {
@@ -40,15 +39,7 @@ export default function PricingInfo({ onFeaturesLoaded }: PricingInfoProps) {
       onFeaturesLoaded(features);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [acf?.cards_features]);
-
-  if (isLoading) {
-    return (
-      <section style={{ minHeight: "100vh" }}>
-        <Loader />
-      </section>
-    );
-  }
+  }, [acf, acf?.cards_features]);
 
   if (!acf) return null;
 

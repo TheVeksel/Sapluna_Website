@@ -79,7 +79,7 @@ const wpApi = createApi({
     }),
     getAllProducts: builder.query<Product[], void>({
       query: () =>
-        `product?product_cat=137&_embed=1&_fields=id,slug,title,content,featured_media,acf,_links,_embedded`,
+        `product?product_cat=137&_embed=1&_fields=id,slug,title,content,acf,`,
       providesTags: (result) => [
         { type: "Products", id: "LIST" },
         ...(result?.map(({ id }) => ({ type: "Products" as const, id })) || []),

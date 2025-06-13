@@ -1,0 +1,60 @@
+$product-color: #fc8437;
+$product-color-dark: #d46e25;
+
+.button-not-clicked,
+.button-clicked {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+  font-weight: 800;
+  font-size: 1.3rem;
+  transition: background-color 0.3s ease;
+  border: none;
+  border-radius: 14px;
+  margin: 0 auto;
+
+  @media (max-width: 720px) {
+    font-size: 1.1rem;
+    padding: 14px 30px;
+    margin-top: 10px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+.button-not-clicked {
+  background-color: $product-color;
+  color: white;
+
+  &:hover,
+  &:focus {
+    background-color: $product-color-dark;
+    outline: none; 
+  }
+}
+
+.button-clicked {
+  background-color: rgb(232, 232, 232);
+  color: #f56c0a;
+}
+
+.button-small {
+  padding: 10px 10px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  @media (max-width:500px) {
+    font-size: 0.8rem;
+    padding: 5px 5px;
+  }
+}
+
+.button-medium {
+  padding: 10px 60px;
+  font-size: 1.2rem;
+}
+.button-big {
+  padding: 18px 50px;
+  font-size: 1.5rem;
+}

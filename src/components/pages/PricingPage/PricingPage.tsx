@@ -5,6 +5,9 @@ import PricingInfo from "./PricingInfo/PricingInfo";
 import PricingContact from "./PricingInfo/PricingContacts";
 import TariffTable from "./Pricingtable/TariffTable";
 import OrderPopUp from "./PopUps/OrderPopUp";
+import { useLocation } from "react-router-dom";
+import Loader from "../../common/Loader";
+import { useGetPostBySlugQuery } from "../../../api/wpApi";
 
 type PlanKey = "solo" | "team" | "enterprise";
 
@@ -22,7 +25,6 @@ export default function PricingPage() {
   const [omistaja, setOmistaja] = useState(1); // Owners
   const [arePlansVisible, setArePlansVisible] = useState(false);
   const [isFirstPopupOpen, setIsFirstPopupOpen] = useState(false);
-
   const [pricingPlans, setPricingPlans] = useState<
     {
       name: string;
@@ -31,6 +33,25 @@ export default function PricingPage() {
     }[]
   >([]);
 
+  const location = useLocation();
+  const { isLoading } = useGetPostBySlugQuery("pricing-page");
+
+  useEffect(() => {
+    if (location.hash === "#plans") {
+      const scrollToTarget = () => {
+        const element = document.getElementById("plans");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        } else {
+          // Пробуем снова через 100 мс, пока не появится
+          setTimeout(scrollToTarget, 100);
+        }
+      };
+
+      scrollToTarget();
+    }
+  }, [location]);
+
   // Refs to elements for scroll and focus handling
   const plansRef = useRef<HTMLDivElement>(null);
   const tableRef = useRef<HTMLDivElement>(null);
@@ -38,18 +59,21 @@ export default function PricingPage() {
 
   // Observer to detect if plan cards are in the viewport
   useEffect(() => {
+    if (!plansRef.current || pricingPlans.length === 0) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => setArePlansVisible(entry.isIntersecting),
-      { threshold: 0.1 }
+      { threshold: 0.2 }
     );
-    if (plansRef.current) observer.observe(plansRef.current);
+
+    observer.observe(plansRef.current);
+
     return () => observer.disconnect();
-  }, []);
+  }, [pricingPlans]);
 
   // Disable background scroll when a popup is open
   useEffect(() => {
-    document.body.style.overflow =
-      isFirstPopupOpen ? "hidden" : "";
+    document.body.style.overflow = isFirstPopupOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
@@ -87,7 +111,6 @@ export default function PricingPage() {
         const showContact =
           plan.key === "enterprise" ||
           (plan.key === "team" && (tuottaja > 50 || omistaja > 20));
-
         return (
           <div
             key={plan.key}
@@ -100,7 +123,7 @@ export default function PricingPage() {
             {isActive && (
               <div className="pricing-section__card-price">
                 {showContact
-                  ? "Ota yhteyttä myyntiin" // Show contact message
+                  ? "Ota yhteyttä myyntiin"
                   : finalPrice !== null && (
                       <>
                         €{finalPrice}
@@ -142,13 +165,21 @@ export default function PricingPage() {
     [highlightPlan, tuottaja, omistaja, finalPrice, billingType, pricingPlans]
   );
 
+  if (isLoading) {
+    return (
+      <section style={{ minHeight: "100vh" }}>
+        <Loader />
+      </section>
+    );
+  }
+
   return (
     <section className="pricing-section">
       <div className="wrapper">
         {/* Load features from WP */}
         <PricingInfo onFeaturesLoaded={handleFeaturesLoaded} />
 
-        <h2 className="pricing-section__title">
+        <h2 className="pricing-section__title" id="plans">
           Valitse sinulle sopiva paketti
         </h2>
 
@@ -163,7 +194,7 @@ export default function PricingPage() {
               checked={isYearly}
               onChange={() => setIsYearly(!isYearly)}
             />
-            <span></span>
+            <span />
           </label>
           <span className="pricing-section__billing-toggle-label">Vuosi</span>
         </div>
@@ -252,6 +283,9 @@ export default function PricingPage() {
             billingType={billingType}
             closeFirstPopup={closeFirstPopup}
             closeFirstRef={closeFirstRef}
+            licenseType={highlightPlan}
+            omistaja={omistaja}
+            tuottaja={tuottaja}
           />
         )}
         <TariffTable ref={tableRef} />

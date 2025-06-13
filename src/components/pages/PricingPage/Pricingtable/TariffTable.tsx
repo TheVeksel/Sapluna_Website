@@ -55,7 +55,7 @@ const TariffTable = forwardRef<HTMLDivElement>((props, ref) => {
   if (loading || fetching) return <div className="loading-spinner"></div>;
   if (!post) return <div className="no-data">Ei tietoja</div>;
 
-  const acf = post.acf as ACFData;
+  const acf = post.acf as unknown as ACFData;
   const titles = acf.titles;
 
   return (

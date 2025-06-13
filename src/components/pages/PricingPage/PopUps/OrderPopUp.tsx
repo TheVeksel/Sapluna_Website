@@ -2,6 +2,9 @@ import { useState, useEffect, useRef, RefObject } from "react";
 import { useGetAllProductsQuery } from "../../../../api/wpApi";
 import ProductPopUp from "./ProductPopUp/ProductPopUp";
 import LocalLoader from "../../../common/LocalLoader";
+import AddToCartButton from "../../../common/buttons/AddToCart/AddToCartButton";
+import { useDispatch } from "react-redux";
+import { addItem } from "../../../../store/slices/cartSlice";
 
 interface OrderPopUpProps {
   selectedPlan?: {
@@ -12,6 +15,14 @@ interface OrderPopUpProps {
   billingType: string;
   closeFirstPopup: () => void;
   closeFirstRef: RefObject<HTMLButtonElement | null>;
+  licenseType: "solo" | "team" | "enterprise";
+  tuottaja:number;
+  omistaja: number;
+}
+export interface License {
+  id: number;
+  licenseType: "solo" | "team" | "enterprise";
+  finalPrice: number;
 }
 
 export interface Product {
@@ -37,11 +48,44 @@ export default function OrderPopUp({
   billingType,
   closeFirstPopup,
   closeFirstRef,
+  licenseType,
+  omistaja,
+  tuottaja,
 }: OrderPopUpProps) {
   const [isProductPopupOpen, setIsProductPopupOpen] = useState(false);
   const closeSecondRef = useRef<HTMLButtonElement>(null);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const { data: products, isLoading, isError } = useGetAllProductsQuery();
+  const dispatch = useDispatch();
+
+  const handleAddToCart = (item: Product | License) => {
+    if ("licenseType" in item) {
+      dispatch(
+        addItem({
+          id: item.id,
+          name: `${item.licenseType}`,
+          price: item.finalPrice,
+          type: "license",
+          omistaja: omistaja,
+          tuottaja: tuottaja,
+        })
+      );
+    } else {
+      const price =
+        item.acf.alennus !== "Off"
+          ? parseFloat(item.acf.alennushinta)
+          : parseFloat(item.acf.hinta);
+      dispatch(
+        addItem({
+          id: item.id,
+          name: item.title.rendered,
+          price,
+          type: "product",
+          image: item.acf.image,
+        })
+      );
+    }
+  };
 
   const openProductPopup = (product: Product) => {
     setSelectedProduct(product);
@@ -64,7 +108,6 @@ export default function OrderPopUp({
       <div className="pricing-popup">Virhe lisäpalvelujen latauksessa</div>
     );
   }
-
   return (
     <>
       <div
@@ -107,9 +150,17 @@ export default function OrderPopUp({
             <ul className="pricing-popup__plan-features">
               {selectedPlan?.features?.map((f, i) => <li key={i}>{f}</li>)}
             </ul>
-            <button className="pricing-popup__add-to-cart">
-              Lisää ostoskoriin
-            </button>
+            <AddToCartButton
+              product={
+                {
+                  id: 8468,
+                  licenseType: licenseType,
+                  finalPrice: finalPrice || 0,
+                } as License
+              }
+              onAddToCart={handleAddToCart}
+              size="medium"
+            />
           </div>
 
           {isLoading ? <LocalLoader /> : null}
@@ -119,6 +170,12 @@ export default function OrderPopUp({
             {products?.map((product) => (
               <div key={product.id} className="pricing-popup__service-item">
                 <span>{product.title.rendered}</span>
+                {product.acf.alennus !== "Off" ? (
+                  <span style={{color: '#fc8437', fontWeight: '700'}}>€{product.acf.alennushinta}</span>
+                ) : (
+                  <span style={{color: '#fc8437', fontWeight: '700'}}>€{product.acf.hinta}</span>
+                )}
+
                 <div className="pricing-popup__service-actions">
                   <button
                     className="pricing-popup__more-info"
@@ -126,7 +183,19 @@ export default function OrderPopUp({
                   >
                     Lue lisää
                   </button>
-                  <button className="pricing-popup__cart">Ostoskoriin</button>
+                  <AddToCartButton
+                    product={
+                      {
+                        id: product.id,
+                        slug: product.slug,
+                        title: product.title,
+                        content: product.content,
+                        acf: product.acf,
+                      } as Product
+                    }
+                    onAddToCart={handleAddToCart}
+                    size="small"
+                  />
                 </div>
               </div>
             ))}

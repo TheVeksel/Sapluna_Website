@@ -18,20 +18,23 @@ export default function PricingCalculator({
   onHighlightChange: (plan: PlanKey) => void;
   onPriceChange: (price: number | null) => void;
 }) {
-  const { data, isLoading } = useGetProductBySlugQuery("hinnoittelu"); 
+  const { data, isLoading } = useGetProductBySlugQuery("hinnoittelu");
   const acf = data?.[0]?.acf;
 
   useEffect(() => {
     if (!acf) return;
 
-    const solo = parseFloat(acf?.solo_price || 0);
-    const teamBase = parseFloat(acf?.team_base_price || 0);
-    const perTuottaja = parseFloat(acf?.price_per_tuottaja || 0);
-    const perOmistaja = parseFloat(acf?.price_per_omistaja || 0);
+    const solo = parseFloat(String(acf?.solo_price || "0"));
+    const teamBase = parseFloat(String(acf?.team_base_price || "0"));
+    const perTuottaja = parseFloat(String(acf?.price_per_tuottaja || "0"));
+    const perOmistaja = parseFloat(String(acf?.price_per_omistaja || "0"));
 
     const plan: PlanKey =
-      tuottaja > 50 || omistaja > 20 ? "enterprise" :
-      tuottaja + omistaja <= 2 ? "solo" : "team";
+      tuottaja > 50 || omistaja > 20
+        ? "enterprise"
+        : tuottaja + omistaja <= 2
+        ? "solo"
+        : "team";
 
     let price: number | null = null;
 
@@ -49,7 +52,7 @@ export default function PricingCalculator({
     onPriceChange(price);
   }, [tuottaja, omistaja, billing, acf, onHighlightChange, onPriceChange]);
 
-  if (isLoading) return <LocalLoader></LocalLoader>
+  if (isLoading) return <LocalLoader></LocalLoader>;
 
   return null;
 }

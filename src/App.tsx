@@ -7,7 +7,6 @@ import { usePrefetch as useWpApiPrefetch } from "./api/wpApi";
 import Header from "./components/common/Header/Header";
 import FrontPage from "./components/pages/FrontPage/FrontPage";
 import Footer from "./components/common/footer/Footer";
-import UnderDevelopment from "./components/common/underDevelopment/UnderDevelopment";
 import ScrollToTop from "./components/common/ScrollToTop";
 import { useEffect } from "react";
 import PricingPage from "./components/pages/PricingPage/PricingPage";
@@ -20,6 +19,7 @@ import PrivicyStatement from "./components/pages/otherPages/PrivicyStatement/Pri
 import AboutUs from "./components/pages/AboutUs/AboutUs";
 import BlogPage from "./components/pages/Topical/BlogPage/BlogPage";
 import BlogPost from "./components/pages/Topical/BlogPage/SinglePost/BlogPost";
+import Cart from "./components/pages/Cart/Cart";
 
 export default function App() {
   return (
@@ -32,6 +32,7 @@ export default function App() {
           <main>
             <Routes>
               <Route path="/" element={<FrontPagePrefetch />} />
+              <Route path="/cart" element={<Cart/>}/>
               {/* Solutions */}
               <Route path="/ratkaisut/:slug" element={<SolutionsModel />} />
               {/* Product */}
@@ -42,10 +43,6 @@ export default function App() {
               {/* Topical */}
               <Route path="/ajankohtaista/blogi" element={<BlogPage />} />
               <Route path="/ajankohtaista/blogi/:slug" element={<BlogPost />} />
-              <Route
-                path="/ajankohtaista/tiedotteet"
-                element={<UnderDevelopment />}
-              />
               {/* About us */}
               <Route path="/meista" element={<AboutUs />} />
               {/* Pricing page */}
