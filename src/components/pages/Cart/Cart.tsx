@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../store/store";
-import { removeItem, CartItem } from "../../../store/slices/cartSlice";
+import { removeItem, CartItem, updateQuantity } from "../../../store/slices/cartSlice";
 import "./Cart.scss";
 import { Link } from "react-router-dom";
 import Button from "../../common/buttons/button";
@@ -9,16 +9,32 @@ import Button from "../../common/buttons/button";
 const Cart: React.FC = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state: RootState) => state.cart.items);
-console.log(cartItems)
+
   const totalPrice = cartItems.reduce(
-    (sum: number, item: CartItem) => sum + item.price,
+    (sum: number, item: CartItem) => sum + item.price * (item.quantity ?? 1),
     0
   );
 
   const handleRemove = (id: number) => {
     dispatch(removeItem(id));
   };
-console.log (cartItems)
+
+  const handleDecrement = (item: CartItem) => {
+    if (item.type === "product") {
+      const currentQuantity = item.quantity ?? 1;
+      if (currentQuantity > 1) {
+        dispatch(updateQuantity({ id: item.id, quantity: currentQuantity - 1 }));
+      }
+    }
+  };
+
+  const handleIncrement = (item: CartItem) => {
+    if (item.type === "product") {
+      const currentQuantity = item.quantity ?? 1;
+      dispatch(updateQuantity({ id: item.id, quantity: currentQuantity + 1 }));
+    }
+  };
+
   return (
     <section className="productCart">
       <div className="wrapper">
@@ -54,53 +70,79 @@ console.log (cartItems)
                 </div>
               ) : (
                 <>
-                  {cartItems.map((item: CartItem) => (
-                    <div key={item.id} className="productCartItem">
-                      <div className="productCartItem__image">
-                        {item.type === "license" ? (
-                          <img
-                            src="/img/photos/license.png"
-                            alt="license"
-                          ></img>
-                        ) : (
-                          <img src={item.image} alt="license" />
-                        )}
-                      </div>
-                      <div className="productCartItem__info">
-                        <h3 className="productCartItem__name">{item.name} {item.type === "license" ? "lisenssi" : null}</h3>
-                        <div className="productCartItem__price">
-                          {item.price.toFixed(2)} €
+                  {cartItems.map((item: CartItem) => {
+                    const itemQuantity = item.quantity ?? 1;
+                    const itemTotalPrice = item.price * itemQuantity;
+
+                    return (
+                      <div key={item.id} className="productCartItem">
+                        <div className="productCartItem__image">
+                          {item.type === "license" ? (
+                            <img src="/img/photos/license.png" alt="license" />
+                          ) : (
+                            <img src={item.image} alt="product" />
+                          )}
                         </div>
-                        <div className="productCartItem__license-amount">
-                          {item.name === "team" ? (
-                            <div>
-                              <span>Omistaja:{item.omistaja}</span>
-                              <span>Tuottaja:{item.tuottaja}</span>
+                        <div className="productCartItem__info">
+                          <h3 className="productCartItem__name">
+                            {item.name} {item.type === "license" ? "lisenssi" : null}
+                          </h3>
+                          <div className="productCartItem__price">
+                            {item.price.toFixed(2)} €
+                          </div>
+                          <div className="productCartItem__license-amount">
+                            {item.name === "team" && (
+                              <div>
+                                <span>Omistaja:{item.omistaja}</span>
+                                <span>Tuottaja:{item.tuottaja}</span>
+                              </div>
+                            )}
+                          </div>
+                          
+                          {item.type === "product" && (
+                            <div className="productCartItem__quantity">
+                              <button
+                                className="productCartItem__quantity-btn"
+                                onClick={() => handleDecrement(item)}
+                                disabled={itemQuantity <= 1}
+                              >
+                                -
+                              </button>
+                              <span className="productCartItem__quantity-value">
+                                {itemQuantity}
+                              </span>
+                              <button
+                                className="productCartItem__quantity-btn"
+                                onClick={() => handleIncrement(item)}
+                              >
+                                +
+                              </button>
                             </div>
-                          ) : null}
+                          )}
+                          
+                          {item.type === "license" && (
+                            <Link to="/hinnoittelu#plans">
+                              <Button
+                                onClick={() => handleRemove(item.id)}
+                                color="#fc8437"
+                              >
+                                Vaihda lisenssi
+                              </Button>
+                            </Link>
+                          )}
                         </div>
-                        {item.type === "license" ? (
-                          <Link to="/hinnoittelu#plans">
-                            <Button
-                              onClick={() => handleRemove(item.id)}
-                              color="#fc8437"
-                            >
-                              Vaihda lisenssi
-                            </Button>
-                          </Link>
-                        ) : null}
+                        <div className="productCartItem__total">
+                          {itemTotalPrice.toFixed(2)} €
+                        </div>
+                        <button
+                          className="productCartItem__remove"
+                          onClick={() => handleRemove(item.id)}
+                        >
+                          ×
+                        </button>
                       </div>
-                      <div className="productCartItem__total">
-                        {item.price.toFixed(2)} €
-                      </div>
-                      <button
-                        className="productCartItem__remove"
-                        onClick={() => handleRemove(item.id)}
-                      >
-                        ×
-                      </button>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </>
               )}
             </div>
@@ -110,7 +152,9 @@ console.log (cartItems)
                 <div className="productCartSummary">
                   <h3 className="productCartSummary__title">Yhteenveto</h3>
                   <div className="productCartSummary__row">
-                    <span>Tuotteet ({cartItems.length})</span>
+                    <span>
+                      Tuotteet ({cartItems.reduce((sum, item) => sum + (item.quantity ?? 1), 0)})
+                    </span>
                     <span>{totalPrice.toFixed(2)} €</span>
                   </div>
                   <div className="productCartSummary__row productCartSummary__row--total">

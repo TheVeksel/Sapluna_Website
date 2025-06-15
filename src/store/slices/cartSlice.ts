@@ -6,8 +6,9 @@ export type CartItem = {
   price: number;
   type: "product" | "license";
   image?: string;
-  omistaja?:number;
-  tuottaja?:number;
+  omistaja?: number;
+  tuottaja?: number;
+  quantity?: number; 
 };
 
 type CartState = {
@@ -38,7 +39,11 @@ const cartSlice = createSlice({
     addItem(state, action: PayloadAction<CartItem>) {
       const exists = state.items.some((item) => item.id === action.payload.id);
       if (!exists) {
-        state.items.push(action.payload);
+        const quantity = action.payload.type === "license" 
+          ? 1 
+          : action.payload.quantity || 1;
+        
+        state.items.push({ ...action.payload, quantity });
         saveCartToStorage(state.items);
       }
     },
@@ -46,8 +51,20 @@ const cartSlice = createSlice({
       state.items = state.items.filter((item) => item.id !== action.payload);
       saveCartToStorage(state.items);
     },
+    updateQuantity(
+      state,
+      action: PayloadAction<{ id: number; quantity: number }>
+    ) {
+      const { id, quantity } = action.payload;
+      const item = state.items.find((item) => item.id === id);
+      
+      if (item && item.type === "product") {
+        item.quantity = quantity;
+        saveCartToStorage(state.items);
+      }
+    },
   },
 });
 
-export const { addItem, removeItem } = cartSlice.actions;
+export const { addItem, removeItem, updateQuantity } = cartSlice.actions;
 export default cartSlice.reducer;

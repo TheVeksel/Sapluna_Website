@@ -107,12 +107,45 @@
       margin-right: 10px;
     }
   }
-  &__quantity-value {
-    margin: 0 10px;
-    min-width: 20px;
-    text-align: center;
+  
+  &__quantity {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    gap: 10px;
   }
 
+  &__quantity-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #fc8437;
+    color: white;
+    opacity: 0.9;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+
+    &:hover {
+      background: #ef7225;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      background: #ddd;
+      border-color: #ddd;
+      color: #777;
+    }
+  }
+
+  &__quantity-value {
+    min-width: 30px;
+    text-align: center;
+    font-weight: 600;
+  }
+  
   &__total {
     font-weight: 700;
     font-size: 1.2rem;

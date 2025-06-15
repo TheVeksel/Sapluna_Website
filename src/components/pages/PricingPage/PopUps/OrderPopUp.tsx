@@ -82,6 +82,7 @@ export default function OrderPopUp({
           price,
           type: "product",
           image: item.acf.image,
+          quantity: 1,
         })
       );
     }
@@ -163,10 +164,10 @@ export default function OrderPopUp({
             />
           </div>
 
-          {isLoading ? <LocalLoader /> : null}
 
           <div className="pricing-popup__additional-services">
             <h4>Lisäpalvelut</h4>
+          {isLoading ? <LocalLoader /> : null}
             {products?.map((product) => (
               <div key={product.id} className="pricing-popup__service-item">
                 <span>{product.title.rendered}</span>

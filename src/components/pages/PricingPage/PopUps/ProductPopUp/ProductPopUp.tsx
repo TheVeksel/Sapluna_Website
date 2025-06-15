@@ -34,6 +34,7 @@ export default function ProductPopUp({
         price,
         type: "product",
         image: item.acf.image,
+        quantity: 1,
       })
     );
   };
