@@ -1,7 +1,11 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../store/store";
-import { removeItem, CartItem, updateQuantity } from "../../../store/slices/cartSlice";
+import {
+  removeItem,
+  CartItem,
+  updateQuantity,
+} from "../../../store/slices/cartSlice";
 import "./Cart.scss";
 import { Link } from "react-router-dom";
 import Button from "../../common/buttons/button";
@@ -9,6 +13,7 @@ import Button from "../../common/buttons/button";
 const Cart: React.FC = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state: RootState) => state.cart.items);
+  const hasLicenseInCart = cartItems.some((item) => item.type === "license");
 
   const totalPrice = cartItems.reduce(
     (sum: number, item: CartItem) => sum + item.price * (item.quantity ?? 1),
@@ -23,7 +28,9 @@ const Cart: React.FC = () => {
     if (item.type === "product") {
       const currentQuantity = item.quantity ?? 1;
       if (currentQuantity > 1) {
-        dispatch(updateQuantity({ id: item.id, quantity: currentQuantity - 1 }));
+        dispatch(
+          updateQuantity({ id: item.id, quantity: currentQuantity - 1 })
+        );
       }
     }
   };
@@ -34,7 +41,7 @@ const Cart: React.FC = () => {
       dispatch(updateQuantity({ id: item.id, quantity: currentQuantity + 1 }));
     }
   };
-
+  console.log(cartItems);
   return (
     <section className="productCart">
       <div className="wrapper">
@@ -64,7 +71,10 @@ const Cart: React.FC = () => {
                   <p className="emptyCart__text">
                     Sinulla ei ole vielä tuotteita ostoskorissa
                   </p>
-                  <Link to="/hinnoittelu" className="emptyCart__button btn btn--primary">
+                  <Link
+                    to="/hinnoittelu"
+                    className="emptyCart__button btn btn--primary"
+                  >
                     Jatka ostoksia
                   </Link>
                 </div>
@@ -85,7 +95,8 @@ const Cart: React.FC = () => {
                         </div>
                         <div className="productCartItem__info">
                           <h3 className="productCartItem__name">
-                            {item.name} {item.type === "license" ? "lisenssi" : null}
+                            {item.name}{" "}
+                            {item.type === "license" ? "lisenssi" : null}
                           </h3>
                           <div className="productCartItem__price">
                             {item.price.toFixed(2)} €
@@ -98,7 +109,7 @@ const Cart: React.FC = () => {
                               </div>
                             )}
                           </div>
-                          
+
                           {item.type === "product" && (
                             <div className="productCartItem__quantity">
                               <button
@@ -119,7 +130,7 @@ const Cart: React.FC = () => {
                               </button>
                             </div>
                           )}
-                          
+
                           {item.type === "license" && (
                             <Link to="/hinnoittelu#plans">
                               <Button
@@ -153,7 +164,12 @@ const Cart: React.FC = () => {
                   <h3 className="productCartSummary__title">Yhteenveto</h3>
                   <div className="productCartSummary__row">
                     <span>
-                      Tuotteet ({cartItems.reduce((sum, item) => sum + (item.quantity ?? 1), 0)})
+                      Tuotteet (
+                      {cartItems.reduce(
+                        (sum, item) => sum + (item.quantity ?? 1),
+                        0
+                      )}
+                      )
                     </span>
                     <span>{totalPrice.toFixed(2)} €</span>
                   </div>
@@ -165,6 +181,13 @@ const Cart: React.FC = () => {
                     Siirry kassalle
                   </button>
                 </div>
+                {!hasLicenseInCart && (
+                  <div className="productCartSummary__promote">
+                    <Link to="/hinnoittelu">
+                      <Button color="#fc8437">Tutustu lisenssin etuihin</Button>
+                    </Link>
+                  </div>
+                )}
               </div>
             )}
           </div>
