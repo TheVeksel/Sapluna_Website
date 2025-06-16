@@ -11,28 +11,31 @@ interface AddToCartButtonProps {
   onAddToCart?: (product: Product | License) => void;
 }
 
-export default function AddToCartButton({ size, product, onAddToCart }: AddToCartButtonProps) {
+export default function AddToCartButton({
+  size,
+  product,
+  onAddToCart,
+}: AddToCartButtonProps) {
   const [isClicked, setIsClicked] = useState(false);
   const cartItems = useSelector((state: RootState) => state.cart.items);
 
   const sizeClass = {
     small: "button-small",
     medium: "button-medium",
-    big: "button-big"
+    big: "button-big",
   }[size];
 
   useEffect(() => {
     if (!product) return;
 
     const isLicense = "licenseType" in product;
-    if (isLicense) {
-      const licenseInCart = cartItems.some(
-        (item) => item.type === "license" && item.id === product.id
-      );
-      if (licenseInCart) {
-        setIsClicked(true);
-      }
-    }
+    const isInCart = cartItems.some(
+      (item) =>
+        item.id === product.id &&
+        item.type === (isLicense ? "license" : "product")
+    );
+
+    setIsClicked(isInCart);
   }, [cartItems, product]);
 
   const handleClick = () => {

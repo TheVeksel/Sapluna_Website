@@ -64,7 +64,7 @@ const Cart: React.FC = () => {
                   <p className="emptyCart__text">
                     Sinulla ei ole vielä tuotteita ostoskorissa
                   </p>
-                  <Link to="/" className="emptyCart__button btn btn--primary">
+                  <Link to="/hinnoittelu" className="emptyCart__button btn btn--primary">
                     Jatka ostoksia
                   </Link>
                 </div>
