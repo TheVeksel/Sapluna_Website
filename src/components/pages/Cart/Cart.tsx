@@ -177,14 +177,16 @@ const Cart: React.FC = () => {
                     <span>Kokonaissumma</span>
                     <span>{totalPrice.toFixed(2)} €</span>
                   </div>
-                  <button className="productCartSummary__checkout btn btn--primary">
-                    Siirry kassalle
-                  </button>
+                  <Link to="/checkout">
+                    <button className="productCartSummary__checkout btn btn--primary">
+                      Siirry kassalle
+                    </button>
+                  </Link>
                 </div>
                 {!hasLicenseInCart && (
                   <div className="productCartSummary__promote">
                     <Link to="/hinnoittelu">
-                      <Button color="#fc8437">Tutustu lisenssin etuihin</Button>
+                      <Button color="#fc8437">Tutustu Saplunan lisenssiin</Button>
                     </Link>
                   </div>
                 )}

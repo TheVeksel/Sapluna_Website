@@ -20,6 +20,7 @@ import AboutUs from "./components/pages/AboutUs/AboutUs";
 import BlogPage from "./components/pages/Topical/BlogPage/BlogPage";
 import BlogPost from "./components/pages/Topical/BlogPage/SinglePost/BlogPost";
 import Cart from "./components/pages/Cart/Cart";
+import Checkout from "./components/pages/Cart/Checkout/Checkout";
 
 export default function App() {
   return (
@@ -33,6 +34,8 @@ export default function App() {
             <Routes>
               <Route path="/" element={<FrontPagePrefetch />} />
               <Route path="/cart" element={<Cart/>}/>
+              <Route path="/checkout" element={<Checkout/>}/>
+              
               {/* Solutions */}
               <Route path="/ratkaisut/:slug" element={<SolutionsModel />} />
               {/* Product */}
