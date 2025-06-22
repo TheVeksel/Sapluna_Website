@@ -28,7 +28,11 @@ export default function BlogPost() {
     return <p>Virhe postin latauksessa tai sitä ei löytynyt.</p>;
   }
 
-  const post = data[0];
+  const post = data[0] as {
+    title: { rendered: string };
+    content: { rendered: string };
+    date: string;
+  };
 
   return (
     <section className="blog-single">

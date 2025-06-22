@@ -1,7 +1,7 @@
 import { Provider } from "react-redux";
 import store from "./store/store";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "./styles/Reset.css";//Resets annoying styles by default like list style etc.
+import "./styles/Reset.css"; //Resets annoying styles by default like list style etc.
 import "./styles/main.scss";
 import { usePrefetch as useWpApiPrefetch } from "./api/wpApi";
 import Header from "./components/common/Header/Header";
@@ -21,10 +21,14 @@ import BlogPage from "./components/pages/Topical/BlogPage/BlogPage";
 import BlogPost from "./components/pages/Topical/BlogPage/SinglePost/BlogPost";
 import Cart from "./components/pages/Cart/Cart";
 import Checkout from "./components/pages/Cart/Checkout/Checkout";
+import Shop from "./components/pages/Shop/Shop";
+import CategoryPage from "./components/pages/Shop/CategoryPage";
+import ProductPage from "./components/pages/Shop/ProductPage/ProductPage";
 
 export default function App() {
   return (
-    <Provider store={store}>{/*Redux toolkit query*/}
+    <Provider store={store}>
+      {/*Redux toolkit query*/}
       <div className="main-container">
         <Router>
           <ScrollToTop />
@@ -33,9 +37,8 @@ export default function App() {
           <main>
             <Routes>
               <Route path="/" element={<FrontPagePrefetch />} />
-              <Route path="/cart" element={<Cart/>}/>
-              <Route path="/checkout" element={<Checkout/>}/>
-              
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/checkout" element={<Checkout />} />
               {/* Solutions */}
               <Route path="/ratkaisut/:slug" element={<SolutionsModel />} />
               {/* Product */}
@@ -50,6 +53,9 @@ export default function App() {
               <Route path="/meista" element={<AboutUs />} />
               {/* Pricing page */}
               <Route path="/hinnoittelu" element={<PricingPage />} />
+              <Route path="/verkkokauppa" element={<Shop />} />
+              <Route path="/tuoteryhma/:slug" element={<CategoryPage />} />
+              <Route path="/verkkokauppa/tuote/:slug" element={<ProductPage />} />
               {/*Other pages*/}
               <Route path="/tietosuojaseloste" element={<PrivicyStatement />} />
             </Routes>

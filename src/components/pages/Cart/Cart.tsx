@@ -72,7 +72,7 @@ const Cart: React.FC = () => {
                     Sinulla ei ole vielä tuotteita ostoskorissa
                   </p>
                   <Link
-                    to="/hinnoittelu"
+                    to="/verkkokauppa"
                     className="emptyCart__button btn btn--primary"
                   >
                     Jatka ostoksia
@@ -183,6 +183,11 @@ const Cart: React.FC = () => {
                     </button>
                   </Link>
                 </div>
+                <div className="productCartSummary__promote">
+                    <Link to="/Verkkokauppa">
+                      <Button color="#fc8437">Jatka ostoksia</Button>
+                    </Link>
+                  </div>
                 {!hasLicenseInCart && (
                   <div className="productCartSummary__promote">
                     <Link to="/hinnoittelu">

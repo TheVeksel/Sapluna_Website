@@ -8,9 +8,39 @@
   top: 0;
   z-index: 300;
   font-family: "Poppins", sans-serif;
-  .cart {
+  &__cart {
+    position: relative;
     transform: translateY(15%);
+
+    &-badge {
+      position: absolute;
+      top: -10px;
+      right: -12px;
+      background-color: #fc3434;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+      border-radius: 50%;
+      padding: 2px 4px;
+      min-width: 18px;
+      text-align: center;
+      line-height: 1;
+      @media (max-width: 1260px) {
+        top: -4px;
+        right: 0;
+        font-size: 1rem;
+        padding: 5px 8px;
+      }
+    }
   }
+
+  &__cart-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+
   &__logo {
     flex: 0 0 auto;
     max-width: 200px;
@@ -154,6 +184,7 @@
         background-color: rgba(255, 255, 255, 0.2);
       }
     }
+    
   }
 
 
@@ -257,3 +288,5 @@
     }
   }
 }
+
+

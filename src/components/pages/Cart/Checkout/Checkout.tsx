@@ -3,20 +3,13 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../../store/store";
 import axios from "axios";
 import "./Checkout.scss";
-
-interface CartItem {
-  id: number;
-  name: string;
-  type: "product" | "license";
-  quantity?: number;
-  tuottaja?: number;
-  omistaja?: number;
-}
+import { CartItem } from "../../../../store/slices/cartSlice";
 
 const Checkout: React.FC = () => {
   const cartItems = useSelector(
     (state: RootState) => state.cart.items
   ) as CartItem[];
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -25,47 +18,52 @@ const Checkout: React.FC = () => {
     yTunnus: "",
     phone: "",
     address: "",
+    city: "",
+    state: "",
+    postcode: "",
+    country: "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  const orderData = {
-    billing: {
-      first_name: formData.firstName,
-      last_name: formData.lastName,
-      email: formData.email,
-      company: formData.company,
-      phone: formData.phone,
-      address_1: formData.address,
-      address_2: "",
-      city:  "Helsinki",
-      state:  "",
-      postcode:  "00100",
-      country:  "FI",
-    },
-    meta_data: [
-      { key: "y_tunnus", value: formData.yTunnus },
-    ],
-    line_items: cartItems.map(item => ({
-      product_id: item.id,
-      quantity: item.type === "product" ? item.quantity ?? 1 : 1,
-    })),
+    const orderData = {
+      billing: {
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        email: formData.email,
+        company: formData.company,
+        phone: formData.phone,
+        address_1: formData.address,
+        address_2: "",
+        city: formData.city,
+        state: formData.state,
+        postcode: formData.postcode,
+        country: formData.country,
+      },
+      meta_data: [{ key: "y_tunnus", value: formData.yTunnus }],
+      line_items: cartItems.map((item) => ({
+        product_id: item.id,
+        quantity: item.quantity || 1,
+        type: item.type,
+        tuottaja: item.tuottaja,
+        omistaja: item.omistaja,
+        billing: item.billingType,
+      })),
+    };
+
+    console.log("Отправляем заказ:", orderData);
+
+    try {
+      const { data } = await axios.post(
+        "http://localhost:3001/api/process-order",
+        orderData
+      );
+      console.log("Order response:", data);
+    } catch (error) {
+      console.error("Order error:", error);
+    }
   };
-
-  console.log("Отправляем заказ:", orderData);
-
-  try {
-    const { data } = await axios.post(
-      "http://localhost:3001/api/process-order",
-      orderData
-    );
-    console.log("Order response:", data);
-  } catch (error) {
-    console.error("Order error:", error);
-  }
-};
-
 
   return (
     <section className="checkoutPage">
@@ -108,6 +106,7 @@ const Checkout: React.FC = () => {
               required
             />
           </div>
+
           <div className="formGroup">
             <input
               type="tel"
@@ -119,6 +118,31 @@ const Checkout: React.FC = () => {
               required
             />
           </div>
+          <div className="formRow">
+            <div className="formGroup">
+              <input
+                type="text"
+                placeholder="Kaupunki *"
+                value={formData.city}
+                onChange={(e) =>
+                  setFormData({ ...formData, city: e.target.value })
+                }
+                required
+              />
+            </div>
+            <div className="formGroup">
+              <input
+                type="text"
+                placeholder="Postinumero *"
+                value={formData.postcode}
+                onChange={(e) =>
+                  setFormData({ ...formData, postcode: e.target.value })
+                }
+                required
+              />
+            </div>
+          </div>
+
           <div className="formGroup">
             <input
               type="text"
@@ -130,6 +154,7 @@ const Checkout: React.FC = () => {
               required
             />
           </div>
+
           <div className="formGroup">
             <input
               type="text"

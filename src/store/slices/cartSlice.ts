@@ -8,7 +8,8 @@ export type CartItem = {
   image?: string;
   omistaja?: number;
   tuottaja?: number;
-  quantity?: number; 
+  quantity?: number;
+  billingType?: string;
 };
 
 type CartState = {

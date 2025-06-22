@@ -140,9 +140,26 @@ export default function Navigation({ onClose }: NavigationProps) {
         </Link>
       </li>
       <li>
-        <Link to="/hinnoittelu" onClick={onClose} className="nav-link">
-          <Button color="transparent">Hinnoittelu</Button>
-        </Link>
+        <Button
+          color="transparent"
+          onClick={() => handleToggleDropdown("hinnoittelu")}
+        >
+          {"Hinnoittelu " + (openDropdown === "hinnoittelu" ? "▲" : "▼")}
+        </Button>
+        {openDropdown === "hinnoittelu" && (
+          <ul className="dropdown-menu">
+            <li>
+              <Link to="/hinnoittelu" onClick={handleLinkClick}>
+                Hinnoittelu
+              </Link>
+            </li>
+            <li>
+              <Link to="/verkkokauppa" onClick={handleLinkClick}>
+                Verkkokauppa
+              </Link>
+            </li>
+          </ul>
+        )}
       </li>
       <li>
         <Link to="/meista" onClick={onClose} className="nav-link">

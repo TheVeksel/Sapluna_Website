@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef, RefObject } from "react";
-import { useGetAllProductsQuery } from "../../../../api/wpApi";
 import ProductPopUp from "./ProductPopUp/ProductPopUp";
 import LocalLoader from "../../../common/LocalLoader";
 import AddToCartButton from "../../../common/buttons/AddToCart/AddToCartButton";
 import { useDispatch } from "react-redux";
 import { addItem } from "../../../../store/slices/cartSlice";
+import { useGetAllProductsViaCategoryIdQuery } from "../../../../api/wpApi";
 
 interface OrderPopUpProps {
   selectedPlan?: {
@@ -39,6 +39,7 @@ export interface Product {
     alennus: string;
     alennushinta: string;
     image: string;
+    category?:string;
   };
 }
 
@@ -55,7 +56,7 @@ export default function OrderPopUp({
   const [isProductPopupOpen, setIsProductPopupOpen] = useState(false);
   const closeSecondRef = useRef<HTMLButtonElement>(null);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const { data: products, isLoading, isError } = useGetAllProductsQuery();
+  const { data: products, isLoading, isError } = useGetAllProductsViaCategoryIdQuery(137);
   const dispatch = useDispatch();
 
   const handleAddToCart = (item: Product | License) => {
@@ -68,6 +69,7 @@ export default function OrderPopUp({
           type: "license",
           omistaja: omistaja,
           tuottaja: tuottaja,
+          billingType: billingType,
         })
       );
     } else {

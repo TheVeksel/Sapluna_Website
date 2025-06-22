@@ -43,7 +43,7 @@ export default function PricingPage() {
         if (element) {
           element.scrollIntoView({ behavior: "smooth" });
         } else {
-          // Пробуем снова через 100 мс, пока не появится
+          // try again until it appears
           setTimeout(scrollToTarget, 100);
         }
       };

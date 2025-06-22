@@ -7,12 +7,24 @@ import HistorySection from "../../common/HistorySection/HistorySection";
 import BoockButton from "../../common/buttons/boockButton";
 import { useGetPosts } from "../../../hooks/useGetPosts";
 
-export default function ServicesModel() {
-  // Getting data via hook
+// Define interface for main_titles structure
+interface MainTitles {
+  title_1?: string;
+  "title_1-2"?: string;
+  title_2?: string;
+  "title_2-2"?: string;
+  text_1?: string;
+  "text_1-2"?: string;
+  text_2?: string;
+  "text_2-2"?: string;
+}
+
+export default function SolutionsModel() {
   const { slug } = useParams<{ slug: string }>();
   const [showLoader, setShowLoader] = useState(true);
+  
   const { data, isLoading, isFetching } = useGetPosts(slug || "");
-  //control loading animation
+
   useEffect(() => {
     let timer: NodeJS.Timeout;
     setShowLoader(true);
@@ -34,12 +46,13 @@ export default function ServicesModel() {
       </section>
     );
   }
-  if (!data) return <p>Post not found</p>
-
+  if (!data) return <p>Post not found</p>;
   
   // Destructuring with fallback for uncommon ACF key names
   const titleOfPage = data.acf?.title_of_page || "No title";
   const acfData = data.acf?.[slug];
+  const mainTitles = (acfData as { main_titles?: MainTitles })?.main_titles || {};
+  
   const {
     title_1,
     ["title_1-2"]: title_1_2,
@@ -49,12 +62,13 @@ export default function ServicesModel() {
     ["text_1-2"]: text_1_2,
     text_2,
     ["text_2-2"]: text_2_2,
-  } = acfData?.main_titles || {};
+  } = mainTitles;
 
   return (
     <section className="solutions">
       <div className="wrapper">
-        <Title>{titleOfPage}</Title>
+        {/* Fix children type by ensuring single string child */}
+        <Title>{titleOfPage as string}</Title>
 
         <div className="solutions__rows">
           <div className="solutions__items">

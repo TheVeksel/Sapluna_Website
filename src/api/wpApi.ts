@@ -1,4 +1,3 @@
-
 // src/api/wpApi.ts
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Product } from "../components/pages/PricingPage/PopUps/OrderPopUp";
@@ -19,13 +18,19 @@ interface Post {
     }>;
   };
 }
+export interface ProductCategory {
+  id: number;
+  name: string;
+  slug: string;
+  acf?: { [key: string]: unknown };
+}
 
 const wpApi = createApi({
   reducerPath: "wpApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://sapluna.com/wp-json/wp/v2/",
   }),
-  tagTypes: ["Posts", "Products"],
+  tagTypes: ["Posts", "Products", "ProductCategories"],
   endpoints: (builder) => ({
     getAllPosts: builder.query<Post[], void>({
       query: () => `posts?per_page=100&_fields=id,slug,acf`,
@@ -77,9 +82,44 @@ const wpApi = createApi({
           : [{ type: "Posts", id: "BLOG_LIST" }],
       keepUnusedDataFor: 3600,
     }),
+    getAllProductsViaCategoryId: builder.query<Product[], number>({
+      query: (id) =>
+        `product?product_cat=${id}&_embed=1&_fields=id,slug,title,content,acf&exclude=8468`,
+      providesTags: (result) => [
+        { type: "Products", id: "LIST" },
+        ...(result?.map(({ id }) => ({ type: "Products" as const, id })) || []),
+      ],
+      keepUnusedDataFor: 3600,
+    }),
+
+    getAllProductCategories: builder.query<ProductCategory[], void>({
+      query: () =>
+        `product_cat?_fields=id,name,slug,acf&per_page=100&orderby=name&order=asc&exclude=37`,
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({
+                type: "ProductCategories" as const,
+                id,
+              })),
+              { type: "ProductCategories", id: "LIST" },
+            ]
+          : [{ type: "ProductCategories", id: "LIST" }],
+      keepUnusedDataFor: 3600,
+    }),
+    getShopProductBySlug: builder.query<Product[], string>({
+      query: (slug) =>
+        `product?slug=${slug}&product_cat_embed=1&_fields=id,slug,title,content,acf`,
+      providesTags: (result) =>
+        result
+          ? result.map(({ id }) => ({ type: "Products" as const, id }))
+          : [{ type: "Products", id: "SINGLE" }],
+      keepUnusedDataFor: 3600,
+    }),
+
     getAllProducts: builder.query<Product[], void>({
       query: () =>
-        `product?product_cat=137&_embed=1&_fields=id,slug,title,content,acf,`,
+        `product?product_cat_embed=1&_fields=id,slug,title,content,acf&exclude=8468`,
       providesTags: (result) => [
         { type: "Products", id: "LIST" },
         ...(result?.map(({ id }) => ({ type: "Products" as const, id })) || []),
@@ -95,7 +135,10 @@ export const {
   useGetProductBySlugQuery,
   useGetBlogPostBySlugQuery,
   useGetAllBlogPostsQuery,
+  useGetAllProductsViaCategoryIdQuery,
   useGetAllProductsQuery,
+  useGetAllProductCategoriesQuery,
+  useGetShopProductBySlugQuery,
   usePrefetch,
 } = wpApi;
 
