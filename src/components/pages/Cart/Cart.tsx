@@ -41,7 +41,6 @@ const Cart: React.FC = () => {
       dispatch(updateQuantity({ id: item.id, quantity: currentQuantity + 1 }));
     }
   };
-  console.log(cartItems);
   return (
     <section className="productCart">
       <div className="wrapper">

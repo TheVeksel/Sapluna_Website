@@ -16,7 +16,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
     const numPrice = parseFloat(String(price));
     return isNaN(numPrice) ? "0" : numPrice.toLocaleString("fi-FI");
   };
-console.log(product.slug)
   return (
     <div className="shop__product-card">
       <div className="shop__product-image">
