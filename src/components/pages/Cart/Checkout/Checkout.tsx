@@ -4,6 +4,7 @@ import { RootState } from "../../../../store/store";
 import axios from "axios";
 import "./Checkout.scss";
 import { CartItem } from "../../../../store/slices/cartSlice";
+import { Link } from "react-router-dom";
 
 const Checkout: React.FC = () => {
   const cartItems = useSelector(
@@ -24,8 +25,16 @@ const Checkout: React.FC = () => {
     country: "",
   });
 
+  // New state for terms checkbox
+  const [termsAccepted, setTermsAccepted] = useState(false);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!termsAccepted) {
+      // Safe guard
+      return;
+    }
 
     const orderData = {
       billing: {
@@ -51,8 +60,6 @@ const Checkout: React.FC = () => {
         billing: item.billingType,
       })),
     };
-
-    console.log("Отправляем заказ:", orderData);
 
     try {
       const { data } = await axios.post(
@@ -118,6 +125,7 @@ const Checkout: React.FC = () => {
               required
             />
           </div>
+
           <div className="formRow">
             <div className="formGroup">
               <input
@@ -179,7 +187,22 @@ const Checkout: React.FC = () => {
             />
           </div>
 
-          <button type="submit" className="btn btn--primary">
+          <div className="formGroup termsCheckbox">
+            <label>
+              <input
+                type="checkbox"
+                checked={termsAccepted}
+                onChange={(e) => setTermsAccepted(e.target.checked)}
+              />{" "}
+              Hyväksyn <Link to="/tilausehdot">tilausehdot</Link>
+            </label>
+          </div>
+
+          <button
+            type="submit"
+            className="btn btn--primary"
+            disabled={!termsAccepted}
+          >
             Maksamaan
           </button>
         </form>

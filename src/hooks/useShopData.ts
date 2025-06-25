@@ -13,6 +13,13 @@ interface UseShopDataProps {
   categorySlug?: string;
 }
 
+interface PriceCalculation {
+  originalPrice: number;
+  currentPrice: number;
+  hasDiscount: boolean;
+  discountPercentage?: number;
+}
+
 interface UseShopDataReturn {
   // Data
   categories: ProductCategory[];
@@ -29,6 +36,9 @@ interface UseShopDataReturn {
   // Actions
   handleSearchChange: (query: string) => void;
   handleAddToCart: (product: Product) => void;
+  
+  // Utility functions
+  calculatePrice: (product: Product) => PriceCalculation;
 }
 
 export const useShopData = ({ 
@@ -102,25 +112,52 @@ export const useShopData = ({
     );
   }, [localProducts, searchQuery]);
 
+  // Price calculation utility 
+  const calculatePrice = useCallback((product: Product): PriceCalculation => {
+    const originalPrice = parseFloat(String(product.acf?.hinta || "0"));
+    const hasDiscount = product.acf?.alennus === "On";
+    const discountPrice = parseFloat(String(product.acf?.alennushinta || "0"));
+    const currentPrice = hasDiscount ? discountPrice : originalPrice;
+    
+    const result: PriceCalculation = {
+      originalPrice,
+      currentPrice,
+      hasDiscount,
+    };
+
+    if (hasDiscount && originalPrice > 0 && discountPrice > 0) {
+      const discountPercentage = Math.round(
+        ((originalPrice - currentPrice) / originalPrice) * 100
+      );
+      result.discountPercentage = discountPercentage;
+    }
+
+    return result;
+  }, []);
+
   // Handlers
   const handleSearchChange = useCallback((query: string) => {
     setSearchQuery(query);
   }, []);
 
   const handleAddToCart = useCallback((product: Product) => {
-    const price = parseFloat(product.acf?.hinta || '0');
-    
-    dispatch(
-      addItem({
-        id: product.id,
-        name: product.title?.rendered || 'Product without name',
-        price,
-        type: "product",
-        image: product.acf?.image || '',
-        quantity: 1,
-      })
-    );
-  }, [dispatch]);
+    try {
+      const { currentPrice } = calculatePrice(product);
+      
+      dispatch(
+        addItem({
+          id: product.id,
+          name: product.title?.rendered || 'Product without name',
+          price: currentPrice,
+          type: "product",
+          image: product.acf?.image || '',
+          quantity: 1,
+        })
+      );
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+    }
+  }, [dispatch, calculatePrice]);
 
   return {
     // Data
@@ -138,5 +175,8 @@ export const useShopData = ({
     // Actions
     handleSearchChange,
     handleAddToCart,
+    
+    // Utility functions
+    calculatePrice,
   };
 };

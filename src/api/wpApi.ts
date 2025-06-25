@@ -63,7 +63,7 @@ const wpApi = createApi({
     }),
     getBlogPostBySlug: builder.query<Post[], string>({
       query: (slug) =>
-        `posts?slug=${slug}&_fields=id,slug,acf,title,content,date&categories=76`,
+        `posts?slug=${slug}&_fields=id,slug,acf,title,content,date&`,
       providesTags: (result) =>
         result
           ? result.map(({ id }) => ({ type: "Posts" as const, id }))

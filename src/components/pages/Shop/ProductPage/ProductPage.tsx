@@ -1,16 +1,15 @@
-import React, { useCallback } from "react";
 import { useParams, Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addItem } from "../../../../store/slices/cartSlice";
 import { useGetShopProductBySlugQuery } from "../../../../api/wpApi";
-import { Product } from "../../PricingPage/PopUps/OrderPopUp";
+import { useShopData } from "../../../../hooks/useShopData"; // Импортируем хук
 import Loader from "../../../common/Loader";
 import "./ProductPage.scss";
 import AddToCartButton from "../../../common/buttons/AddToCart/AddToCartButton";
 
 const ProductPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
-  const dispatch = useDispatch();
+  
+  // Используем хук для логики скидок и добавления в корзину
+  const { handleAddToCart, calculatePrice } = useShopData();
 
   const { data, isLoading, error, isFetching } = useGetShopProductBySlugQuery(
     slug!,
@@ -20,31 +19,6 @@ const ProductPage: React.FC = () => {
   );
 
   const product = data?.[0] || null;
-
-  const handleAddToCart = useCallback(
-    (product: Product) => {
-      try {
-        const originalPrice = parseFloat(product.acf?.hinta || "0");
-        const hasDiscount = product.acf?.alennus === "On";
-        const discountPrice = parseFloat(product.acf?.alennushinta || "0");
-        const price = hasDiscount ? discountPrice : originalPrice;
-
-        dispatch(
-          addItem({
-            id: product.id,
-            name: product.title?.rendered || "Product without name",
-            price,
-            type: "product",
-            image: product.acf?.image || "",
-            quantity: 1,
-          })
-        );
-      } catch (error) {
-        console.error("Error adding to cart:", error);
-      }
-    },
-    [dispatch]
-  );
 
   if (isLoading || isFetching) {
     return (
@@ -70,10 +44,13 @@ const ProductPage: React.FC = () => {
     );
   }
 
-  const originalPrice = parseFloat(String(product.acf?.hinta || ""));
-  const hasDiscount = product.acf?.alennus === "On";
-  const discountPrice = parseFloat(String(product.acf?.alennushinta || ""));
-  const currentPrice = hasDiscount ? discountPrice : originalPrice;
+  // Используем функцию расчета цены из хука
+  const { 
+    originalPrice, 
+    currentPrice, 
+    hasDiscount, 
+    discountPercentage 
+  } = calculatePrice(product);
 
   return (
     <section className="product-page">
@@ -120,11 +97,7 @@ const ProductPage: React.FC = () => {
                         {currentPrice.toFixed(2)} €
                       </span>
                       <span className="product-page__discount-badge">
-                        -
-                        {Math.round(
-                          ((originalPrice - currentPrice) / originalPrice) * 100
-                        )}
-                        %
+                        -{discountPercentage}%
                       </span>
                     </div>
                   </>
@@ -151,8 +124,8 @@ const ProductPage: React.FC = () => {
               <AddToCartButton
                 size="big"
                 product={product}
-                onAddToCart={(item) => {
-                  handleAddToCart(item as Product);
+                onAddToCart={() => {
+                  handleAddToCart(product);
                 }}
               />
             </div>

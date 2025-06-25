@@ -13,7 +13,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
     e.currentTarget.style.display = "none";
   };
 
-  // Логика цен
   const originalPrice = parseFloat(product.acf?.hinta || "0");
   const hasDiscount = product.acf?.alennus === "On";
   const discountPrice = parseFloat(product.acf?.alennushinta || "0");

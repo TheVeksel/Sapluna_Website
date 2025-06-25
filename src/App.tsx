@@ -24,6 +24,7 @@ import Checkout from "./components/pages/Cart/Checkout/Checkout";
 import Shop from "./components/pages/Shop/Shop";
 import CategoryPage from "./components/pages/Shop/CategoryPage";
 import ProductPage from "./components/pages/Shop/ProductPage/ProductPage";
+import Terms from "./components/pages/Terms/Terms";
 
 export default function App() {
   return (
@@ -58,6 +59,7 @@ export default function App() {
               <Route path="/verkkokauppa/tuote/:slug" element={<ProductPage />} />
               {/*Other pages*/}
               <Route path="/tietosuojaseloste" element={<PrivicyStatement />} />
+              <Route path="/tilausehdot" element={<Terms />} />
             </Routes>
           </main>
           <Footer />
