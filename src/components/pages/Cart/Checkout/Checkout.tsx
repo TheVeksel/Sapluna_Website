@@ -8,70 +8,79 @@ import { Link } from "react-router-dom";
 
 const Checkout: React.FC = () => {
   const cartItems = useSelector(
-    (state: RootState) => state.cart.items
-  ) as CartItem[];
+  (state: RootState) => state.cart.items
+) as CartItem[];
 
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    company: "",
-    yTunnus: "",
-    phone: "",
-    address: "",
-    city: "",
-    state: "",
-    postcode: "",
-    country: "",
-  });
+const [formData, setFormData] = useState({
+  firstName: "",
+  lastName: "",
+  email: "",
+  company: "",
+  yTunnus: "",
+  phone: "",
+  address: "",
+  city: "",
+  state: "",
+  postcode: "",
+  country: "",
+});
 
-  // New state for terms checkbox
-  const [termsAccepted, setTermsAccepted] = useState(false);
+const [termsAccepted, setTermsAccepted] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-    if (!termsAccepted) {
-      // Safe guard
-      return;
-    }
+  if (!termsAccepted) {
+    return;
+  }
 
-    const orderData = {
-      billing: {
-        first_name: formData.firstName,
-        last_name: formData.lastName,
-        email: formData.email,
-        company: formData.company,
-        phone: formData.phone,
-        address_1: formData.address,
-        address_2: "",
-        city: formData.city,
-        state: formData.state,
-        postcode: formData.postcode,
-        country: formData.country,
-      },
-      meta_data: [{ key: "y_tunnus", value: formData.yTunnus }],
-      line_items: cartItems.map((item) => ({
-        product_id: item.id,
-        quantity: item.quantity || 1,
-        type: item.type,
-        tuottaja: item.tuottaja,
-        omistaja: item.omistaja,
-        billing: item.billingType,
-      })),
-    };
-
-    try {
-      const { data } = await axios.post(
-        "http://localhost:3001/api/process-order",
-        orderData
-      );
-      console.log("Order response:", data);
-    } catch (error) {
-      console.error("Order error:", error);
-    }
+  const orderData = {
+    billing: {
+      first_name: formData.firstName,
+      last_name: formData.lastName,
+      email: formData.email,
+      company: formData.company,
+      phone: formData.phone,
+      address_1: formData.address,
+      address_2: "",
+      city: formData.city,
+      state: formData.state,
+      postcode: formData.postcode,
+      country: formData.country,
+    },
+    meta_data: [{ key: "y_tunnus", value: formData.yTunnus }],
+    line_items: cartItems.map((item) => ({
+      product_id: item.id,
+      quantity: item.quantity || 1,
+      type: item.type,
+      tuottaja: item.tuottaja,
+      omistaja: item.omistaja,
+      billing: item.billingType,
+    })),
   };
 
+  try {
+    // Создать заказ и получить URL для оплаты одним запросом
+    const { data: orderResponse } = await axios.post(
+      "http://localhost:3001/api/process-order",
+      orderData
+    );
+    console.log("Order response:", orderResponse);
+
+    // Проверяем, что заказ создан успешно и получен URL для оплаты
+    if (orderResponse.success && orderResponse.redirectUrl) {
+      console.log("Redirecting to payment URL:", orderResponse.redirectUrl);
+      // Редирект на страницу оплаты Paytrail
+      window.location.href = orderResponse.redirectUrl;
+    } else {
+      console.error("URL для редиректа не получен:", orderResponse);
+      // Здесь можно показать сообщение об ошибке пользователю
+    }
+  } catch (error) {
+    console.error("Ошибка при обработке заказа:", error);
+    // Здесь можно показать сообщение об ошибке пользователю
+  }
+};
   return (
     <section className="checkoutPage">
       <div className="wrapper">

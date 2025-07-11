@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { useGetShopProductBySlugQuery } from "../../../../api/wpApi";
-import { useShopData } from "../../../../hooks/useShopData"; // Импортируем хук
+import { useShopData } from "../../../../hooks/useShopData"; 
 import Loader from "../../../common/Loader";
 import "./ProductPage.scss";
 import AddToCartButton from "../../../common/buttons/AddToCart/AddToCartButton";
@@ -8,7 +8,6 @@ import AddToCartButton from "../../../common/buttons/AddToCart/AddToCartButton";
 const ProductPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   
-  // Используем хук для логики скидок и добавления в корзину
   const { handleAddToCart, calculatePrice } = useShopData();
 
   const { data, isLoading, error, isFetching } = useGetShopProductBySlugQuery(
@@ -44,7 +43,6 @@ const ProductPage: React.FC = () => {
     );
   }
 
-  // Используем функцию расчета цены из хука
   const { 
     originalPrice, 
     currentPrice, 

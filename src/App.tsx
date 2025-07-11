@@ -60,6 +60,8 @@ export default function App() {
               {/*Other pages*/}
               <Route path="/tietosuojaseloste" element={<PrivicyStatement />} />
               <Route path="/tilausehdot" element={<Terms />} />
+              <Route path="/payment-success" element={<Terms />} />
+              <Route path="/payment-cancel" element={<Terms />} />
             </Routes>
           </main>
           <Footer />
