@@ -25,6 +25,8 @@ import Shop from "./components/pages/Shop/Shop";
 import CategoryPage from "./components/pages/Shop/CategoryPage";
 import ProductPage from "./components/pages/Shop/ProductPage/ProductPage";
 import Terms from "./components/pages/Terms/Terms";
+import { PaymentSuccess } from "./components/pages/PaymentPages/PaymentSuccess";
+import { PaymentFailure } from "./components/pages/PaymentPages/PaymentFailure";
 
 export default function App() {
   return (
@@ -60,8 +62,8 @@ export default function App() {
               {/*Other pages*/}
               <Route path="/tietosuojaseloste" element={<PrivicyStatement />} />
               <Route path="/tilausehdot" element={<Terms />} />
-              <Route path="/payment-success" element={<Terms />} />
-              <Route path="/payment-cancel" element={<Terms />} />
+              <Route path="/payment-success" element={<PaymentSuccess />} />
+              <Route path="/payment-cancel" element={<PaymentFailure />} />
             </Routes>
           </main>
           <Footer />
